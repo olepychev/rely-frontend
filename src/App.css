@@ -1,0 +1,382 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body {
+    font-family: 'Inter';
+}
+.header {
+    background:#000000;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+.header-grid {
+    align-items: center;
+}
+.header-grid .menu {
+    text-align: right;
+}
+
+.header-grid .menu .nav-item {
+    margin-right:20px;
+    display: inline-block;
+}
+.header-grid .menu .nav-item a {
+    color:white;
+    font-family: 'Poppins';
+    font-weight: 300;
+    font-size: 14px;
+}
+.header-grid .menu .nav-item .login {
+    padding: 5px 30px;
+    border-radius: 6px;
+    background-color: #6570E4;
+    border:1px solid #6570E4;
+}
+.header-grid .menu .nav-item .register {
+    padding: 5px 30px;
+    border-radius: 6px;
+    background-color: #000000;
+    border:1px solid white;
+}
+.login-grid {
+    display: grid;
+    flex-wrap: nowrap;
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.login-grid .image {
+    background:url('../src/img/hero-form.svg');
+    height:650px;
+    background-position: center;
+}
+.login-grid h1 {
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size:32px;
+    color:#000;
+}
+.login-grid h2 {
+    font-family: 'Poppins';
+    font-weight: 300;
+    font-size:16px;
+    color:#B0ACAC;
+}
+.login-grid .form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+.login-grid .form > div {
+    width:65%;
+}
+.login-grid .form input::placeholder {
+    color:#000;
+    font-weight: 400;
+    font-family: 'Poppins';
+    font-size:14px;
+}
+.login-grid .btn-login {
+    background:#000;
+    font-family: 'Poppins';
+    font-weight: 600;
+    color:white;
+    width:100%;
+    padding:10px;
+    margin-top:20px;
+    border-radius: 6px;
+    margin-bottom:10px;
+}
+.login-grid form {
+    margin-top:20px;
+}
+.login-grid .form-group div input {
+    width: 100%;
+    font-family: 'Inter';
+    border: none;
+    border-bottom: 1px solid #B0ACAC;
+    margin-bottom: 15px;
+    padding: 10px 0px;
+}
+ 
+.register-grid {
+    display: grid;
+    flex-wrap: nowrap;
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.register-grid .image {
+    background:url('../src/img/hero-form.svg');
+    height:650px;
+    background-position: center;
+}
+.register-grid h1 {
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size:32px;
+    color:#000;
+}
+.register-grid h2 {
+    font-family: 'Poppins';
+    font-weight: 300;
+    font-size:16px;
+    color:#B0ACAC;
+}
+.register-grid .form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+.register-grid .form > div {
+    width:65%;
+}
+.register-grid .form input::placeholder {
+    color:#000;
+    font-weight: 400;
+    font-family: 'Poppins';
+    font-size:14px;
+}
+.register-grid .btn-register {
+    background:#000;
+    font-family: 'Poppins';
+    font-weight: 600;
+    color:white;
+    width:100%;
+    padding:10px;
+    margin-top:20px;
+    border-radius: 6px;
+    margin-bottom:10px;
+}
+.register-grid form {
+    margin-top:20px;
+}
+.register-grid .form-group div input {
+    width: 100%;
+    font-family: 'Inter';
+    border: none;
+    border-bottom: 1px solid #B0ACAC;
+    margin-bottom: 15px;
+    padding: 10px 0px;
+}
+[type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus {
+    --tw-ring-color:none;
+}
+.footer {
+    background:#6570E4;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    position:fixed;
+    bottom:0;
+}
+.footer .links {
+    text-align: right;
+}
+.footer ul li {
+    display: inline-block;
+    margin-right: 30px;
+}
+.footer ul li a {
+    font-family: 'Poppins';
+    font-weight: 300;
+    font-size:14px;
+    color:white;
+}
+.footer .copyright {
+    font-family: 'Poppins';
+    font-weight: 300;
+    font-size:14px;
+    color:white;
+}
+.board-user, body {
+    background:#EDF0F7;
+}
+.board-grid {
+    padding-top:50px;
+    padding-bottom:50px;
+}
+.board-grid .box {
+    background:#FFF;
+    padding:20px;
+    border-radius: 6px;
+}
+.board-grid .box h2 {
+    font-family: 'Poppins';
+    color:#A8A4A4;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 5px;
+}
+.board-grid .box h2 i {
+    color:#000;
+    margin-right: 5px;
+    font-size:16px;
+}
+.board-grid .box p {
+    font-family: 'Poppins';
+    color:#000000;
+    font-size: 24px;
+    font-weight: 600;
+}
+.board-grid .box p span {
+    font-size: 18px;
+}
+.board-grid .box .green {
+    color:#38d31f;
+}
+.board-secondary-grid {
+    padding-bottom:50px;
+}
+.board-secondary-grid .box {
+    background:#FFF;
+    padding:20px;
+    border-radius: 6px;
+}
+.staking-box {
+    font-family: 'Poppins';
+}
+.staking-box h2 {
+    font-weight: 500;
+    color:#847F7F;
+    margin-left: 2px;
+    margin-bottom:5px;
+}
+.staking-box form p {
+    color: #847F7F;
+    font-size: 11px;
+    margin-top: 10px;
+    margin-left: 2px;
+}
+.staking-box input {
+    width: 100%;
+    border: 1px solid #e1e1e1;
+    border-radius: 6px;
+}
+.staking-box .btn-stake {
+    background:#000;
+    border:2x solid #000;
+    font-family: 'Poppins';
+    font-weight: 600;
+    color:white;
+    width:100%;
+    padding:10px;
+    margin-top:20px;
+    border-radius: 6px;
+    margin-bottom:10px;
+}
+.staking-box .btn-unstake {
+    background:transparent;
+    border:2px solid #000;
+    font-family: 'Poppins';
+    font-weight: 600;
+    color:#000;
+    width:100%;
+    padding:10px;
+    border-radius: 6px;
+    margin-bottom:10px;
+}
+.history-box {
+    font-family: 'Poppins';
+}
+.history-box h2 {
+    font-weight: 500;
+    color:#847F7F;
+    margin-left: 2px;
+    margin-bottom:20px;
+}
+.history-box .transaction {
+    padding-top:10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    font-size:14px;
+}
+.history-box .transaction i {
+    margin-right: 5px;
+}
+.history-box .transaction .green {
+    color:#38d31f;
+    font-weight: bold;
+}
+.history-box .transaction .red {
+    color:#d3341f;
+    font-weight: bold;
+}
+.user-grid {
+    display: grid;
+}
+.user-grid .image {
+    background:url('../src/img/hero-form.svg');
+    height:650px;
+    background-position: center;
+}
+.user-grid h1 {
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size:32px;
+    color:#000;
+}
+.user-grid h2 {
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 30px;
+    color: #000;
+    margin-bottom:20px;
+}
+.user-grid .user-info p {
+    font-family: 'Poppins';
+    margin-bottom:5px;
+    font-size: 14px;
+}
+.user-grid .user-info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: flex-start;
+    padding: 20px;
+}
+.user-grid .user-info .btn-edit {
+    background:#000;
+    border:2x solid #000;
+    font-family: 'Poppins';
+    font-weight: 600;
+    color:white;
+    width:100%;
+    padding:10px;
+    margin-top:20px;
+    border-radius: 6px;
+    margin-bottom:10px;
+}
+.logged-menu {
+    text-align: left;
+}
+.user-profile a {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+.user-profile a img {
+    margin-right:10px;
+    width: 24px;
+}
+.header-grid .menu .user-profile .nav-item {
+    margin-right: 0px;
+}
+.header-grid .menu .user-profile a {
+    color:#B0ACAC;
+    font-size: 14px;
+    text-transform: capitalize;
+}
