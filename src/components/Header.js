@@ -57,11 +57,11 @@ export default function Header() {
                     <img src={userProfile} />{currentUser.username}
                   </Link>
                 </li>
-                {/* <li className="nav-item">
+                <li className="nav-item logout">
                   <a href="/login" className="nav-link" onClick={logOut}>
-                    Logout
+                  <i className="fa-solid fa-power-off"></i>
                   </a>
-                </li> */}
+                </li>
               </div>
             ) : (
               <div className="col-span-6">

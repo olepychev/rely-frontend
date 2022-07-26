@@ -104,6 +104,7 @@ body {
     border-bottom: 1px solid #B0ACAC;
     margin-bottom: 15px;
     padding: 10px 0px;
+    background:#EDF0F6;
 }
  
 .register-grid {
@@ -169,6 +170,7 @@ body {
     border-bottom: 1px solid #B0ACAC;
     margin-bottom: 15px;
     padding: 10px 0px;
+    background:#EDF0F6;
 }
 [type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus {
     --tw-ring-color:none;
@@ -286,6 +288,32 @@ body {
     border-radius: 6px;
     margin-bottom:10px;
 }
+.btn-add {
+    background:#000;
+    border:2px solid #000;
+    font-family: 'Poppins';
+    font-weight: 600;
+    color:white;
+    width:100%;
+    padding:10px;
+    margin-top:20px;
+    border-radius: 6px;
+    margin-bottom:10px;
+    margin-right: 15px;
+    font-size:14px;
+}
+.btn-withdraw {
+    background:transparent;
+    border:2px solid #000;
+    font-family: 'Poppins';
+    font-weight: 600;
+    color:#000;
+    width:100%;
+    padding:10px;
+    border-radius: 6px;
+    margin-bottom:10px;
+    font-size:14px;
+}
 .history-box {
     font-family: 'Poppins';
 }
@@ -348,7 +376,7 @@ body {
 }
 .user-grid .user-info .btn-edit {
     background:#000;
-    border:2x solid #000;
+    border:2px solid #000;
     font-family: 'Poppins';
     font-weight: 600;
     color:white;
@@ -360,6 +388,15 @@ body {
 }
 .logged-menu {
     text-align: left;
+}
+.user-profile {
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: flex-end;
+}
+.user-profile .logout {
+    margin-left:20px;
 }
 .user-profile a {
     display: inline-flex;
@@ -379,4 +416,61 @@ body {
     color:#B0ACAC;
     font-size: 14px;
     text-transform: capitalize;
+}
+.top-dashboard {
+    margin-top:30px;
+}
+.top-dashboard .col-span-4 {
+    text-align: right;
+}
+.add-box {
+    font-family: 'Poppins';
+    margin-top:50px;
+}
+.add-box h2 {
+    font-weight: 500;
+    color:#847F7F;
+    margin-left: 2px;
+    margin-bottom:5px;
+}
+.add-box form p {
+    color: #847F7F;
+    font-size: 11px;
+    margin-top: 10px;
+    margin-left: 2px;
+}
+.add-box input {
+    width: 100%;
+    border: 1px solid #e1e1e1;
+    border-radius: 6px;
+}
+.add-box select {
+    width: 100%;
+    border: 1px solid #e1e1e1;
+    border-radius: 6px;
+    margin-top:10px;
+}
+.add-box .btn-stake {
+    background:#000;
+    border:2x solid #000;
+    font-family: 'Poppins';
+    font-weight: 600;
+    color:white;
+    width:100%;
+    padding:10px;
+    margin-top:20px;
+    border-radius: 6px;
+    margin-bottom:10px;
+}
+.add-box .btn-unstake {
+    background:transparent;
+    border:2px solid #000;
+    font-family: 'Poppins';
+    font-weight: 600;
+    color:#000;
+    width:100%;
+    margin-top:20px;
+    padding:10px;
+    border-radius: 6px;
+    margin-bottom:10px;
 }
