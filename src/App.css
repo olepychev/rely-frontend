@@ -143,6 +143,12 @@ body {
 .register-grid .form > div {
     width:65%;
 }
+.register-grid .form textarea::placeholder {
+    color:#000;
+    font-weight: 400;
+    font-family: 'Poppins';
+    font-size:14px;
+}
 .register-grid .form input::placeholder {
     color:#000;
     font-weight: 400;
@@ -172,7 +178,16 @@ body {
     padding: 10px 0px;
     background:#EDF0F6;
 }
-[type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus {
+.register-grid .form-group div textarea {
+    width: 100%;
+    font-family: 'Inter';
+    border: none;
+    border-bottom: 1px solid #B0ACAC;
+    margin-bottom: 15px;
+    padding: 10px 0px;
+    background:#EDF0F6;
+}
+[type='textarea'], [type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus {
     --tw-ring-color:none;
 }
 .footer {
@@ -382,9 +397,19 @@ body {
     color:white;
     width:100%;
     padding:10px;
-    margin-top:20px;
+    margin-top:10px;
     border-radius: 6px;
     margin-bottom:10px;
+    display: block;
+}
+#left input {
+    width:48%;
+    float:left;
+}
+#right input {
+    width:48%;
+    float:left;
+    margin-left: 18px;
 }
 .logged-menu {
     text-align: left;
@@ -473,4 +498,94 @@ body {
     padding:10px;
     border-radius: 6px;
     margin-bottom:10px;
+}
+.update-profile-grid {
+    display: grid;
+    flex-wrap: nowrap;
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.update-profile-grid .image {
+    background:url('../src/img/hero-form.svg');
+    height:650px;
+    background-position: center;
+}
+.update-profile-grid h1 {
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size:32px;
+    color:#000;
+}
+.update-profile-grid h2 {
+    font-family: 'Poppins';
+    font-weight: 300;
+    font-size:16px;
+    color:#B0ACAC;
+}
+.update-profile-grid .form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+.update-profile-grid .form > div {
+    width:65%;
+}
+.update-profile-grid .form input::placeholder {
+    color:#000;
+    font-weight: 400;
+    font-family: 'Poppins';
+    font-size:14px;
+}
+.update-profile-grid .btn-register {
+    background:#000;
+    font-family: 'Poppins';
+    font-weight: 600;
+    color:white;
+    width:100%;
+    padding:10px;
+    margin-top:20px;
+    border-radius: 6px;
+    margin-bottom:10px;
+}
+.update-profile-grid form {
+    margin-top:20px;
+}
+.update-profile-grid .form-group div input {
+    width: 100%;
+    color:#BBBBBB;
+    font-family: 'Inter';
+    border: none;
+    border-bottom: 1px solid #B0ACAC;
+    margin-bottom: 15px;
+    padding: 10px 0px;
+    background:#EDF0F6;
+}
+.no-verified {
+    color:red;
+}
+.no-verified a {
+    color:#000;
+}
+.content {
+    padding-bottom:50px;
+}
+.page-grid {
+    padding-top:50px;
+    padding-bottom:50px;
+}
+.page-grid h1 {
+    font-size:30px;
+    font-family: 'Poppins';
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+.page-grid p {
+    font-family: 'Inter';
+    font-size:14px;
+    margin-bottom: 20px;
 }

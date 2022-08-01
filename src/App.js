@@ -10,6 +10,11 @@ import Home from "./components/Home";
 import AddFunds from "./components/AddFunds";
 import WithdrawFunds from "./components/WithdrawFunds";
 import { Routes, Route } from "react-router-dom";
+import EditProfile from "./components/EditProfile";
+import PrivacyPage from "./components/PrivacyPage";
+import TermsPage from "./components/Terms";
+import Contact from "./components/Contact";
+
 
 const App = () => {
   
@@ -27,6 +32,10 @@ const App = () => {
           <Route path="/admin" element={<BoardAdmin />} />
           <Route path="/add" element={<AddFunds />} />
           <Route path="/withdraw" element={<WithdrawFunds />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>
       <Footer />

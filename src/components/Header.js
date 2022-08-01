@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 export default function Header() {
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
+
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
@@ -54,7 +55,7 @@ export default function Header() {
               <div className="col-span-6 user-profile">
                 <li className="nav-item">
                   <Link to={"/profile"} className="nav-link">
-                    <img src={userProfile} />{currentUser.username}
+                    <img src={userProfile} />{currentUser.firstname}
                   </Link>
                 </li>
                 <li className="nav-item logout">

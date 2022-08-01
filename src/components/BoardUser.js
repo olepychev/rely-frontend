@@ -32,10 +32,10 @@ const BoardUser = () => {
           
         </div>
         <div className="col-span-4">
-        <Link to={"/login"} className="nav-link btn-add">
+        <Link to={"/add"} className="nav-link btn-add">
           Agregar fondos
         </Link>
-        <Link to={"/login"} className="nav-link btn-withdraw">
+        <Link to={"/withdraw"} className="nav-link btn-withdraw">
           Retirar fondos
         </Link>
         </div>

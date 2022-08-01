@@ -11,17 +11,17 @@ export default function Footer() {
           <div className="col-span-6 links">
             <ul>
               <li>
-                <Link to={"/"} className="nav-link">
+                <Link to={"/privacy"} className="nav-link">
                   Política de Privacidad
                 </Link>
               </li>
               <li>
-                <Link to={"/"} className="nav-link">
+                <Link to={"/terms"} className="nav-link">
                   Términos y Condiciones
                 </Link>
               </li>
               <li>
-                <Link to={"/"} className="nav-link">
+                <Link to={"/contact"} className="nav-link">
                   Contacto
                 </Link>
               </li>

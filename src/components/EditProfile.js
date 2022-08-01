@@ -41,6 +41,7 @@ const vpassword = (value) => {
   }
 };
 const EditProfile = () => {
+  const currentUser = AuthService.getCurrentUser();
   const form = useRef();
   const checkBtn = useRef();
   const [firstname, setFirstName] = useState("");
@@ -91,7 +92,7 @@ const EditProfile = () => {
     setSuccessful(false);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(firstname, lastname, phone, dni, birthdate, address, email, password).then(
+      AuthService.register(firstname, lastname, email, password).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
@@ -112,12 +113,11 @@ const EditProfile = () => {
   };
   return (
     <div className="container max-w-none">
-    <div className="grid grid-cols-12 gap-2 register-grid">
+    <div className="grid grid-cols-12 gap-2 update-profile-grid">
       <div className="col-span-6 image"></div>
       <div className="col-span-6 form">
       <div>
-            <h1>Crear cuenta</h1>
-            <h2>Comencemos!</h2>
+            <h1>Actualizar Perfil</h1>
         <Form onSubmit={handleRegister} ref={form}>
           {!successful && (
             <div>
@@ -126,7 +126,7 @@ const EditProfile = () => {
                   type="text"
                   className="form-control"
                   name="firstname"
-                  value={firstname}
+                  value={currentUser.firstname}
                   placeholder="Nombre"
                   onChange={onChangeFirstName}
                   validations={[required]}
@@ -137,7 +137,7 @@ const EditProfile = () => {
                   type="text"
                   className="form-control"
                   name="lastname"
-                  value={lastname}
+                  value={currentUser.lastname}
                   placeholder="Apellido"
                   onChange={onChangeLastName}
                   validations={[required]}
@@ -148,10 +148,9 @@ const EditProfile = () => {
                   type="text"
                   className="form-control"
                   name="phone"
-                  placeholder="Telefono"
-                  value={phone}
+                  placeholder="Phone"
+                  value={currentUser.phone}
                   onChange={onChangePhone}
-                  validations={[required]}
                 />
               </div>
               <div className="form-group" id="right">
@@ -160,9 +159,8 @@ const EditProfile = () => {
                   className="form-control"
                   name="dni"
                   placeholder="DNI"
-                  value={dni}
+                  value={currentUser.dni}
                   onChange={onChangeDNI}
-                  validations={[required]}
 
                 />
               </div>
@@ -172,9 +170,8 @@ const EditProfile = () => {
                   className="form-control"
                   name="birthdate"
                   placeholder="Fecha de Nacimiento"
-                  value={birthdate}
+                  value={currentUser.birthdate}
                   onChange={onChangeBirthdate}
-                  validations={[required]}
                 />
               </div>
               <div className="form-group">
@@ -183,9 +180,8 @@ const EditProfile = () => {
                   className="form-control"
                   name="address"
                   placeholder="Direccion"
-                  value={address}
+                  value={currentUser.address}
                   onChange={onChangeAddress}
-                  validations={[required]}
                 />
               </div>
               <div className="form-group">
@@ -194,7 +190,7 @@ const EditProfile = () => {
                   className="form-control"
                   name="email"
                   placeholder="Email"
-                  value={email}
+                  value={currentUser.email}
                   onChange={onChangeEmail}
                   validations={[required, validEmail]}
                 />
@@ -205,13 +201,13 @@ const EditProfile = () => {
                   className="form-control"
                   name="password"
                   placeholder="Contraseña"
-                  value={password}
+                  value={currentUser.password}
                   onChange={onChangePassword}
                   validations={[required, vpassword]}
                 />
               </div>
               <div>
-                <button className="btn-register">Crear Cuenta</button>
+                <button className="btn-register">Actualizar Perfil</button>
               </div>
             </div>
           )}
