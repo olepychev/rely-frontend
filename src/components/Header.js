@@ -65,7 +65,7 @@ export default function Header() {
                 </li>
               </div>
             ) : (
-              <div className="col-span-6">
+              <div className="col-span-6 no-logged-menu">
                 <li className="nav-item">
                   <Link to={"/login"} className="nav-link login">
                     Acceder
