@@ -96,17 +96,29 @@ const BoardUser = () => {
           </div>
           <div className="col-span-8 box history-box shadow">
             <h2>Actividad reciente</h2>
-            <div className="grid grid-cols-12 transaction">
-              <div className="col-span-10"><i className="fa-solid fa-circle-up"></i> Ingreso de dinero</div>
-              <div className="col-span-2"><span className="green">+ $2.000</span></div>
+            <div className="grid grid-cols-12 top-border transaction">
+              <div className="col-span-3">Actividad</div>
+              <div className="col-span-3">Fecha</div>
+              <div className="col-span-3">Estado</div>
+              <div className="col-span-3"><span>Monto</span></div>
             </div>
             <div className="grid grid-cols-12 transaction">
-              <div className="col-span-10"><i className="fa-solid fa-circle-down"></i> Retiro de dinero</div>
-              <div className="col-span-2"><span className="red">- $2.000</span></div>
+              <div className="col-span-3"><i className="fa-solid fa-circle-up"></i> Ingreso de dinero</div>
+              <div className="col-span-3">19/04/2022</div>
+              <div className="col-span-3"><span className="red">Rechazado</span></div>
+              <div className="col-span-3">+ $2.000</div>
+            </div>
+            <div className="grid grid-cols-12 transaction">
+              <div className="col-span-3"><i className="fa-solid fa-circle-down"></i> Retiro de dinero</div>
+              <div className="col-span-3">11/04/2022</div>
+              <div className="col-span-3"><span className="orange">Pendiente</span></div>
+              <div className="col-span-3"><span className="red">- $2.000</span></div>
             </div> 
             <div className="grid grid-cols-12 transaction">
-              <div className="col-span-10"><i className="fa-solid fa-circle-up"></i> Ingreso de dinero</div>
-              <div className="col-span-2"><span className="green">+ $12.000</span></div>
+            <div className="col-span-3"><i className="fa-solid fa-circle-up"></i> Ingreso de dinero</div>
+            <div className="col-span-3">04/04/2022</div>
+              <div className="col-span-3"><span className="green">Aprobado</span></div>
+              <div className="col-span-3">+ $12.000</div>
             </div>
           </div>
         </div>

@@ -331,6 +331,7 @@ body {
 }
 .history-box {
     font-family: 'Poppins';
+
 }
 .history-box h2 {
     font-weight: 500;
@@ -338,8 +339,15 @@ body {
     margin-left: 2px;
     margin-bottom:20px;
 }
+.history-box .top-border {
+    background:#000;
+    color:white;
+    border-radius: 2px;
+}
 .history-box .transaction {
     padding-top:10px;
+    padding-left:10px;
+    padding-right: 10px;
     padding-bottom: 10px;
     border-bottom: 1px solid #eee;
     font-size:14px;
@@ -349,11 +357,12 @@ body {
 }
 .history-box .transaction .green {
     color:#38d31f;
-    font-weight: bold;
 }
 .history-box .transaction .red {
     color:#d3341f;
-    font-weight: bold;
+}
+.history-box .transaction .orange {
+    color:orange;
 }
 .user-grid {
     display: grid;
@@ -644,4 +653,23 @@ body {
     margin-left: 10px;
     padding-left:40px;
     padding-right: 40px;
+}
+#bank-transfer-div {
+    border:1px solid #eee;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 6px;
+}
+#bank-transfer-div h2 {
+    color:#000;
+    font-weight: bold;
+}
+#bank-transfer-div [type='file'] {
+    margin-top:20px;
+    margin-top: 15px;
+    font-size: 14px;
+    padding: 10px;
+}
+#bank-transfer-div p {
+    font-size:14px;
 }
