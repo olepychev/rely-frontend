@@ -1,8 +1,11 @@
 import React from "react";
 import AuthService from "../services/auth.service";
 import { Link } from "react-router-dom";
+import moment from "moment";
+
 const Profile = () => {
   const currentUser = AuthService.getCurrentUser();
+
   return (
     <div className="container max-w-none">
       <div className="grid grid-cols-12 gap-2 user-grid">
@@ -26,7 +29,7 @@ const Profile = () => {
             <strong>DNI:</strong> {currentUser.dni}
           </p>
           <p>
-            <strong>Fecha de Nacimiento:</strong> {currentUser.birthdate}
+            <strong>Fecha de Nacimiento:</strong> {moment(currentUser.birthdate).utc().format('DD/MM/YYYY')}
           </p>
           {/* <p>
         <strong>Token:</strong> {currentUser.accessToken.substring(0, 20)} ...{" "}

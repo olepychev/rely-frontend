@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useEffect } from "react";
+
 const API_URL = "http://localhost:8080/api/auth/";
 const register = (firstname, lastname, phone, dni, birthdate, address, email, password) => {
   return axios.post(API_URL + "signup", {
@@ -12,6 +14,11 @@ const register = (firstname, lastname, phone, dni, birthdate, address, email, pa
     password,
   });
 };
+const getUserById = (id) => {
+  return axios.get(API_URL + "user/" + id);
+}
+
+
 const login = (email, password) => {
   return axios
     .post(API_URL + "signin", {
@@ -28,6 +35,7 @@ const login = (email, password) => {
 const logout = () => {
   localStorage.removeItem("user");
 };
+
 const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
@@ -37,5 +45,6 @@ const AuthService = {
   login,
   logout,
   getCurrentUser,
+  getUserById,
 };
 export default AuthService;

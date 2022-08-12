@@ -1,9 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import AuthService from "../services/auth.service";
+import UserService from "../services/user.service";
+import moment from "moment";
+
 const required = (value) => {
   if (!value) {
     return (
@@ -41,31 +44,45 @@ const vpassword = (value) => {
   }
 };
 const EditProfile = () => {
-  const currentUser = AuthService.getCurrentUser();
   const form = useRef();
   const checkBtn = useRef();
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [dni, setDNI] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  const [birthdate, setBirthdate] = useState("");
-  const [password, setPassword] = useState("");
+  const [currentUser] = useState(AuthService.getCurrentUser());
+  const [firstname, setFirstName] = useState(currentUser.firstname);
+  const [lastname, setLastName] = useState(currentUser.lastname);
+  const [address, setAddress] = useState(currentUser.address);
+  const [dni, setDNI] = useState(currentUser.dni);
+  const [phone, setPhone] = useState(currentUser.phone);
+//   const [birthdate, setBirthdate] = useState(currentUser.birthdate);
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
+
+  useEffect(function effectFunction() {
+    async function fetchUser() {
+        const response = await fetch('http://localhost:8080/api/user/' + currentUser.id,);
+        const json = await response.json();
+        setFirstName(json.firstname);
+        setLastName(json.lastname);
+        setDNI(json.dni);
+        setPhone(json.phone);
+        setAddress(json.address);
+        // setBirthdate(moment(json.birthdate).format("YYYY-MM-DD"));
+        
+    }
+    fetchUser();
+}, []);
+  
+
+
   const onChangeFirstName = (e) => {
     const firstname = e.target.value;
     setFirstName(firstname);
   };
+  
   const onChangeLastName = (e) => {
     const lastname = e.target.value;
     setLastName(lastname);
   };
-  const onChangeEmail = (e) => {
-    const email = e.target.value;
-    setEmail(email);
-  };
+
   const onChangeDNI = (e) => {
     const dni = e.target.value;
     setDNI(dni);
@@ -74,43 +91,42 @@ const EditProfile = () => {
     const phone = e.target.value;
     setPhone(phone);
   };
-  const onChangeBirthdate = (e) => {
-    const birthdate = e.target.value;
-    setBirthdate(birthdate);
-  };
+//   const onChangeBirthdate = (e) => {
+//     const birthdate = e.target.value;
+//     setBirthdate(birthdate);
+//   };
   const onChangeAddress = (e) => {
     const address = e.target.value;
     setAddress(address);
   };
-  const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
-  };
+
+
   const handleRegister = (e) => {
     e.preventDefault();
     setMessage("");
     setSuccessful(false);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(firstname, lastname, email, password).then(
-        (response) => {
-          setMessage(response.data.message);
-          setSuccessful(true);
-          console.log(response);
-        },
-        (error) => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-          setMessage(resMessage);
-          setSuccessful(false);
-        }
-      );
+    UserService.updateUserById(
+        currentUser.id,
+        firstname,
+        lastname,
+        phone,
+        dni,
+        // birthdate,
+        address
+        ).then((response) => {
+            const { data } = response;
+            setMessage(data.message);
+            setSuccessful(data.successful);
+            }
+        );
     }
   };
+
+  
+
+    
   return (
     <div className="container max-w-none">
     <div className="grid grid-cols-12 gap-2 update-profile-grid">
@@ -126,7 +142,7 @@ const EditProfile = () => {
                   type="text"
                   className="form-control"
                   name="firstname"
-                  value={currentUser.firstname}
+                  value={firstname}
                   placeholder="Nombre"
                   onChange={onChangeFirstName}
                   validations={[required]}
@@ -137,7 +153,7 @@ const EditProfile = () => {
                   type="text"
                   className="form-control"
                   name="lastname"
-                  value={currentUser.lastname}
+                  value={lastname}
                   placeholder="Apellido"
                   onChange={onChangeLastName}
                   validations={[required]}
@@ -149,7 +165,7 @@ const EditProfile = () => {
                   className="form-control"
                   name="phone"
                   placeholder="Phone"
-                  value={currentUser.phone}
+                  value={phone}
                   onChange={onChangePhone}
                 />
               </div>
@@ -159,51 +175,29 @@ const EditProfile = () => {
                   className="form-control"
                   name="dni"
                   placeholder="DNI"
-                  value={currentUser.dni}
+                  value={dni}
                   onChange={onChangeDNI}
 
                 />
               </div>
-              <div className="form-group">
+              {/* <div className="form-group">
                 <Input
                   type="date"
                   className="form-control"
                   name="birthdate"
                   placeholder="Fecha de Nacimiento"
-                  value={currentUser.birthdate}
+                  value={birthdate}
                   onChange={onChangeBirthdate}
                 />
-              </div>
+              </div> */}
               <div className="form-group">
                 <Input
                   type="text"
                   className="form-control"
                   name="address"
                   placeholder="Direccion"
-                  value={currentUser.address}
+                  value={address}
                   onChange={onChangeAddress}
-                />
-              </div>
-              <div className="form-group">
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="email"
-                  placeholder="Email"
-                  value={currentUser.email}
-                  onChange={onChangeEmail}
-                  validations={[required, validEmail]}
-                />
-              </div>
-              <div className="form-group">
-                <Input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  placeholder="Contraseña"
-                  value={currentUser.password}
-                  onChange={onChangePassword}
-                  validations={[required, vpassword]}
                 />
               </div>
               <div>
