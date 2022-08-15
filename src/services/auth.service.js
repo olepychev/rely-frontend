@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
+import authHeader from "./auth.header";
+
 
 const API_URL = "http://localhost:8080/api/auth/";
 const register = (firstname, lastname, phone, dni, birthdate, address, email, password) => {
@@ -12,8 +14,11 @@ const register = (firstname, lastname, phone, dni, birthdate, address, email, pa
     address,
     email,
     password,
-  });
+    roles: ["user"],
+    });
 };
+
+
 const getUserById = (id) => {
   return axios.get(API_URL + "user/" + id);
 }

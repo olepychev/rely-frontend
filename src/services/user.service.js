@@ -15,13 +15,12 @@ const getUserById = (id) => {
   return axios.get(API_URL + "user/" + id, { headers: authHeader() });
 };
 
-const updateUserById = (id, firstname, lastname, phone, dni, birthdate, address) => {
+const updateUserById = (id, firstname, lastname, phone, dni, address) => {
   return axios.patch(API_URL + "user/update/" + id, {
     firstname,
     lastname,
     phone,
     dni,
-    birthdate,
     address,
   }, { headers: authHeader() }
   );

@@ -5,7 +5,7 @@ import moment from "moment";
 
 const Profile = () => {
   const currentUser = AuthService.getCurrentUser();
-
+  console.log(currentUser);
   return (
     <div className="container max-w-none">
       <div className="grid grid-cols-12 gap-2 user-grid">
@@ -38,11 +38,11 @@ const Profile = () => {
           <p>
             <strong>Email:</strong> {currentUser.email}
           </p>
-          {/* <strong>Authorities:</strong>
+          <strong>Authorities:</strong>
       <ul>
         {currentUser.roles &&
           currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-      </ul> */}
+      </ul>
       <div>
           <Link to={"/edit-profile"} className="btn-edit">
           Editar Perfil

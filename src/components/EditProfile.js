@@ -5,7 +5,6 @@ import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import AuthService from "../services/auth.service";
 import UserService from "../services/user.service";
-import moment from "moment";
 
 const required = (value) => {
   if (!value) {
