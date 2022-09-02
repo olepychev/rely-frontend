@@ -14,6 +14,9 @@ import EditProfile from "./components/EditProfile";
 import PrivacyPage from "./components/PrivacyPage";
 import TermsPage from "./components/Terms";
 import Contact from "./components/Contact";
+import KYCForm from "./components/KYCForm";
+import Successful from "./components/Successful";
+import UserAdminView from "./components/UserAdminView";
 
 
 const App = () => {
@@ -28,6 +31,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/kyc" element={<KYCForm />} />
           <Route path="/user" element={<BoardUser />} />
           <Route path="/admin" element={<BoardAdmin />} />
           <Route path="/add" element={<AddFunds />} />
@@ -36,6 +40,8 @@ const App = () => {
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/success" element={<Successful />} />
+          <Route path="/userview" element={<UserAdminView />} />
         </Routes>
       </div>
       <Footer />

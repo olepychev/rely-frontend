@@ -26,11 +26,59 @@ const updateUserById = (id, firstname, lastname, phone, dni, address) => {
   );
 }
 
+const get_user_balance = (id) => {
+  return axios.get(API_URL + "user/balance/" + id, { headers: authHeader() });
+}
+const get_transaction_history = (id) => {
+  return axios.get(API_URL + "user/transaction/" + id, { headers: authHeader() });
+}
+
+const deposit_funds = (accountNumber, depositAmount, description) => {
+  return axios.post(API_URL + "user/deposit/", {
+    accountNumber,
+    depositAmount,
+    description,
+  }, { headers: authHeader() }
+  );
+}
+
+const withdraw_money = (accountNumber, withdrawAmount, description) => {
+  return axios.post(API_URL + "user/withdraw/", {
+    accountNumber,
+    withdrawAmount,
+    description,
+  }, { headers: authHeader() }
+  );
+}
+
+const stake_money = (accountNumber, amount) => {
+  return axios.post(API_URL + "user/stake/", {
+    accountNumber,
+    amount,
+  }, { headers: authHeader() }
+  );
+}
+
+const unstake_money = (accountNumber) => {
+  return axios.post(API_URL + "user/unstake/", {
+    accountNumber,
+  }, { headers: authHeader() }
+  );
+}
+
+
+
 const UserService = {
   getPublicContent,
   getUserBoard,
   getAdminBoard,
   getUserById,
   updateUserById,
+  get_user_balance,
+  deposit_funds,
+  withdraw_money,
+  get_transaction_history,
+  stake_money,
+  unstake_money,
 };
 export default UserService;

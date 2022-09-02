@@ -11,10 +11,13 @@ const Profile = () => {
       <div className="grid grid-cols-12 gap-2 user-grid">
         <div className="col-span-6 image"></div>
         <div className="col-span-6 user-info">
-          <h2>Tu Perfil <p className="no-verified"><i className="fa-solid fa-ban"></i> No Verificado <a href="#">- Enviar Documentacion</a></p>
+          <h2>Tu Perfil <p className="no-verified"><i className="fa-solid fa-ban"></i> No Verificado <a href="/kyc">- Enviar Documentacion</a></p>
 </h2>
           <p>
             <strong>Id:</strong> {currentUser.id}
+          </p>
+          <p>
+            <strong>Cuenta N:</strong> {currentUser.accountNumber}
           </p>
           <p>
             <strong>Nombre:</strong> {currentUser.firstname}

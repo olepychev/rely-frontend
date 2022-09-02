@@ -1,12 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import UserService from "../services/user.service";
+import CheckButton from "react-validation/build/button";
+import AuthService from "../services/auth.service";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import Select from "react-validation/build/select";
 import { Link } from "react-router-dom";
 const AddFunds = () => {
+  const form = useRef();
+  const checkBtn = useRef();
+  const [accountNumber, setAccountNumber] = useState("");
+  const [description, setDescription] = useState("");
+  const [depositAmount, setDepositAmount] = useState("");
+  const [successful, setSuccessful] = useState(false);
+  const [message, setMessage] = useState("");
   const [content, setContent] = useState("");
   const [selected, setSelected] = useState("");
+
+  const onChangeDescription = (e) => {
+    const description = e.target.value;
+    setDescription(description);
+  }
+  const onChangeDepositAmount = (e) => {
+    const depositAmount = e.target.value;
+    setDepositAmount(depositAmount);
+  }
+
   const handleChange = (event) => {
     const newSelectedOptions = [...event.target.options]
       .filter((o) => o.selected)
@@ -14,21 +33,36 @@ const AddFunds = () => {
     setSelected(newSelectedOptions);
   };
   useEffect(() => {
-    UserService.getUserBoard().then(
-      (response) => {
-        setContent(response.data);
-      },
-      (error) => {
-        const _content =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-        setContent(_content);
-      }
-    );
+    const currentUser = AuthService.getCurrentUser();
+    setAccountNumber(currentUser.accountNumber);
   }, []);
+
+  const handleDeposit = (e) => {
+    e.preventDefault();
+    setMessage("");
+    setSuccessful(false);
+    form.current.validateAll();
+    if (checkBtn.current.context._errors.length === 0) {
+      UserService.deposit_funds(accountNumber,Number(depositAmount),"description").then(
+        (response) => {
+          setMessage(response.data);
+          setSuccessful(true);
+          console.log(response);
+        },
+        (error) => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data) ||
+            error.message ||
+            error.toString();
+          setMessage(resMessage);
+          setSuccessful(false);
+        }
+      );
+    }
+  };
+  console.log(depositAmount);
   return (
     <div className="container max-w-none mx-auto board-user">
       <div className="container mx-auto">
@@ -52,14 +86,17 @@ const AddFunds = () => {
           <div className="col-span-3"></div>
           <div className="col-span-6 box add-box shadow">
             <h2>Agregar Fondos</h2>
-            <Form>
-              <div className="form-group">
+            <Form onSubmit={handleDeposit} ref={form}>
+              {!successful && (
+              <div>              
+                <div className="form-group">
                 <Input
-                  type="text"
+                  type="number"
                   className="form-control"
                   name="amount"
-                  value="0.00"
-                  placeholder="0.00"
+                  value={depositAmount}
+                  placeholder="0"
+                  onChange={onChangeDepositAmount}
                 />
               </div>
               <div className="form-group">
@@ -99,6 +136,19 @@ const AddFunds = () => {
               <button className="btn-stake">
                 <span>Agregar</span>
               </button>
+              </div>
+              )}
+              {message && (
+                <div className="form-group">
+                  <div
+                    className={ successful ? "bg-green-100 border border-green-400 green-red-700 px-4 py-3 rounded relative" : "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" }
+                    role="alert"
+                  >
+                    {message}
+                  </div>
+                </div>
+              )}
+              <CheckButton style={{ display: "none" }} ref={checkBtn} />
             </Form>
           </div>
           <div className="col-span-3"></div>
