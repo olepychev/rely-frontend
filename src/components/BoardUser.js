@@ -57,7 +57,7 @@ const BoardUser = () => {
 
   const handleUnstake = (e) => {
     e.preventDefault();
-    UserService.unstake_money(currentUser.accountNumber).then(
+    UserService.unstake_money(currentUser.accountNumber, Number(stake)).then(
       (response) => {
         setMessage(response.data);
         setSuccessful(true);

@@ -59,9 +59,10 @@ const stake_money = (accountNumber, amount) => {
   );
 }
 
-const unstake_money = (accountNumber) => {
+const unstake_money = (accountNumber, amount) => {
   return axios.post(API_URL + "user/unstake/", {
     accountNumber,
+    amount,
   }, { headers: authHeader() }
   );
 }
