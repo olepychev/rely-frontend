@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import authHeader from "./auth.header";
 
 
-const API_URL = "http://localhost:8080/api/auth/";
+const API_URL = "https://walrus-app-kt84n.ondigitalocean.app/api/auth/";
 const register = (firstname, lastname, phone, dni, birthdate, address, email, password) => {
   return axios.post(API_URL + "signup", {
     firstname,
