@@ -67,13 +67,7 @@ const AddFunds = () => {
     <div className="container max-w-none mx-auto board-user">
       <div className="container mx-auto">
       <div className="grid grid-cols-12 gap-2 top-dashboard">
-        <div className="col-span-4">
-          
-        </div>
-        <div className="col-span-4">
-          
-        </div>
-        <div className="col-span-4">
+        <div className="col-span-12 user-buttons">
         <Link to={"/add"} className="nav-link btn-add">
           Agregar fondos
         </Link>
@@ -83,8 +77,7 @@ const AddFunds = () => {
         </div>
       </div>
         <div className="grid grid-cols-12 gap-2 board-secondary-grid">
-          <div className="col-span-3"></div>
-          <div className="col-span-6 box add-box shadow">
+          <div className="col-span-12 box add-box shadow">
             <h2>Agregar Fondos</h2>
             <Form onSubmit={handleDeposit} ref={form}>
               {!successful && (
@@ -151,7 +144,6 @@ const AddFunds = () => {
               <CheckButton style={{ display: "none" }} ref={checkBtn} />
             </Form>
           </div>
-          <div className="col-span-3"></div>
         </div>
       </div>
     </div>

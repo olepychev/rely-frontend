@@ -29,8 +29,7 @@ export default function Header() {
               </Link>
             </div>
           </div>
-          <div className="grid grid-cols-12 col-span-10 menu">
-            <div className="col-span-6 logged-menu">
+            <div className="col-span-5 logged-menu">
               <li className="nav-item">
                 {/* <Link to={"/home"} className="nav-link">
                   Home
@@ -55,7 +54,12 @@ export default function Header() {
               <div className="col-span-6 user-profile">
                 <li className="nav-item">
                   <Link to={"/profile"} className="nav-link">
-                    <img src={userProfile} />{currentUser.firstname}
+                    <img src={userProfile} />
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={"/profile"} className="nav-link">
+                    {currentUser.firstname}
                   </Link>
                 </li>
                 <li className="nav-item logout">
@@ -78,7 +82,6 @@ export default function Header() {
                 </li>
               </div>
             )}
-          </div>
         </div>
       </div>
     </div>

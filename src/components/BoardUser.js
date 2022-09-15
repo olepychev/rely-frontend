@@ -79,11 +79,10 @@ const BoardUser = () => {
     <div className="container max-w-none mx-auto board-user">
       <div className="container mx-auto">
         <div className="grid grid-cols-12 gap-2 top-dashboard">
-          <div className="col-span-4 account">
+          <div className="col-span-6 account">
             <h2>Cuenta N: {currentUser.accountNumber}</h2>
           </div>
-          <div className="col-span-4"></div>
-          <div className="col-span-4">
+          <div className="col-span-6 user-buttons">
             <Link to={"/add"} className="nav-link btn-add">
               Agregar fondos
             </Link>
@@ -125,7 +124,7 @@ const BoardUser = () => {
           </div>
         </div>
         <div className="grid grid-cols-12 gap-2 board-secondary-grid">
-          <div className="col-span-4 box staking-box shadow">
+          <div className="col-span-4 box-left staking-box shadow">
             <h2>Stake USDT</h2>
             <Form onSubmit={handleStake} ref={form}>
               {!successful && (
