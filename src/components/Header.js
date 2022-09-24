@@ -44,7 +44,7 @@ export default function Header() {
               )}
               {currentUser && (
                 <li className="nav-item">
-                  <Link to={"/user"} className="nav-link">
+                  <Link to={"/dashboard"} className="nav-link">
                     Dashboard
                   </Link>
                 </li>

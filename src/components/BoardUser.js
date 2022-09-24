@@ -14,13 +14,15 @@ const BoardUser = () => {
   const [stake, setStake] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
+  const [balance, setBalance] = useState("");
+  const [transactions, setTransactions] = useState([]);
 
   const onChangeStake = (e) => {
     const stake = e.target.value;
     setStake(stake);
     console.log(stake);
   };
-
+  
   useEffect(() => {
     const currentUser = AuthService.getCurrentUser();
     UserService.get_user_balance(currentUser.id).then((response) => {
@@ -33,8 +35,7 @@ const BoardUser = () => {
       }
     );
   }, []);
-  const [balance, setBalance] = useState("");
-  const [transactions, setTransactions] = useState([]);
+  
 
   const handleStake = (e) => {
     e.preventDefault();
@@ -186,7 +187,13 @@ const BoardUser = () => {
                     .utc()
                     .format("DD/MM/YYYY")}
                 </div>
-                <div className="col-span-3">{transaction.description}</div>
+                <div className="col-span-3">
+                {transaction.status === true ? (
+                    <span className="green">Aprobado</span>
+                  ) : (
+                    <span className="red">Pendiente</span>
+                  )}
+                </div>
                 <div className="col-span-3">
                   ${transaction.transactionAmount}
                 </div>

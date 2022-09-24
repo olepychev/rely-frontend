@@ -3,7 +3,18 @@ import UserService from "../services/user.service";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import { Link } from "react-router-dom";
+import AdminService from "../services/admin.service";
+
+
 const BoardAdmin = () => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    AdminService.get_users().then((response) => {
+      setUsers(response.data);
+    });
+  }, []);
+
   return (
     <div className="container max-w-none mx-auto board-user">
       <div className="container mx-auto">
@@ -60,36 +71,22 @@ const BoardAdmin = () => {
             <h2>Stakers</h2>
             <div className="grid grid-cols-12 top-border user-list">
               <div className="col-span-2">Nombre</div>
-              <div className="col-span-2">Apellido</div>
+              <div className="col-span-2">Balance</div>
               <div className="col-span-2">Staked</div>
               <div className="col-span-2">Yield</div>
               <div className="col-span-2">Estado</div>
               <div className="col-span-2"><span>Acciones</span></div>
             </div>
+            {users.reverse().map((user) => (
             <div className="grid grid-cols-12 user-list">
-              <div className="col-span-2">John</div>
-              <div className="col-span-2">Doe</div>
-              <div className="col-span-2">5,345.02 <span className="bolder">USDT</span></div>
-              <div className="col-span-2"><span className="green">+450.89</span></div>
-              <div className="col-span-2"><span className="bolder">Activo</span></div>
-              <div className="col-span-2"><a className="btn-view" href="/userview"><i class="fa-solid fa-eye"></i></a></div>
-            </div>
-            <div className="grid grid-cols-12 user-list">
-              <div className="col-span-2">Fabrizio</div>
-              <div className="col-span-2">Di Tata</div>
-              <div className="col-span-2">15,345.00 <span className="bolder">USDT</span></div>
-              <div className="col-span-2"><span className="green">+1250.89</span></div>
-              <div className="col-span-2"><span className="bolder">Activo</span></div>
-              <div className="col-span-2"><a className="btn-view" href="/userview"><i class="fa-solid fa-eye"></i></a></div>
-            </div>
-            <div className="grid grid-cols-12 user-list">
-              <div className="col-span-2">Mauro</div>
-              <div className="col-span-2">Pozzebon</div>
-              <div className="col-span-2">25,345.19 <span className="bolder">USDT</span></div>
-              <div className="col-span-2"><span className="green">+8502.89</span></div>
-              <div className="col-span-2"><span className="bolder">Activo</span></div>
-              <div className="col-span-2"><a className="btn-view" href="/userview"><i class="fa-solid fa-eye"></i></a></div>
-            </div>
+               <div className="col-span-2">{user.firstname} {user.lastname}</div>
+               <div className="col-span-2">{user.accountBalance} <span className="bolder">USDT</span></div>
+               <div className="col-span-2">{user.stakedBalance} <span className="bolder">USDT</span></div>
+               <div className="col-span-2"><span className="green">+450.89</span></div>
+               <div className="col-span-2"><span className="bolder">Activo</span></div>
+               <div className="col-span-2"><a className="btn-view" href={'/user/' + user._id}><i className="fa-solid fa-eye"></i></a></div>
+             </div>
+            ))}
           </div>
         </div>
       </div>

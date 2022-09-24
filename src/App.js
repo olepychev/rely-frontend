@@ -16,7 +16,7 @@ import TermsPage from "./components/Terms";
 import Contact from "./components/Contact";
 import KYCForm from "./components/KYCForm";
 import Successful from "./components/Successful";
-import UserAdminView from "./components/UserAdminView";
+import SingleUser from "./components/SingleUser";
 
 
 const App = () => {
@@ -32,7 +32,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/kyc" element={<KYCForm />} />
-          <Route path="/user" element={<BoardUser />} />
+          <Route path="/dashboard" element={<BoardUser />} />
           <Route path="/admin" element={<BoardAdmin />} />
           <Route path="/add" element={<AddFunds />} />
           <Route path="/withdraw" element={<WithdrawFunds />} />
@@ -41,7 +41,7 @@ const App = () => {
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/success" element={<Successful />} />
-          <Route path="/userview" element={<UserAdminView />} />
+          <Route path="/user/:id" element={<SingleUser />} />
         </Routes>
       </div>
       <Footer />

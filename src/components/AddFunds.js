@@ -12,6 +12,7 @@ const AddFunds = () => {
   const [accountNumber, setAccountNumber] = useState("");
   const [description, setDescription] = useState("");
   const [depositAmount, setDepositAmount] = useState("");
+  const [status, setStatus] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
   const [content, setContent] = useState("");
@@ -43,7 +44,7 @@ const AddFunds = () => {
     setSuccessful(false);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
-      UserService.deposit_funds(accountNumber,Number(depositAmount),"description").then(
+      UserService.deposit_funds(accountNumber,Number(depositAmount),"description", status).then(
         (response) => {
           setMessage(response.data);
           setSuccessful(true);
