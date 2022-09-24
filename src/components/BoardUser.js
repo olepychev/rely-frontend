@@ -23,10 +23,13 @@ const BoardUser = () => {
     console.log(stake);
   };
   
+  function currencyFormat(num) {
+    return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+  }
   useEffect(() => {
     const currentUser = AuthService.getCurrentUser();
     UserService.get_user_balance(currentUser.id).then((response) => {
-      setBalance(response.data);
+      setBalance(currencyFormat(response.data));
     });
 
     UserService.get_transaction_history(currentUser.accountNumber).then(
@@ -75,6 +78,34 @@ const BoardUser = () => {
     );
   };
 
+  const listItems = transactions.map((transaction) => (
+    <div className="grid grid-cols-12 transaction" key={transaction._id}>
+                <div key={transaction.transactionType} className="col-span-3">
+                  {transaction.transactionType === "Deposit" ? ( 
+                  <i className="fa-solid fa-circle-up green"></i>
+                  ) : (
+                  <i className="fa-solid fa-circle-down red"></i>
+                  )}
+                  {transaction.transactionType}
+                </div>
+                <div key={transaction.transactionTime} className="col-span-3">
+                  {moment(transaction.transactionTime)
+                    .utc()
+                    .format("DD/MM/YYYY")}
+                </div>
+                <div key={transaction.status} className="col-span-3">
+                {transaction.status === true ? (
+                    <span className="green">Aprobado</span>
+                  ) : (
+                    <span className="red">Pendiente</span>
+                  )}
+                </div>
+                <div key={transaction.transactionAmount} className="col-span-3">
+                  {currencyFormat(transaction.transactionAmount)}
+                </div>
+              </div>
+  )).reverse();
+  
 
   return (
     <div className="container max-w-none mx-auto board-user">
@@ -176,29 +207,7 @@ const BoardUser = () => {
                 <span>Monto</span>
               </div>
             </div>
-            {transactions.reverse().map((transaction) => (
-              <div className="grid grid-cols-12 transaction">
-                <div className="col-span-3">
-                  <i className="fa-solid fa-circle-up"></i>{" "}
-                  {transaction.transactionType}
-                </div>
-                <div className="col-span-3">
-                  {moment(transaction.transactionTime)
-                    .utc()
-                    .format("DD/MM/YYYY")}
-                </div>
-                <div className="col-span-3">
-                {transaction.status === true ? (
-                    <span className="green">Aprobado</span>
-                  ) : (
-                    <span className="red">Pendiente</span>
-                  )}
-                </div>
-                <div className="col-span-3">
-                  ${transaction.transactionAmount}
-                </div>
-              </div>
-            ))}
+            {listItems}
           </div>
         </div>
       </div>

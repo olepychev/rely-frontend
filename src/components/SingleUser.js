@@ -12,13 +12,32 @@ const SingleUser = () => {
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState(false);
   const [accountNumber, setAccountNumber] = useState("");
-  
+  const [balance, setBalance] = useState("");
+  const [stakedBalance, setStakedBalance] = useState("");
+
+  function currencyFormat(num) {
+    return "$" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  }
+
   useEffect(() => {
     if (id) {
       AdminService.get_user_by_id(id).then((response) => {
         setUser(response.data);
       });
     }
+  }, []);
+
+  useEffect(() => {
+    AdminService.get_user_balance(id).then(
+      (response) => {
+        setBalance(currencyFormat(response.data));
+      }
+    );
+    AdminService.get_user_staked_balance(id).then(
+      (response) => {
+        setStakedBalance(currencyFormat(response.data));
+      }
+    );
   }, []);
 
   useEffect(() => {
@@ -37,10 +56,10 @@ const SingleUser = () => {
       (response) => {
         setMessage(response.data);
         setSuccessful(true);
+        window.location.reload(true);
       },
       (error) => {
         const resMessage =
-
           (error.response && error.response.data && error.response.data) ||
           error.message ||
           error.toString();
@@ -55,10 +74,10 @@ const SingleUser = () => {
       (response) => {
         setMessage(response.data);
         setSuccessful(true);
+        window.location.reload(true);
       },
       (error) => {
         const resMessage =
-
           (error.response && error.response.data && error.response.data) ||
           error.message ||
           error.toString();
@@ -68,7 +87,71 @@ const SingleUser = () => {
     );
   };
 
+  const listItems = transactions
+    .map((transaction) => (
+      <div className="grid grid-cols-12 transaction" key={transaction._id}>
+        <div className="col-span-2">
+          {transaction.transactionType === "Deposit" ? (
+            <i className="fa-solid fa-circle-up green"></i>
+          ) : (
+            <i className="fa-solid fa-circle-down red"></i>
+          )}
+          {transaction.transactionType}
+        </div>
+        <div className="col-span-2">
+          {moment(transaction.transactionTime).utc().format("DD/MM/YYYY")}
+        </div>
+        <div className="col-span-2">
+          <span>Banco</span>
+        </div>
+        <div className="col-span-2">
+          {transaction.status === true ? (
+            <span className="green">Aprobado</span>
+          ) : (
+            <span className="red">Pendiente</span>
+          )}
+        </div>
 
+        <div className="col-span-2">
+          <span>
+            {" "}
+            {currencyFormat(transaction.transactionAmount)}
+          </span>
+        </div>
+        {transaction.status === false ? (
+          <div className="col-span-2">
+            <span>
+              {transaction.transactionType === "Deposit" ? (
+                <a
+                  href="#"
+                  className="btn-add btn-adm"
+                  onClick={() =>
+                    approve_deposit(accountNumber, transaction._id)
+                  }
+                >
+                  Aprobar
+                </a>
+              ) : (
+                <a
+                  href="#"
+                  className="btn-add btn-adm"
+                  onClick={() =>
+                    approve_withdraw(accountNumber, transaction._id)
+                  }
+                >
+                  Aprobar
+                </a>
+              )}
+            </span>
+          </div>
+        ) : (
+          <div className="col-span-2">
+            <span>No hay acciones</span>
+          </div>
+        )}
+      </div>
+    ))
+    .reverse();
 
   return (
     <div className="container max-w-none mx-auto board-user">
@@ -97,7 +180,7 @@ const SingleUser = () => {
               <i className="fa-solid fa-wallet"></i> Net Worth
             </h2>
             <p>
-              {user.accountBalance} <span>USD</span>
+              {balance} <span>USD</span>
             </p>
           </div>
           <div className="col-span-3 box shadow">
@@ -105,7 +188,7 @@ const SingleUser = () => {
               <i className="fa-solid fa-sack-dollar"></i> Staked
             </h2>
             <p>
-              {user.stakedBalance} <span>USD</span>
+              {stakedBalance} <span>USD</span>
             </p>
           </div>
           <div className="col-span-3 box shadow">
@@ -143,51 +226,7 @@ const SingleUser = () => {
               </div>
             </div>
             {}
-            {transactions.reverse().map(
-              (transaction) => (
-                console.log(transaction.status),
-                (
-                  <div className="grid grid-cols-12 transaction">
-                    <div className="col-span-2">
-                      {transaction.transactionType}
-                    </div>
-                    <div className="col-span-2">
-                      {moment(transaction.transactionTime)
-                        .utc()
-                        .format("DD/MM/YYYY")}
-                    </div>
-                    <div className="col-span-2">
-                      <span>Banco</span>
-                    </div>
-                    <div className="col-span-2">
-                      {transaction.status === true ? (
-                        <span className="green">Aprobado</span>
-                      ) : (
-                        <span className="red">Pendiente</span>
-                      )}
-                    </div>
-
-                    <div className="col-span-2">
-                      <span>
-                        {" "}
-                        ${transaction.transactionAmount}
-                        USD
-                      </span>
-                    </div>
-
-                    <div className="col-span-2">
-                      <span>
-                      {transaction.transactionType === "Deposit" ? (
-                        <a href="#" onClick = {() => approve_deposit(accountNumber, transaction._id)}>Aprobar Deposito</a>
-                        ) : (
-                          <a href="#" onClick = {() => approve_withdraw(accountNumber, transaction._id)}>Aprobar Retiro</a>
-                          )}
-                      </span>
-                    </div>
-                  </div>
-                )
-              )
-            )}
+            {listItems}
           </div>
         </div>
       </div>

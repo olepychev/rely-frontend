@@ -43,6 +43,15 @@ const approve_withdraw = (accountNumber, transactionId) => {
     );
 }
 
+const get_user_balance = (id) => {
+    return axios.get(API_URL + "admin/user/get_user_balance/" + id, { headers: authHeader() });
+}
+
+const get_user_staked_balance = (id) => {
+    return axios.get(API_URL + "admin/user/get_user_staked_balance/" + id, { headers: authHeader() });
+}
+
+
 
 const AdminService = {
     getPublicContent,
@@ -54,6 +63,8 @@ const AdminService = {
     get_transaction_history,
     approve_deposit,
     approve_withdraw,
+    get_user_balance,
+    get_user_staked_balance,
   };
   export default AdminService;
 

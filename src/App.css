@@ -332,6 +332,9 @@ body {
   border-radius: 6px;
   margin-bottom: 10px;
 }
+.btn-adm {
+  font-size:12px !important;
+}
 .btn-add {
   background: #000;
   border: 2px solid #000;
@@ -373,10 +376,10 @@ body {
   border-radius: 2px;
 }
 .history-box .transaction {
-  padding-top: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
+  padding-top: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 20px;
   border-bottom: 1px solid #eee;
   font-size: 14px;
 }

@@ -9,6 +9,9 @@ import AdminService from "../services/admin.service";
 const BoardAdmin = () => {
   const [users, setUsers] = useState([]);
 
+  function currencyFormat(num) {
+    return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+  }
   useEffect(() => {
     AdminService.get_users().then((response) => {
       setUsers(response.data);
@@ -40,7 +43,7 @@ const BoardAdmin = () => {
               <i className="fa-solid fa-sack-dollar"></i> TVL
             </h2>
             <p>
-              25845,56.25 <span>USD</span>
+              25845,56.25 <span>USDT</span>
             </p>
           </div>
           <div className="col-span-3 box shadow">
@@ -56,7 +59,7 @@ const BoardAdmin = () => {
               <i className="fa-solid fa-piggy-bank"></i> Stakers Yield
             </h2>
             <p className="green">
-              + 4345,65 <span>USD</span>
+              + 4345,65 <span>USDT</span>
             </p>
           </div>
           <div className="col-span-3 box shadow">
@@ -80,8 +83,8 @@ const BoardAdmin = () => {
             {users.reverse().map((user) => (
             <div className="grid grid-cols-12 user-list">
                <div className="col-span-2">{user.firstname} {user.lastname}</div>
-               <div className="col-span-2">{user.accountBalance} <span className="bolder">USDT</span></div>
-               <div className="col-span-2">{user.stakedBalance} <span className="bolder">USDT</span></div>
+               <div className="col-span-2">{currencyFormat(user.accountBalance)} <span className="bolder">USDT</span></div>
+               <div className="col-span-2">{currencyFormat(user.stakedBalance)} <span className="bolder">USDT</span></div>
                <div className="col-span-2"><span className="green">+450.89</span></div>
                <div className="col-span-2"><span className="bolder">Activo</span></div>
                <div className="col-span-2"><a className="btn-view" href={'/user/' + user._id}><i className="fa-solid fa-eye"></i></a></div>
