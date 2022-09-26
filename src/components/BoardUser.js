@@ -12,6 +12,7 @@ const BoardUser = () => {
   const checkBtn = useRef();
   const currentUser = AuthService.getCurrentUser();
   const [stake, setStake] = useState("");
+  const [stakedBalance, setStakedBalance] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
   const [balance, setBalance] = useState("");
@@ -36,6 +37,11 @@ const BoardUser = () => {
       (response) => {
         setTransactions(response.data);
       }
+    );
+
+    UserService.get_user_staked_balance(currentUser.id).then((response) => {
+      setStakedBalance(currencyFormat(response.data));
+    }
     );
   }, []);
   
@@ -137,7 +143,7 @@ const BoardUser = () => {
               <i className="fa-solid fa-sack-dollar"></i> Staked
             </h2>
             <p>
-              1845,16.05 <span>USD</span>
+              {stakedBalance} <span>USD</span>
             </p>
           </div>
           <div className="col-span-3 box shadow">

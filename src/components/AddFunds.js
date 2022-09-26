@@ -99,9 +99,9 @@ const AddFunds = () => {
                   onChange={handleChange}
                   name="FundingMethod"
                 >
-                  <option value="">Select Method</option>
-                  <option value="Bank Transfer">Bank Transfer</option>
-                  <option value="Cryptocurrency">Cryptocurrencies</option>
+                  <option value="">Seleccionar opcion</option>
+                  <option value="Bank Transfer">Transferencia</option>
+                  <option value="Cryptocurrency">Criptomonedas</option>
                 </Select>
                 {selected.includes("Bank Transfer") && (
                   <div id="bank-transfer-div" className="shadow-lg">
@@ -111,6 +111,7 @@ const AddFunds = () => {
                       <p><b>Numero de cuenta:</b> 892828-2-0</p>
                       <p><b>CBU:</b> 171272189218129812</p>
                       <p><b>Una vez enviada la transferencia adjuntar el comprobante</b></p>
+                      <input type="file" accept="image/png, image/jpeg" />
                     </div>
                   </div>
                 )}
@@ -120,9 +121,9 @@ const AddFunds = () => {
                       <h2>USDT Wallet</h2>
                       <p><b>Network:</b> TRX</p>
                       <p><b>Address:</b> 0xc0ffee254729296a45a3885639AC7E10F9d54979</p>
-                      <p><b>Una vez enviada la transferencia adjuntar el comprobante</b></p>
+                      <p><b>Una vez enviada la transferencia pegar la TX</b></p>
                     </div>
-                    <input type="file" accept="image/png, image/jpeg" />
+                    <input type="text"/>
                   </div>
                 )}
               </div>

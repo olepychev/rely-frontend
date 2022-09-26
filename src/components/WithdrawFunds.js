@@ -111,9 +111,9 @@ const WithdrawFunds = () => {
                   name="WithdrawMethod"
                   validations={[required]}
                 >
-                  <option value="">Select Method</option>
-                  <option value="Bank Transfer">Bank Transfer</option>
-                  <option value="Cryptocurrency">Cryptocurrencies</option>
+                  <option value="">Seccionar opcion</option>
+                  <option value="Bank Transfer">Transferencia Bancaria</option>
+                  <option value="Cryptocurrency">Criptomonedas</option>
                 </Select>
                 {selected.includes("Bank Transfer") && (
                   <div id="bank-transfer-div" className="shadow-lg">
