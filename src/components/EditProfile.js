@@ -57,7 +57,7 @@ const EditProfile = () => {
 
   useEffect(function effectFunction() {
     async function fetchUser() {
-        const response = await fetch('http://localhost:8080/api/user/' + currentUser.id,);
+        const response = await fetch('https://seashell-app-jatrt.ondigitalocean.app/api/user/' + currentUser.id,);
         const json = await response.json();
         setFirstName(json.firstname);
         setLastName(json.lastname);
