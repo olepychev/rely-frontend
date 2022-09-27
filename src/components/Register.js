@@ -40,7 +40,7 @@ const vpassword = (value) => {
     );
   }
 };
-const EditProfile = () => {
+const Register = () => {
   const form = useRef();
   const checkBtn = useRef();
   const [firstname, setFirstName] = useState("");
@@ -53,6 +53,7 @@ const EditProfile = () => {
   const [password, setPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
+
   const onChangeFirstName = (e) => {
     const firstname = e.target.value;
     setFirstName(firstname);
@@ -91,11 +92,10 @@ const EditProfile = () => {
     setSuccessful(false);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(firstname, lastname, phone, dni, birthdate, address, email, password).then(
+      AuthService.register(firstname, lastname, email, dni, birthdate, address, phone, password).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
-          console.log(response);
         },
         (error) => {
           const resMessage =
@@ -233,4 +233,4 @@ const EditProfile = () => {
     </div>
   );
 };
-export default EditProfile;
+export default Register;
