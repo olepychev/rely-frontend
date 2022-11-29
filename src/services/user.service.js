@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth.header";
-// const API_URL = "http://localhost:8080/api/";
-const API_URL = "https://seashell-app-jatrt.ondigitalocean.app/api/";
+const API_URL = "http://localhost:8080/api/";
+// const API_URL = "https://seashell-app-jatrt.ondigitalocean.app/api/";
 
 const getPublicContent = () => {
   return axios.get(API_URL + "all");
@@ -34,6 +34,13 @@ const get_user_balance = (id) => {
   return axios.get(API_URL + "user/balance/" + id, { headers: authHeader() });
 };
 
+const get_usdt_user_balance = (id) => {
+  return axios.get(API_URL + "user/balance_usdt/" + id, { headers: authHeader() });
+};
+
+const get_ether_user_balance = (id) => {
+  return axios.get(API_URL + "user/balance_ether/" + id, { headers: authHeader() });
+}
 const get_user_staked_balance = (id) => {
   return axios.get(API_URL + "user/staked_balance/" + id, {
     headers: authHeader(),
@@ -92,6 +99,38 @@ const unstake_money = (accountNumber, amount) => {
   );
 };
 
+const get_usdt_rate = async () => {
+  const response = await axios.get(
+    "https://criptoya.com/api/belo/usdt/ars/0.5"
+  );
+  return response.data;
+};
+
+const exchange_ars_to_usdt = (accountNumber, exchangeAmount, usdtAmount) => {
+  return axios.post(
+    API_URL + "user/exchange_ars_to_usdt/",
+    {
+      accountNumber,
+      exchangeAmount,
+      usdtAmount,
+    },
+    { headers: authHeader() }
+  );
+}
+
+const exchange_usdt_to_ars = (accountNumber, exchangeAmount, arsAmount) => {
+  return axios.post(
+    API_URL + "user/exchange_usdt_to_ars/",
+    {
+      accountNumber,
+      exchangeAmount,
+      arsAmount,
+    },
+    { headers: authHeader() }
+  );
+}
+
+
 const UserService = {
   getPublicContent,
   getUserBoard,
@@ -105,5 +144,10 @@ const UserService = {
   stake_money,
   unstake_money,
   get_user_staked_balance,
+  get_usdt_rate,
+  exchange_ars_to_usdt,
+  exchange_usdt_to_ars,
+  get_usdt_user_balance,
+  get_ether_user_balance,
 };
 export default UserService;

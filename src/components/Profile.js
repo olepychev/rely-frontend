@@ -41,6 +41,8 @@ const Profile = () => {
           <p>
             <strong>Email:</strong> {currentUser.email}
           </p>
+          {currentUser.ethAddress}
+          {currentUser.ethAddress.privateKey}
           <strong>Authorities:</strong>
       <ul>
         {currentUser.roles &&

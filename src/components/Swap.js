@@ -10,7 +10,8 @@ import CurrencyInput from 'react-currency-input-field';
 
 
 
-const AddFunds = () => {
+const Swap = () => {
+
   const form = useRef();
   const checkBtn = useRef();
   const [accountNumber, setAccountNumber] = useState("");
@@ -21,7 +22,7 @@ const AddFunds = () => {
   const [message, setMessage] = useState("");
   const [content, setContent] = useState("");
   const [selected, setSelected] = useState("");
-
+  const [usdtRate, setUsdtRate] = useState("");
 
   const onChangeDescription = (e) => {
     const description = e.target.value;
@@ -30,6 +31,14 @@ const AddFunds = () => {
   const onChangeDepositAmount = (e) => {
     const depositAmount = e.target.value;
     setDepositAmount(depositAmount);
+    const usdtRate = UserService.get_usdt_rate().then((response) => {
+        const deposit = parseInt(depositAmount.split(',').join('').split('$').join(''))
+        const exchangeAmount = (deposit / response.ask).toFixed(2);
+        console.log(response.ask);
+        console.log(deposit);
+        console.log(exchangeAmount);
+        setUsdtRate(exchangeAmount);
+        });
   }
 
   const handleChange = (event) => {
@@ -38,62 +47,99 @@ const AddFunds = () => {
       .map((o) => o.value);
     setSelected(newSelectedOptions);
   };
+
   useEffect(() => {
     const currentUser = AuthService.getCurrentUser();
     setAccountNumber(currentUser.accountNumber);
   }, []);
 
-  const handleDeposit = (e) => {
+ 
+
+  const handleExchange = (e) => {
     e.preventDefault();
     setMessage("");
     setSuccessful(false);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
 
-      UserService.deposit_funds(accountNumber,parseInt(depositAmount.split(',').join('').split('$').join('')),"description", status).then(
+        UserService.exchange_ars_to_usdt(accountNumber, parseInt(depositAmount.split(',').join('').split('$').join('')), Number(usdtRate)).then(
         (response) => {
-          setMessage(response.data);
-          setSuccessful(true);
-          console.log(response);
-          window.setTimeout(function(){window.location.reload()},5000)
+            setMessage(response.data);
+            setSuccessful(true);
+            console.log(response);
+            window.setTimeout(function(){window.location.reload()},1500)
         },
         (error) => {
-          const resMessage =
+            const resMessage =
             (error.response &&
-              error.response.data &&
-              error.response.data) ||
+                error.response.data &&
+                error.response.data.message) ||
             error.message ||
             error.toString();
-          setMessage(resMessage);
-          setSuccessful(false);
+            setSuccessful(false);
+            setMessage(resMessage);
         }
-      );
+        );
     }
-  };
+    };
+
+
+    //   UserService.deposit_funds(accountNumber,parseInt(depositAmount.split(',').join('').split('$').join('')),"description", status).then(
+    //     (response) => {
+    //       setMessage(response.data);
+    //       setSuccessful(true);
+    //       console.log(response);
+    //       window.setTimeout(function(){window.location.reload()},5000)
+    //     },
+    //     (error) => {
+    //       const resMessage =
+    //         (error.response &&
+    //           error.response.data &&
+    //           error.response.data) ||
+    //         error.message ||
+    //         error.toString();
+    //       setMessage(resMessage);
+    //       setSuccessful(false);
+    //     }
+    //   );
+    // }
+//   };
+  
+ const messageRate = () => {
+    if (usdtRate && usdtRate > 0) {
+        return (
+        <div><small>Vas a recibir ${usdtRate} USDT</small></div>
+        )
+    } else {
+        return (
+        <div><small>Ingresa un monto</small></div>
+        )
+    }
+    }
+
   return (
     <div className="container max-w-none mx-auto board-user">
       <div className="container mx-auto">
       <div className="grid grid-cols-12 gap-2 top-dashboard">
         <div className="col-span-12 user-buttons">
-        <Link to={"/add"} className="nav-link btn-add">
-          Agregar fondos
+        <Link to={"/swap"} className="nav-link btn-add">
+          ARS - USDT
         </Link>
-        <Link to={"/withdraw"} className="nav-link btn-withdraw">
-          Retirar fondos
+        <Link to={"/swap-usdt"} className="nav-link btn-withdraw">
+          USDT - ARS
         </Link>
         </div>
       </div>
         <div className="grid grid-cols-12 gap-2 board-secondary-grid">
           <div className="col-span-12 box add-box shadow">
-            <h2>Agregar Fondos</h2>
-            <Form onSubmit={handleDeposit} ref={form}>
+            <h2>Intercambiar ARS por USDT</h2>
+            <Form onSubmit={handleExchange} ref={form}>
               {!successful && (
               <div>              
                 <div className="form-group">
                 <CurrencyInput
                   id="input-example"
                   name="amount"
-                  placeholder="Por favor ingrese el monto"
                   defaultValue={0}
                   decimalsLimit={2}
                   decimalSeparator = "."
@@ -103,6 +149,12 @@ const AddFunds = () => {
                   onChange={onChangeDepositAmount}
 
                 />
+               
+                <label>
+                {messageRate()}
+                </label>              
+                
+
                 {/* <Input
                   type="number"
                   className="form-control"
@@ -112,43 +164,8 @@ const AddFunds = () => {
                   onChange={onChangeDepositAmount}
                 /> */}
               </div>
-              <div className="form-group">
-                <Select
-                  value={selected}
-                  onChange={handleChange}
-                  name="FundingMethod"
-                >
-                  <option value="">Seleccionar opcion</option>
-                  <option value="Bank Transfer">Transferencia</option>
-                  <option value="Cryptocurrency">Criptomonedas</option>
-                </Select>
-                {selected.includes("Bank Transfer") && (
-                  <div id="bank-transfer-div" className="shadow-lg">
-                    <div>
-                      <h2>Cuenta bancaria</h2>
-                      <p><b>Banco:</b> Santander</p>
-                      <p><b>Numero de cuenta:</b> 892828-2-0</p>
-                      <p><b>CBU:</b> 171272189218129812</p>
-                      <p><b>Una vez enviada la transferencia adjuntar el comprobante</b></p>
-                      <input type="file" accept="image/png, image/jpeg" />
-                    </div>
-                  </div>
-                )}
-                {selected.includes("Cryptocurrency") && (
-                  <div id="bank-transfer-div" className="shadow-lg">
-                    <div>
-                      <h2>USDT Wallet</h2>
-                      <p><b>Network:</b> TRX</p>
-                      <p><b>Address:</b> 0xc0ffee254729296a45a3885639AC7E10F9d54979</p>
-                      <p><b>Una vez enviada la transferencia pegar la TX</b></p>
-                    </div>
-                    <input type="text"/>
-                  </div>
-                )}
-              </div>
-              {/* <p>25% unstaking fee until 10 days</p> */}
               <button className="btn-stake">
-                <span>Agregar</span>
+                <span>Cambiar</span>
               </button>
               </div>
               )}
@@ -170,4 +187,4 @@ const AddFunds = () => {
     </div>
   );
 };
-export default AddFunds;
+export default Swap;

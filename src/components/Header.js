@@ -24,9 +24,15 @@ export default function Header() {
         <div className="grid grid-cols-12 gap-2 header-grid">
           <div className="col-span-1 logo">
             <div>
-              <Link to={"/"}>
-                <img src={logo} />
-              </Link>
+             {currentUser ? (
+                <Link to="/dashboard">
+                  <img src={logo} alt="logo" />
+                </Link>
+              ) : (
+                <Link to="/">
+                  <img src={logo} alt="logo" />
+                </Link>
+              )}
             </div>
           </div>
             <div className="col-span-5 logged-menu">
@@ -46,6 +52,27 @@ export default function Header() {
                 <li className="nav-item">
                   <Link to={"/dashboard"} className="nav-link">
                     Dashboard
+                  </Link>
+                </li>
+              )}
+               {currentUser && (
+                <li className="nav-item">
+                  <Link to={"/wallet"} className="nav-link">
+                    Wallet
+                  </Link>
+                </li>
+              )}
+              {currentUser && (
+                <li className="nav-item">
+                  <Link to={"/swap"} className="nav-link">
+                    Swap
+                  </Link>
+                </li>
+              )}
+               {currentUser && (
+                <li className="nav-item">
+                  <Link to={"/stake"} className="nav-link">
+                    Stake
                   </Link>
                 </li>
               )}

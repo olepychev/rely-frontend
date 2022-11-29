@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
+import { useNavigate } from "react-router-dom";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
@@ -42,6 +43,7 @@ const vpassword = (value) => {
 };
 const Register = () => {
   const form = useRef();
+  let navigate = useNavigate();
   const checkBtn = useRef();
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
@@ -96,6 +98,7 @@ const Register = () => {
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
+          navigate("/login");
         },
         (error) => {
           const resMessage =

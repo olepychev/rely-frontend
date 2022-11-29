@@ -91,7 +91,7 @@ const SingleUser = () => {
     .map((transaction) => (
       <div className="grid grid-cols-12 transaction" key={transaction._id}>
         <div className="col-span-2">
-          {transaction.transactionType === "Deposit" ? (
+          {transaction.transactionType === "Deposito" ? (
             <i className="fa-solid fa-circle-up green"></i>
           ) : (
             <i className="fa-solid fa-circle-down red"></i>
@@ -121,7 +121,7 @@ const SingleUser = () => {
         {transaction.status === false ? (
           <div className="col-span-2">
             <span>
-              {transaction.transactionType === "Deposit" ? (
+              {transaction.transactionType === "Deposito" ? (
                 <a
                   href="#"
                   className="btn-add btn-adm"
@@ -180,7 +180,7 @@ const SingleUser = () => {
               <i className="fa-solid fa-wallet"></i> Net Worth
             </h2>
             <p>
-              {balance} <span>USD</span>
+              {balance} <span>ARS</span>
             </p>
           </div>
           <div className="col-span-3 box shadow">

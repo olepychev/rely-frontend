@@ -43,7 +43,7 @@ const BoardAdmin = () => {
               <i className="fa-solid fa-sack-dollar"></i> TVL
             </h2>
             <p>
-              25845,56.25 <span>USDT</span>
+              25845,56.25 <span>ARS</span>
             </p>
           </div>
           <div className="col-span-3 box shadow">
@@ -83,7 +83,7 @@ const BoardAdmin = () => {
             {users.reverse().map((user) => (
             <div className="grid grid-cols-12 user-list">
                <div className="col-span-2">{user.firstname} {user.lastname}</div>
-               <div className="col-span-2">{currencyFormat(user.accountBalance)} <span className="bolder">USDT</span></div>
+               <div className="col-span-2">{currencyFormat(user.accountBalance)} <span className="bolder">ARS</span></div>
                <div className="col-span-2">{currencyFormat(user.stakedBalance)} <span className="bolder">USDT</span></div>
                <div className="col-span-2"><span className="green">+450.89</span></div>
                <div className="col-span-2"><span className="bolder">Activo</span></div>

@@ -6,6 +6,8 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import Select from "react-validation/build/select";
 import { Link } from "react-router-dom";
+import CurrencyInput from 'react-currency-input-field';
+
 
 const required = (value) => {
   if (!value) {
@@ -53,11 +55,12 @@ const WithdrawFunds = () => {
     setSuccessful(false);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
-      UserService.withdraw_money(accountNumber,withdrawAmount,"description").then(
+      UserService.withdraw_money(accountNumber,parseInt(withdrawAmount.split(',').join('').split('$').join('')),"description").then(
         (response) => {
           setMessage(response.data);
           setSuccessful(true);
           console.log(response);
+          window.setTimeout(function(){window.location.reload()},5000)
         },
         (error) => {
           const resMessage =
@@ -94,7 +97,20 @@ const WithdrawFunds = () => {
             {!successful && (
               <div>             
               <div className="form-group">
-                <Input
+              <CurrencyInput
+                  id="input-example"
+                  name="amount"
+                  placeholder="Por favor ingrese el monto a retirar"
+                  defaultValue={0}
+                  decimalsLimit={2}
+                  decimalSeparator = "."
+                  groupSeparator	= ","
+                  prefix = "$"
+                  onValueChange={(value) => value={withdrawAmount}}
+                  onChange={onChangeWithdrawAmount}
+
+                />
+                {/* <Input
                   type="text"
                   className="form-control"
                   name="amount"
@@ -102,7 +118,7 @@ const WithdrawFunds = () => {
                   placeholder="0"
                   onChange={onChangeWithdrawAmount}
                   validations={[required]}
-                />
+                /> */}
               </div>
               <div className="form-group">
               <Select
@@ -143,7 +159,7 @@ const WithdrawFunds = () => {
               {message && (
                 <div className="form-group">
                   <div
-                    className={ successful ? "bg-green-100 border border-green-400 green-red-700 px-4 py-3 rounded relative" : "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" }
+                    className={ successful ? "bg-yellow-100 border border-yellow-400 yellow-red-700 px-4 py-3 rounded relative" : "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" }
                     role="alert"
                   >
                     {message}

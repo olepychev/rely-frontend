@@ -17,7 +17,12 @@ import Contact from "./components/Contact";
 import KYCForm from "./components/KYCForm";
 import Successful from "./components/Successful";
 import SingleUser from "./components/SingleUser";
-
+import Swap from "./components/Swap";
+import SwapToARS from "./components/SwapToARS";
+import Stake from "./components/Stake";
+import Wallet from "./components/Wallet";
+import DepositETH from "./components/DepositETH";
+import DepositUSDT from "./components/DepositUSDT";
 
 const App = () => {
   
@@ -42,6 +47,12 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/success" element={<Successful />} />
           <Route path="/user/:id" element={<SingleUser />} />
+          <Route path="/swap" element={<Swap />} />
+          <Route path="/swap-usdt" element={<SwapToARS />} />
+          <Route path="/stake" element={<Stake />} />
+          <Route path="/wallet" element={<Wallet />} />
+          <Route path="/deposit-eth" element={<DepositETH />} />
+          <Route path="/deposit-usdt" element={<DepositUSDT />} />
         </Routes>
       </div>
       <Footer />

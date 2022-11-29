@@ -41,6 +41,9 @@ body {
   background-color: #000000;
   border: 1px solid white;
 }
+.logged-menu .nav-item {
+  margin-right:30px;
+}
 .login-grid {
   display: grid;
   flex-wrap: nowrap;
@@ -261,7 +264,7 @@ body {
 .board-grid .box p {
   font-family: "Poppins";
   color: #000000;
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 600;
 }
 .page-grid .box {
@@ -270,7 +273,7 @@ body {
   border-radius: 10px;
 }
 .board-grid .box p span {
-  font-size: 18px;
+  font-size: 12px;
 }
 .board-grid .box .green {
   color: #38d31f;
@@ -394,6 +397,49 @@ body {
 }
 .history-box .transaction .orange {
   color: orange;
+}
+.history-box .transaction img {
+  width:30px;
+  display: inline;
+  margin-right: 5px;
+}
+.history-box .transaction a {
+  font-weight: 600;
+  margin-right: 20px;
+}
+.history-box .transaction a:hover {
+  color:#6570E4;
+}
+.header-grid a {
+  font-family: 'Poppins';
+}
+.deposit-crypto h2{
+  margin-bottom:20px;
+  text-align: center;
+}
+.deposit-crypto h3 {
+  font-family: 'Poppins';
+  text-align: center;
+  font-size:14px;
+}
+.deposit-crypto p {
+  font-family: 'Poppins';
+  font-size:13px;
+  text-align:center;
+}
+.deposit-crypto b.address {
+  margin-bottom:20px;
+  display: block;
+  text-align: center;
+}
+.deposit-crypto .qr-address {
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 .user-grid {
   display: grid;
