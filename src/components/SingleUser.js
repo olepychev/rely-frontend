@@ -28,16 +28,12 @@ const SingleUser = () => {
   }, []);
 
   useEffect(() => {
-    AdminService.get_user_balance(id).then(
-      (response) => {
-        setBalance(currencyFormat(response.data));
-      }
-    );
-    AdminService.get_user_staked_balance(id).then(
-      (response) => {
-        setStakedBalance(currencyFormat(response.data));
-      }
-    );
+    AdminService.get_user_balance(id).then((response) => {
+      setBalance(currencyFormat(response.data));
+    });
+    AdminService.get_user_staked_balance(id).then((response) => {
+      setStakedBalance(currencyFormat(response.data));
+    });
   }, []);
 
   useEffect(() => {
@@ -113,10 +109,7 @@ const SingleUser = () => {
         </div>
 
         <div className="col-span-2">
-          <span>
-            {" "}
-            {currencyFormat(transaction.transactionAmount)}
-          </span>
+          <span> {currencyFormat(transaction.transactionAmount)}</span>
         </div>
         {transaction.status === false ? (
           <div className="col-span-2">

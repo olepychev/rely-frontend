@@ -5,12 +5,11 @@ import Input from "react-validation/build/input";
 import { Link } from "react-router-dom";
 import AdminService from "../services/admin.service";
 
-
 const BoardAdmin = () => {
   const [users, setUsers] = useState([]);
 
   function currencyFormat(num) {
-    return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    return "$" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
   useEffect(() => {
     AdminService.get_users().then((response) => {
@@ -21,14 +20,10 @@ const BoardAdmin = () => {
   return (
     <div className="container max-w-none mx-auto board-user">
       <div className="container mx-auto">
-      <div className="grid grid-cols-12 gap-2 top-dashboard">
-        <div className="col-span-4">
-          
-        </div>
-        <div className="col-span-4">
-          
-        </div>
-        {/* <div className="col-span-4">
+        <div className="grid grid-cols-12 gap-2 top-dashboard">
+          <div className="col-span-4"></div>
+          <div className="col-span-4"></div>
+          {/* <div className="col-span-4">
         <Link to={"/add"} className="nav-link btn-add">
           Agregar fondos
         </Link>
@@ -36,7 +31,7 @@ const BoardAdmin = () => {
           Retirar fondos
         </Link>
         </div> */}
-      </div>
+        </div>
         <div className="grid grid-cols-12 gap-2 board-grid">
           <div className="col-span-3 box shadow">
             <h2>
@@ -50,9 +45,7 @@ const BoardAdmin = () => {
             <h2>
               <i className="fa-solid fa-users"></i> Stakers
             </h2>
-            <p>
-              6.329
-            </p>
+            <p>6.329</p>
           </div>
           <div className="col-span-3 box shadow">
             <h2>
@@ -78,17 +71,35 @@ const BoardAdmin = () => {
               <div className="col-span-2">Staked</div>
               <div className="col-span-2">Yield</div>
               <div className="col-span-2">Estado</div>
-              <div className="col-span-2"><span>Acciones</span></div>
+              <div className="col-span-2">
+                <span>Acciones</span>
+              </div>
             </div>
             {users.reverse().map((user) => (
-            <div className="grid grid-cols-12 user-list">
-               <div className="col-span-2">{user.firstname} {user.lastname}</div>
-               <div className="col-span-2">{currencyFormat(user.accountBalance)} <span className="bolder">ARS</span></div>
-               <div className="col-span-2">{currencyFormat(user.stakedBalance)} <span className="bolder">USDT</span></div>
-               <div className="col-span-2"><span className="green">+450.89</span></div>
-               <div className="col-span-2"><span className="bolder">Activo</span></div>
-               <div className="col-span-2"><a className="btn-view" href={'/user/' + user._id}><i className="fa-solid fa-eye"></i></a></div>
-             </div>
+              <div className="grid grid-cols-12 user-list">
+                <div className="col-span-2">
+                  {user.firstname} {user.lastname}
+                </div>
+                <div className="col-span-2">
+                  {currencyFormat(user.accountBalance)}{" "}
+                  <span className="bolder">ARS</span>
+                </div>
+                <div className="col-span-2">
+                  {currencyFormat(user.stakedBalance)}{" "}
+                  <span className="bolder">USDT</span>
+                </div>
+                <div className="col-span-2">
+                  <span className="green">+450.89</span>
+                </div>
+                <div className="col-span-2">
+                  <span className="bolder">Activo</span>
+                </div>
+                <div className="col-span-2">
+                  <a className="btn-view" href={"/user/" + user._id}>
+                    <i className="fa-solid fa-eye"></i>
+                  </a>
+                </div>
+              </div>
             ))}
           </div>
         </div>

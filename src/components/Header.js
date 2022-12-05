@@ -24,7 +24,7 @@ export default function Header() {
         <div className="grid grid-cols-12 gap-2 header-grid">
           <div className="col-span-1 logo">
             <div>
-             {currentUser ? (
+              {currentUser ? (
                 <Link to="/dashboard">
                   <img src={logo} alt="logo" />
                 </Link>
@@ -35,80 +35,80 @@ export default function Header() {
               )}
             </div>
           </div>
-            <div className="col-span-5 logged-menu">
-              <li className="nav-item">
-                {/* <Link to={"/home"} className="nav-link">
+          <div className="col-span-5 logged-menu">
+            <li className="nav-item">
+              {/* <Link to={"/home"} className="nav-link">
                   Home
                 </Link> */}
+            </li>
+            {showAdminBoard && (
+              <li className="nav-item">
+                <Link to={"/admin"} className="nav-link">
+                  Admin Board
+                </Link>
               </li>
-              {showAdminBoard && (
-                <li className="nav-item">
-                  <Link to={"/admin"} className="nav-link">
-                    Admin Board
-                  </Link>
-                </li>
-              )}
-              {currentUser && (
-                <li className="nav-item">
-                  <Link to={"/dashboard"} className="nav-link">
-                    Dashboard
-                  </Link>
-                </li>
-              )}
-               {currentUser && (
-                <li className="nav-item">
-                  <Link to={"/wallet"} className="nav-link">
-                    Wallet
-                  </Link>
-                </li>
-              )}
-              {currentUser && (
-                <li className="nav-item">
-                  <Link to={"/swap"} className="nav-link">
-                    Swap
-                  </Link>
-                </li>
-              )}
-               {currentUser && (
-                <li className="nav-item">
-                  <Link to={"/stake"} className="nav-link">
-                    Stake
-                  </Link>
-                </li>
-              )}
-            </div>
-            {currentUser ? (
-              <div className="col-span-6 user-profile">
-                <li className="nav-item">
-                  <Link to={"/profile"} className="nav-link">
-                    <img src={userProfile} />
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to={"/profile"} className="nav-link">
-                    {currentUser.firstname}
-                  </Link>
-                </li>
-                <li className="nav-item logout">
-                  <a href="/login" className="nav-link" onClick={logOut}>
-                  <i className="fa-solid fa-power-off"></i>
-                  </a>
-                </li>
-              </div>
-            ) : (
-              <div className="col-span-6 no-logged-menu">
-                <li className="nav-item">
-                  <Link to={"/login"} className="nav-link login">
-                    Acceder
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to={"/register"} className="nav-link register">
-                    Registro
-                  </Link>
-                </li>
-              </div>
             )}
+            {currentUser && (
+              <li className="nav-item">
+                <Link to={"/dashboard"} className="nav-link">
+                  Dashboard
+                </Link>
+              </li>
+            )}
+            {currentUser && (
+              <li className="nav-item">
+                <Link to={"/wallet"} className="nav-link">
+                  Wallet
+                </Link>
+              </li>
+            )}
+            {currentUser && (
+              <li className="nav-item">
+                <Link to={"/swap"} className="nav-link">
+                  Swap
+                </Link>
+              </li>
+            )}
+            {currentUser && (
+              <li className="nav-item">
+                <Link to={"/stake"} className="nav-link">
+                  Stake
+                </Link>
+              </li>
+            )}
+          </div>
+          {currentUser ? (
+            <div className="col-span-6 user-profile">
+              <li className="nav-item">
+                <Link to={"/profile"} className="nav-link">
+                  <img src={userProfile} />
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"/profile"} className="nav-link">
+                  {currentUser.firstname}
+                </Link>
+              </li>
+              <li className="nav-item logout">
+                <a href="/login" className="nav-link" onClick={logOut}>
+                  <i className="fa-solid fa-power-off"></i>
+                </a>
+              </li>
+            </div>
+          ) : (
+            <div className="col-span-6 no-logged-menu">
+              <li className="nav-item">
+                <Link to={"/login"} className="nav-link login">
+                  Acceder
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"/register"} className="nav-link register">
+                  Registro
+                </Link>
+              </li>
+            </div>
+          )}
         </div>
       </div>
     </div>

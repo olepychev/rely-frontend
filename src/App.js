@@ -11,9 +11,9 @@ import AddFunds from "./components/AddFunds";
 import WithdrawFunds from "./components/WithdrawFunds";
 import { Routes, Route } from "react-router-dom";
 import EditProfile from "./components/EditProfile";
-import PrivacyPage from "./components/PrivacyPage";
-import TermsPage from "./components/Terms";
-import Contact from "./components/Contact";
+import PrivacyPage from "./components/pages/PrivacyPage";
+import TermsPage from "./components/pages/Terms";
+import Contact from "./components/pages/Contact";
 import KYCForm from "./components/KYCForm";
 import Successful from "./components/Successful";
 import SingleUser from "./components/SingleUser";
@@ -23,6 +23,7 @@ import Stake from "./components/Stake";
 import Wallet from "./components/Wallet";
 import DepositETH from "./components/DepositETH";
 import DepositUSDT from "./components/DepositUSDT";
+import WithdrawEth from "./components/WithdrawETH";
 
 const App = () => {
   
@@ -53,6 +54,7 @@ const App = () => {
           <Route path="/wallet" element={<Wallet />} />
           <Route path="/deposit-eth" element={<DepositETH />} />
           <Route path="/deposit-usdt" element={<DepositUSDT />} />
+          <Route path="/withdraw-eth" element={<WithdrawEth />} />
         </Routes>
       </div>
       <Footer />

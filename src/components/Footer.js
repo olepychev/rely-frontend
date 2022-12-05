@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container mx-auto">
         <div className="grid grid-cols-12 gap-2 footer-grid">
           <div className="col-span-6 copyright">
-              <p>Copyright 2022 - Rely</p>
+            <p>Copyright 2022 - Rely</p>
           </div>
           <div className="col-span-6 links">
             <ul>

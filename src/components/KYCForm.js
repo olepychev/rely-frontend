@@ -68,32 +68,32 @@ const KYCForm = () => {
             <h2>Comencemos!</h2>
             <Form onSubmit={handleKYC} ref={form}>
               <div className="KYC-box">
-              <div className="form-group">
-                <Input
-                  type="file"
-                  className="form-control dni-front"
-                  name="Frente DNI"
-                  value={dniFront}
-                  placeholder="Frente DNI"
-                  accept="image/*;capture=camera"
-                  onChange={onChangeFrenteDNI}
-                  validations={[required]}
-                />
-                <p>DNI FRENTE</p>
-              </div>
-              <div className="form-group">
-                <Input
-                  type="file"
-                  className="form-control dni-back"
-                  name="Dorso DNI"
-                  placeholder="Dorso DNI"
-                  accept="image/*;capture=camera"
-                  value={dniBack}
-                  onChange={onChangeDorsoDNI}
-                  validations={[required]}
-                />
-                <p>DNI DORSO</p>
-              </div>
+                <div className="form-group">
+                  <Input
+                    type="file"
+                    className="form-control dni-front"
+                    name="Frente DNI"
+                    value={dniFront}
+                    placeholder="Frente DNI"
+                    accept="image/*;capture=camera"
+                    onChange={onChangeFrenteDNI}
+                    validations={[required]}
+                  />
+                  <p>DNI FRENTE</p>
+                </div>
+                <div className="form-group">
+                  <Input
+                    type="file"
+                    className="form-control dni-back"
+                    name="Dorso DNI"
+                    placeholder="Dorso DNI"
+                    accept="image/*;capture=camera"
+                    value={dniBack}
+                    onChange={onChangeDorsoDNI}
+                    validations={[required]}
+                  />
+                  <p>DNI DORSO</p>
+                </div>
               </div>
               <div>
                 <button className="btn-login" disabled={loading}>

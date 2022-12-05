@@ -6,8 +6,7 @@ import CheckButton from "react-validation/build/button";
 import AuthService from "../services/auth.service";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import CurrencyInput from 'react-currency-input-field';
-
+import CurrencyInput from "react-currency-input-field";
 
 const BoardUser = () => {
   const form = useRef();
@@ -21,9 +20,8 @@ const BoardUser = () => {
   const [balanceUSDT, setBalanceUSDT] = useState("");
   const [transactions, setTransactions] = useState([]);
 
-  
   function currencyFormat(num) {
-    return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    return "$" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
   useEffect(() => {
     const currentUser = AuthService.getCurrentUser();
@@ -43,40 +41,36 @@ const BoardUser = () => {
 
     UserService.get_user_staked_balance(currentUser.id).then((response) => {
       setStakedBalance(currencyFormat(response.data));
-    }
-    );
+    });
   }, []);
-  
 
-
-  const listItems = transactions.map((transaction) => (
-    <div className="grid grid-cols-12 transaction" key={transaction._id}>
-                <div key={transaction.transactionType} className="col-span-3">
-                  {transaction.transactionType === "Deposito" ? ( 
-                  <i className="fa-solid fa-circle-up green"></i>
-                  ) : (
-                  <i className="fa-solid fa-circle-down red"></i>
-                  )}
-                  {transaction.transactionType}
-                </div>
-                <div key={transaction.transactionTime} className="col-span-3">
-                  {moment(transaction.transactionTime)
-                    .utc()
-                    .format("DD/MM/YYYY")}
-                </div>
-                <div key={transaction.status} className="col-span-3">
-                {transaction.status === true ? (
-                    <span className="green">Aprobado</span>
-                  ) : (
-                    <span className="red">Pendiente</span>
-                  )}
-                </div>
-                <div key={transaction.transactionAmount} className="col-span-3">
-                  {currencyFormat(transaction.transactionAmount)}
-                </div>
-              </div>
-  )).reverse();
-  
+  const listItems = transactions
+    .map((transaction) => (
+      <div className="grid grid-cols-12 transaction" key={transaction._id}>
+        <div key={transaction.transactionType} className="col-span-3">
+          {transaction.transactionType === "Deposito" ? (
+            <i className="fa-solid fa-circle-up green"></i>
+          ) : (
+            <i className="fa-solid fa-circle-down red"></i>
+          )}
+          {transaction.transactionType}
+        </div>
+        <div key={transaction.transactionTime} className="col-span-3">
+          {moment(transaction.transactionTime).utc().format("DD/MM/YYYY")}
+        </div>
+        <div key={transaction.status} className="col-span-3">
+          {transaction.status === true ? (
+            <span className="green">Aprobado</span>
+          ) : (
+            <span className="red">Pendiente</span>
+          )}
+        </div>
+        <div key={transaction.transactionAmount} className="col-span-3">
+          {currencyFormat(transaction.transactionAmount)}
+        </div>
+      </div>
+    ))
+    .reverse();
 
   return (
     <div className="container max-w-none mx-auto board-user">
@@ -95,14 +89,13 @@ const BoardUser = () => {
           </div>
         </div>
         <div className="grid grid-cols-12 gap-2 board-grid">
-        <div className="col-span-2 box shadow">
+          <div className="col-span-2 box shadow">
             <h2>
               <i className="fa-solid fa-wallet"></i> Total
             </h2>
             <p>
               {balanceARS} <span>ARS</span>
             </p>
-
           </div>
           <div className="col-span-2 box shadow">
             <h2>
@@ -111,7 +104,6 @@ const BoardUser = () => {
             <p>
               {balanceARS} <span>ARS</span>
             </p>
-
           </div>
           <div className="col-span-2 box shadow">
             <h2>

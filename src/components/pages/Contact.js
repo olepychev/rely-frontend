@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
-import { useNavigate } from "react-router-dom";
 import Input from "react-validation/build/input";
+import Textarea from "react-validation/build/textarea";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import AuthService from "../services/auth.service";
@@ -50,9 +50,8 @@ const vpassword = (value) => {
     );
   }
 };
-const Register = () => {
+const Contact = () => {
   const form = useRef();
-  let navigate = useNavigate();
   const checkBtn = useRef();
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
@@ -64,7 +63,6 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
-
   const onChangeFirstName = (e) => {
     const firstname = e.target.value;
     setFirstName(firstname);
@@ -106,17 +104,17 @@ const Register = () => {
       AuthService.register(
         firstname,
         lastname,
-        email,
+        phone,
         dni,
         birthdate,
         address,
-        phone,
+        email,
         password
       ).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
-          navigate("/login");
+          console.log(response);
         },
         (error) => {
           const resMessage =
@@ -137,8 +135,8 @@ const Register = () => {
         <div className="col-span-6 image"></div>
         <div className="col-span-6 form">
           <div>
-            <h1>Crear cuenta</h1>
-            <h2>Comencemos!</h2>
+            <h1>Contacto</h1>
+            <h2>Dejanos tu consulta!</h2>
             <Form onSubmit={handleRegister} ref={form}>
               {!successful && (
                 <div>
@@ -164,7 +162,7 @@ const Register = () => {
                       validations={[required]}
                     />
                   </div>
-                  <div className="form-group" id="left">
+                  <div className="form-group">
                     <Input
                       type="text"
                       className="form-control"
@@ -172,39 +170,6 @@ const Register = () => {
                       placeholder="Telefono"
                       value={phone}
                       onChange={onChangePhone}
-                      validations={[required]}
-                    />
-                  </div>
-                  <div className="form-group" id="right">
-                    <Input
-                      type="text"
-                      className="form-control"
-                      name="dni"
-                      placeholder="DNI"
-                      value={dni}
-                      onChange={onChangeDNI}
-                      validations={[required]}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <Input
-                      type="date"
-                      className="form-control"
-                      name="birthdate"
-                      placeholder="Fecha de Nacimiento"
-                      value={birthdate}
-                      onChange={onChangeBirthdate}
-                      validations={[required]}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <Input
-                      type="text"
-                      className="form-control"
-                      name="address"
-                      placeholder="Direccion"
-                      value={address}
-                      onChange={onChangeAddress}
                       validations={[required]}
                     />
                   </div>
@@ -220,18 +185,17 @@ const Register = () => {
                     />
                   </div>
                   <div className="form-group">
-                    <Input
-                      type="password"
+                    <Textarea
+                      type="text"
                       className="form-control"
-                      name="password"
-                      placeholder="Contraseña"
-                      value={password}
-                      onChange={onChangePassword}
-                      validations={[required, vpassword]}
+                      name="message"
+                      placeholder="Escribi tu consulta"
+                      value=""
+                      validations={[required]}
                     />
                   </div>
                   <div>
-                    <button className="btn-register">Crear Cuenta</button>
+                    <button className="btn-register">Enviar Mensaje</button>
                   </div>
                 </div>
               )}
@@ -255,4 +219,4 @@ const Register = () => {
     </div>
   );
 };
-export default Register;
+export default Contact;

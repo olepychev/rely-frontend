@@ -65,20 +65,21 @@ const Successful = () => {
         <div className="col-span-6 form">
           <div>
             <h1>Excelente!</h1>
-            <h2>Tu informacion fue enviada correctamente. Pronto la revisaremos</h2>
-            </div>
-              <div>
-                <button className="btn-login" disabled={loading}>
-                  {loading && (
-                    <span className="spinner-border spinner-border-sm"></span>
-                  )}
-                  <span>Ir al Dashboard</span>
-                </button>
-              </div>
-              
+            <h2>
+              Tu informacion fue enviada correctamente. Pronto la revisaremos
+            </h2>
+          </div>
+          <div>
+            <button className="btn-login" disabled={loading}>
+              {loading && (
+                <span className="spinner-border spinner-border-sm"></span>
+              )}
+              <span>Ir al Dashboard</span>
+            </button>
           </div>
         </div>
       </div>
+    </div>
   );
 };
 export default Successful;

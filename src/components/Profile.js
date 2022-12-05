@@ -11,8 +11,13 @@ const Profile = () => {
       <div className="grid grid-cols-12 gap-2 user-grid">
         <div className="col-span-6 image"></div>
         <div className="col-span-6 user-info">
-          <h2>Tu Perfil <p className="no-verified"><i className="fa-solid fa-ban"></i> No Verificado <a href="/kyc">- Enviar Documentacion</a></p>
-</h2>
+          <h2>
+            Tu Perfil{" "}
+            <p className="no-verified">
+              <i className="fa-solid fa-ban"></i> No Verificado{" "}
+              <a href="/kyc">- Enviar Documentacion</a>
+            </p>
+          </h2>
           <p>
             <strong>Id:</strong> {currentUser.id}
           </p>
@@ -32,7 +37,8 @@ const Profile = () => {
             <strong>DNI:</strong> {currentUser.dni}
           </p>
           <p>
-            <strong>Fecha de Nacimiento:</strong> {moment(currentUser.birthdate).utc().format('DD/MM/YYYY')}
+            <strong>Fecha de Nacimiento:</strong>{" "}
+            {moment(currentUser.birthdate).utc().format("DD/MM/YYYY")}
           </p>
           {/* <p>
         <strong>Token:</strong> {currentUser.accessToken.substring(0, 20)} ...{" "}
@@ -44,15 +50,17 @@ const Profile = () => {
           {currentUser.ethAddress}
           {currentUser.ethAddress.privateKey}
           <strong>Authorities:</strong>
-      <ul>
-        {currentUser.roles &&
-          currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-      </ul>
-      <div>
-          <Link to={"/edit-profile"} className="btn-edit">
-          Editar Perfil
-        </Link>
-        </div>
+          <ul>
+            {currentUser.roles &&
+              currentUser.roles.map((role, index) => (
+                <li key={index}>{role}</li>
+              ))}
+          </ul>
+          <div>
+            <Link to={"/edit-profile"} className="btn-edit">
+              Editar Perfil
+            </Link>
+          </div>
         </div>
       </div>
     </div>
