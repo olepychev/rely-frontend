@@ -7,14 +7,17 @@
 body {
   font-family: "Inter";
 }
+
 .header {
   background: #000000;
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
 .header-grid {
   align-items: center;
 }
+
 .header-grid .menu {
   text-align: right;
 }
@@ -23,27 +26,32 @@ body {
   margin-right: 20px;
   display: inline-block;
 }
+
 .header-grid .menu .nav-item a {
   color: white;
   font-family: "Poppins";
   font-weight: 300;
   font-size: 14px;
 }
+
 .header-grid .menu .nav-item .login {
   padding: 5px 30px;
   border-radius: 6px;
   background-color: #6570e4;
   border: 1px solid #6570e4;
 }
+
 .header-grid .menu .nav-item .register {
   padding: 5px 30px;
   border-radius: 6px;
   background-color: #000000;
   border: 1px solid white;
 }
+
 .logged-menu .nav-item {
-  margin-right:30px;
+  margin-right: 30px;
 }
+
 .login-grid {
   display: grid;
   flex-wrap: nowrap;
@@ -52,24 +60,28 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .login-grid .image {
   background: url("../src/img/hero-form.svg");
   height: 100vh;
   background-position: center;
   background-size: cover;
 }
+
 .login-grid h1 {
   font-family: "Poppins";
   font-weight: 600;
   font-size: 32px;
   color: #000;
 }
+
 .login-grid h2 {
   font-family: "Poppins";
   font-weight: 300;
   font-size: 16px;
   color: #b0acac;
 }
+
 .login-grid .form {
   display: flex;
   flex-direction: column;
@@ -78,15 +90,18 @@ body {
   justify-content: center;
   align-items: center;
 }
-.login-grid .form > div {
+
+.login-grid .form>div {
   width: 65%;
 }
+
 .login-grid .form input::placeholder {
   color: #000;
   font-weight: 400;
   font-family: "Poppins";
   font-size: 14px;
 }
+
 .login-grid .btn-login {
   background: #000;
   font-family: "Poppins";
@@ -98,9 +113,11 @@ body {
   border-radius: 6px;
   margin-bottom: 10px;
 }
+
 .login-grid form {
   margin-top: 20px;
 }
+
 .login-grid .form-group div input {
   width: 100%;
   font-family: "Inter";
@@ -119,24 +136,28 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .register-grid .image {
   background: url("../src/img/hero-form.svg");
   height: 100vh;
   background-position: center;
   background-size: cover;
 }
+
 .register-grid h1 {
   font-family: "Poppins";
   font-weight: 600;
   font-size: 32px;
   color: #000;
 }
+
 .register-grid h2 {
   font-family: "Poppins";
   font-weight: 300;
   font-size: 16px;
   color: #b0acac;
 }
+
 .register-grid .form {
   display: flex;
   flex-direction: column;
@@ -145,21 +166,25 @@ body {
   justify-content: center;
   align-items: center;
 }
-.register-grid .form > div {
+
+.register-grid .form>div {
   width: 65%;
 }
+
 .register-grid .form textarea::placeholder {
   color: #000;
   font-weight: 400;
   font-family: "Poppins";
   font-size: 14px;
 }
+
 .register-grid .form input::placeholder {
   color: #000;
   font-weight: 400;
   font-family: "Poppins";
   font-size: 14px;
 }
+
 .register-grid .btn-register {
   background: #000;
   font-family: "Poppins";
@@ -171,9 +196,11 @@ body {
   border-radius: 6px;
   margin-bottom: 10px;
 }
+
 .register-grid form {
   margin-top: 20px;
 }
+
 .register-grid .form-group div input {
   width: 100%;
   font-family: "Inter";
@@ -183,6 +210,7 @@ body {
   padding: 10px 0px;
   background: #edf0f6;
 }
+
 .register-grid .form-group div textarea {
   width: 100%;
   font-family: "Inter";
@@ -192,6 +220,7 @@ body {
   padding: 10px 0px;
   background: #edf0f6;
 }
+
 [type="textarea"],
 [type="text"]:focus,
 [type="email"]:focus,
@@ -210,6 +239,7 @@ textarea:focus,
 select:focus {
   --tw-ring-color: none;
 }
+
 .footer {
   background: #6570e4;
   padding-top: 20px;
@@ -217,38 +247,46 @@ select:focus {
   position: fixed;
   bottom: 0;
 }
+
 .footer .links {
   text-align: right;
 }
+
 .footer ul li {
   display: inline-block;
   margin-right: 30px;
 }
+
 .footer ul li a {
   font-family: "Poppins";
   font-weight: 300;
   font-size: 14px;
   color: white;
 }
+
 .footer .copyright {
   font-family: "Poppins";
   font-weight: 300;
   font-size: 14px;
   color: white;
 }
+
 .board-user,
 body {
   background: #edf0f7;
 }
+
 .board-grid {
   padding-top: 50px;
   padding-bottom: 50px;
 }
+
 .board-grid .box {
   background: #fff;
   padding: 20px;
   border-radius: 6px;
 }
+
 .board-grid .box h2 {
   font-family: "Poppins";
   color: #a8a4a4;
@@ -256,62 +294,77 @@ body {
   font-weight: 400;
   margin-bottom: 5px;
 }
+
 .board-grid .box h2 i {
   color: #000;
   margin-right: 5px;
   font-size: 16px;
 }
+
 .board-grid .box p {
   font-family: "Poppins";
   color: #000000;
   font-size: 16px;
   font-weight: 600;
 }
+
 .page-grid .box {
   background: #fff;
   padding: 50px;
   border-radius: 10px;
 }
+
 .board-grid .box p span {
   font-size: 12px;
 }
+
 .board-grid .box .green {
   color: #38d31f;
 }
+
 .board-secondary-grid {
   padding-bottom: 50px;
 }
+
 .board-secondary-grid .box {
   background: #fff;
   padding: 20px;
   border-radius: 6px;
 }
+
 .board-secondary-grid .box-left {
   background: #fff;
   padding: 20px;
   border-radius: 6px;
-  height: 280px;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
 }
+
 .staking-box {
   font-family: "Poppins";
 }
+
 .staking-box h2 {
   font-weight: 500;
   color: #847f7f;
   margin-left: 2px;
   margin-bottom: 5px;
 }
+
 .staking-box form p {
   color: #847f7f;
   font-size: 11px;
   margin-top: 10px;
   margin-left: 2px;
 }
+
 .staking-box input {
   width: 100%;
   border: 1px solid #e1e1e1;
   border-radius: 6px;
 }
+
 .staking-box .btn-stake {
   background: #000;
   border: 2px solid #000;
@@ -324,6 +377,7 @@ body {
   border-radius: 6px;
   margin-bottom: 10px;
 }
+
 .staking-box .btn-unstake {
   background: transparent;
   border: 2px solid #000;
@@ -335,9 +389,11 @@ body {
   border-radius: 6px;
   margin-bottom: 10px;
 }
+
 .btn-adm {
-  font-size:12px !important;
+  font-size: 12px !important;
 }
+
 .btn-add {
   background: #000;
   border: 2px solid #000;
@@ -352,6 +408,7 @@ body {
   margin-right: 15px;
   font-size: 14px;
 }
+
 .btn-withdraw {
   background: transparent;
   border: 2px solid #000;
@@ -364,20 +421,24 @@ body {
   margin-bottom: 10px;
   font-size: 14px;
 }
+
 .history-box {
   font-family: "Poppins";
 }
+
 .history-box h2 {
   font-weight: 500;
   color: #847f7f;
   margin-left: 2px;
   margin-bottom: 20px;
 }
+
 .history-box .top-border {
   background: #000;
   color: white;
   border-radius: 2px;
 }
+
 .history-box .transaction {
   padding-top: 20px;
   padding-left: 15px;
@@ -386,64 +447,79 @@ body {
   border-bottom: 1px solid #eee;
   font-size: 14px;
 }
+
 .history-box .transaction i {
   margin-right: 5px;
 }
+
 .history-box .transaction .green {
   color: #38d31f;
 }
+
 .history-box .transaction .red {
   color: #d3341f;
 }
+
 .history-box .transaction .orange {
   color: orange;
 }
+
 .history-box .transaction img {
-  width:30px;
+  width: 30px;
   display: inline;
   margin-right: 5px;
 }
+
 .history-box .transaction a {
   font-weight: 600;
   margin-right: 20px;
 }
+
 .history-box .transaction a:hover {
-  color:#6570E4;
+  color: #6570E4;
 }
+
 .header-grid a {
   font-family: 'Poppins';
 }
-.deposit-crypto h2{
-  margin-bottom:20px;
+
+.deposit-crypto h2 {
+  margin-bottom: 20px;
   text-align: center;
 }
+
 .deposit-crypto h3 {
   font-family: 'Poppins';
   text-align: center;
-  font-size:14px;
+  font-size: 14px;
 }
+
 .deposit-crypto p {
   font-family: 'Poppins';
-  font-size:13px;
-  text-align:center;
+  font-size: 13px;
+  text-align: center;
 }
+
 .deposit-crypto b.address {
-  margin-bottom:20px;
+  margin-bottom: 20px;
   display: block;
   text-align: center;
 }
+
 .deposit-crypto .qr-address {
-    display: flex;
-    flex-wrap: nowrap;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
+
 .user-grid {
   display: grid;
 }
+
 .user-grid .image {
   background: url("../src/img/hero-form.svg");
   height: 100vh;
@@ -451,12 +527,14 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .user-grid h1 {
   font-family: "Poppins";
   font-weight: 600;
   font-size: 32px;
   color: #000;
 }
+
 .user-grid h2 {
   font-family: "Poppins";
   font-weight: 600;
@@ -464,11 +542,13 @@ body {
   color: #000;
   margin-bottom: 20px;
 }
+
 .user-grid .user-info p {
   font-family: "Poppins";
   margin-bottom: 5px;
   font-size: 14px;
 }
+
 .user-grid .user-info {
   display: flex;
   flex-direction: column;
@@ -477,6 +557,7 @@ body {
   align-items: flex-start;
   padding: 20px;
 }
+
 .user-grid .user-info .btn-edit {
   background: #000;
   border: 2px solid #000;
@@ -490,24 +571,29 @@ body {
   margin-bottom: 10px;
   display: block;
 }
+
 #left input {
   width: 48%;
   float: left;
 }
+
 #right input {
   width: 48%;
   float: left;
   margin-left: 18px;
 }
+
 .user-buttons {
   text-align: right;
 }
+
 .logged-menu {
   text-align: left;
   color: white;
   display: flex;
   list-style: none;
 }
+
 .user-profile {
   display: flex;
   flex-wrap: nowrap;
@@ -516,12 +602,15 @@ body {
   color: white;
   list-style: none;
 }
+
 .no-logged-menu {
   margin-right: -100px;
 }
+
 .user-profile .logout {
   margin-left: 20px;
 }
+
 .user-profile a {
   display: inline-flex;
   flex-wrap: nowrap;
@@ -529,53 +618,64 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .user-profile a img {
   margin-right: 10px;
   width: 24px;
 }
+
 .header-grid .menu .user-profile .nav-item {
   margin-right: 0px;
 }
+
 .header-grid .menu .user-profile a {
   color: #b0acac;
   font-size: 14px;
   text-transform: capitalize;
 }
+
 .top-dashboard {
   margin-top: 30px;
 }
+
 .top-dashboard .col-span-4 {
   text-align: right;
 }
+
 .add-box {
   font-family: "Poppins";
   width: 50%;
   margin: 0 auto;
   margin-top: 50px;
 }
+
 .add-box h2 {
   font-weight: 500;
   color: #847f7f;
   margin-left: 2px;
   margin-bottom: 5px;
 }
+
 .add-box form p {
   color: #847f7f;
   font-size: 11px;
   margin-top: 10px;
   margin-left: 2px;
 }
+
 .add-box input {
   width: 100%;
   border: 1px solid #e1e1e1;
   border-radius: 6px;
 }
+
 .add-box select {
   width: 100%;
   border: 1px solid #e1e1e1;
   border-radius: 6px;
   margin-top: 10px;
 }
+
 .add-box .btn-stake {
   background: #000;
   border: 2x solid #000;
@@ -588,6 +688,7 @@ body {
   border-radius: 6px;
   margin-bottom: 10px;
 }
+
 .add-box .btn-unstake {
   background: transparent;
   border: 2px solid #000;
@@ -600,6 +701,7 @@ body {
   border-radius: 6px;
   margin-bottom: 10px;
 }
+
 .update-profile-grid {
   display: grid;
   flex-wrap: nowrap;
@@ -608,6 +710,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .update-profile-grid .image {
   background: url("../src/img/hero-form.svg");
   height: 100vh;
@@ -615,18 +718,21 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .update-profile-grid h1 {
   font-family: "Poppins";
   font-weight: 600;
   font-size: 32px;
   color: #000;
 }
+
 .update-profile-grid h2 {
   font-family: "Poppins";
   font-weight: 300;
   font-size: 16px;
   color: #b0acac;
 }
+
 .update-profile-grid .form {
   display: flex;
   flex-direction: column;
@@ -635,15 +741,18 @@ body {
   justify-content: center;
   align-items: center;
 }
-.update-profile-grid .form > div {
+
+.update-profile-grid .form>div {
   width: 65%;
 }
+
 .update-profile-grid .form input::placeholder {
   color: #000;
   font-weight: 400;
   font-family: "Poppins";
   font-size: 14px;
 }
+
 .update-profile-grid .btn-register {
   background: #000;
   font-family: "Poppins";
@@ -655,9 +764,11 @@ body {
   border-radius: 6px;
   margin-bottom: 10px;
 }
+
 .update-profile-grid form {
   margin-top: 20px;
 }
+
 .update-profile-grid .form-group div input {
   width: 100%;
   color: #bbbbbb;
@@ -668,30 +779,37 @@ body {
   padding: 10px 0px;
   background: #edf0f6;
 }
+
 .no-verified {
   color: red;
 }
+
 .no-verified a {
   color: #000;
 }
+
 .content {
   padding-bottom: 50px;
 }
+
 .page-grid {
   padding-top: 50px;
   padding-bottom: 50px;
 }
+
 .page-grid h1 {
   font-size: 30px;
   font-family: "Poppins";
   margin-bottom: 20px;
   font-weight: 600;
 }
+
 .page-grid p {
   font-family: "Inter";
   font-size: 14px;
   margin-bottom: 20px;
 }
+
 .home-grid .hero {
   background: url("../src/img/hero.jpeg");
   height: 100vh;
@@ -704,6 +822,7 @@ body {
   flex-direction: column;
   justify-content: center;
 }
+
 .hero h1 {
   font-family: "Poppins";
   color: white;
@@ -711,12 +830,14 @@ body {
   font-weight: 500;
   margin-top: -100px;
 }
+
 .hero h2 {
   font-family: "Poppins";
   color: rgb(239, 239, 239);
   font-size: 16px;
   font-weight: 300;
 }
+
 .hero .btn-hero {
   background: #000;
   font-family: "Poppins";
@@ -730,6 +851,7 @@ body {
   padding-left: 40px;
   padding-right: 40px;
 }
+
 .hero .btn-hero-secondary {
   background: #6570e4;
   font-family: "Poppins";
@@ -744,28 +866,34 @@ body {
   padding-left: 40px;
   padding-right: 40px;
 }
+
 #bank-transfer-div {
   border: 1px solid #eee;
   margin-top: 20px;
   padding: 20px;
   border-radius: 6px;
 }
+
 #bank-transfer-div h2 {
   color: #000;
   font-weight: bold;
 }
+
 #bank-transfer-div [type="file"] {
   margin-top: 20px;
   margin-top: 15px;
   font-size: 14px;
   padding: 10px;
 }
+
 #bank-transfer-div p {
   font-size: 14px;
 }
+
 .bolder {
   font-weight: bold;
 }
+
 .btn-view {
   background: white;
   border: 2px solid #000;
@@ -778,20 +906,24 @@ body {
   margin-bottom: 10px;
   font-size: 13px;
 }
+
 .user-box {
   font-family: "Poppins";
 }
+
 .user-box h2 {
   font-weight: 500;
   color: #847f7f;
   margin-left: 2px;
   margin-bottom: 20px;
 }
+
 .user-box .top-border {
   background: #000;
   color: white;
   border-radius: 2px;
 }
+
 .user-box .user-list {
   padding-top: 10px;
   padding-left: 10px;
@@ -800,23 +932,29 @@ body {
   border-bottom: 1px solid #eee;
   font-size: 14px;
 }
-.user-box .user-list i {
-}
+
+.user-box .user-list i {}
+
 .user-box .user-list .green {
   color: #38d31f;
 }
+
 .user-box .user-list .red {
   color: #d3341f;
 }
+
 .user-box .user-list .orange {
   color: orange;
 }
+
 .dni-front::-webkit-file-upload-button {
   visibility: hidden;
 }
+
 .dni-front {
   color: rgba(0, 0, 0, 0);
 }
+
 .dni-front::before {
   content: "\f2bb";
   font-family: "FontAwesome";
@@ -833,21 +971,27 @@ body {
   font-size: 60px;
   color: #6570e4;
 }
+
 .dni-front:hover::before {
   border-color: black;
 }
+
 .dni-front:active::before {
   background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
+
 .dni-front[type="file"]:focus {
   outline: none;
 }
+
 .dni-back::-webkit-file-upload-button {
   visibility: hidden;
 }
+
 .dni-back {
   color: rgba(0, 0, 0, 0);
 }
+
 .dni-back::before {
   content: "\f2c2";
   font-family: "FontAwesome";
@@ -864,21 +1008,27 @@ body {
   font-size: 60px;
   color: #6570e4;
 }
+
 .dni-back:hover::before {
   border-color: black;
 }
+
 .dni-back:active::before {
   background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
+
 .dni-back[type="file"]:focus {
   outline: none;
 }
+
 .KYC-box {
   display: flex;
 }
+
 .KYC-box input {
   border-bottom: 0px !important;
 }
+
 .KYC-box p {
   font-family: "Poppins";
   margin-left: 50px;
@@ -886,12 +1036,14 @@ body {
   font-weight: 600;
   color: #b0acac;
 }
+
 .top-dashboard .user-info h2 {
   text-align: left;
   font-size: 20px;
   font-family: "Poppins";
   font-weight: bold;
 }
+
 .top-dashboard .user-info a {
   text-align: left;
   display: block;
@@ -899,22 +1051,27 @@ body {
   font-family: "Poppins";
   text-decoration: underline;
 }
+
 .top-dashboard .user-info i {
   color: #37d31d;
 }
+
 .top-dashboard .account h2 {
   text-align: left;
   font-size: 20px;
   font-family: "Poppins";
   font-weight: bold;
 }
+
 @media (max-width: 580px) {
   .login-grid .image {
     display: none;
   }
+
   .login-grid .col-span-6 {
     grid-column: span 12 / span 12;
   }
+
   .login-grid {
     margin-top: 50px;
     background: white;
@@ -923,13 +1080,16 @@ body {
     margin-left: 20px;
     margin-right: 20px;
   }
-  .login-grid .form > div {
+
+  .login-grid .form>div {
     width: 100%;
   }
+
   .header {
     padding-left: 25px;
     padding-right: 25px;
   }
+
   .hero .container {
     display: flex;
     flex-direction: column;
@@ -938,12 +1098,15 @@ body {
     justify-content: center;
     align-items: center;
   }
+
   .register-grid .image {
     display: none;
   }
+
   .register-grid .col-span-6 {
     grid-column: span 12 / span 12;
   }
+
   .register-grid {
     margin-top: 50px;
     background: white;
@@ -952,18 +1115,22 @@ body {
     margin-left: 20px;
     margin-right: 20px;
   }
-  .register-grid .form > div {
+
+  .register-grid .form>div {
     width: 100%;
   }
+
   .login-grid .form-group div input {
     padding-left: 10px;
     padding-right: 10px;
   }
+
   #left input {
     width: 100%;
     padding-left: 10px;
     padding-right: 10px;
   }
+
   #right input {
     width: 100%;
     margin-left: 0px;
@@ -971,12 +1138,15 @@ body {
     padding-left: 10px;
     padding-right: 10px;
   }
+
   .user-grid .image {
     display: none;
   }
+
   .user-grid .col-span-6 {
     grid-column: span 12 / span 12;
   }
+
   .user-grid {
     margin-top: 50px;
     background: white;
@@ -985,68 +1155,87 @@ body {
     margin-left: 20px;
     margin-right: 20px;
   }
+
   .top-dashboard {
     padding-left: 20px;
     padding-right: 20px;
   }
+
   .top-dashboard .account {
     grid-column: span 12 / span 12;
   }
+
   .top-dashboard .user-buttons {
     grid-column: span 12 / span 12;
     text-align: left;
     margin-top: 20px;
   }
+
   .board-grid {
     padding-left: 20px;
     padding-right: 20px;
   }
+
   .board-grid .col-span-3 {
     grid-column: span 12 / span 12;
   }
+
   .board-secondary-grid {
     padding-left: 20px;
     padding-right: 20px;
   }
+
   .board-secondary-grid .col-span-4 {
     grid-column: span 12 / span 12;
   }
+
   .board-secondary-grid .col-span-8 {
     grid-column: span 12 / span 12;
   }
+
   .add-box {
     width: 100%;
   }
+
   .footer {
     padding-left: 20px;
     padding-right: 20px;
   }
+
   .footer-grid .col-span-6 {
     grid-column: span 12 / span 12;
   }
+
   .footer-grid .copyright {
     text-align: center;
   }
+
   .footer-grid .links {
     text-align: center;
   }
+
   .footer-grid .links ul {
     display: inline-block;
   }
-  .footer-grid .links ul li{
-    margin-right:0px;
+
+  .footer-grid .links ul li {
+    margin-right: 0px;
     display: block;
     margin-bottom: 10px;
   }
+
   .history-box .transaction {
-    font-size:10px;
+    font-size: 10px;
   }
+
   .update-profile-grid .image {
     display: none;
   }
+
   .update-profile-grid .col-span-6 {
     grid-column: span 12 / span 12;
   }
+
   .update-profile-grid {
     margin-top: 50px;
     background: white;
@@ -1055,11 +1244,13 @@ body {
     margin-left: 20px;
     margin-right: 20px;
   }
-  .update-profile-grid .form > div {
+
+  .update-profile-grid .form>div {
     width: 100%;
   }
+
   .page-grid {
-    padding-left:20px;
-    padding-right:20px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }

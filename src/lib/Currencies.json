@@ -1,0 +1,14 @@
+{
+    "USDT": {
+        "name": "USDT",
+        "logoURI": "/img/logos/usdt.png"
+    },
+    "ETHER": {
+        "name": "ETHER",
+        "logoURI": "/img/logos/eth.png"
+    },
+    "ARS": {
+        "name": "ARS",
+        "logoURI": "/img/logos/ars.png"
+    }
+}
