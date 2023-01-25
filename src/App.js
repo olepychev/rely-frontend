@@ -24,6 +24,7 @@ import DepositUSDT from "./components/DepositUSDT";
 import WithdrawEth from "./components/WithdrawETH";
 import Swap from "./components/Swap/Swap";
 import VerifyUser from "./components/VerifyUser";
+import Loading from "./components/Loading";
 
 const App = () => {
 
@@ -59,6 +60,7 @@ const App = () => {
         </Routes>
       </div>
       <Footer />
+      <Loading />
     </div>
   );
 };

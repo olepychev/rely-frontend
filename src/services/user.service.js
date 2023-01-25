@@ -77,12 +77,12 @@ const withdraw_money = (acc_number, withdrawAmount, description) => {
   );
 };
 
-const stake_money = (acc_number, lock_weeks, amount) => {
+const stake_money = (acc_number, lock_days, amount) => {
   return axios.post(
     API_URL + "user/stake/",
     {
       acc_number,
-      lock_weeks,
+      lock_days,
       amount,
     },
     { headers: authHeader() }
