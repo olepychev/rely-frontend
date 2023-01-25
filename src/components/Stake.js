@@ -22,7 +22,7 @@ const Stake = () => {
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
   const [balanceARS, setBalanceARS] = useState("");
-  const [balanceUSDT, setBalanceUSDT] = useState("");
+  const [balanceUSDT, setBalanceUSDT] = useState(0);
   const [transactions, setTransactions] = useState([]);
   const [showStakeModal, setShowStakeModal] = useState(false);
   const [showUnstakeModal, setShowUnstakeModal] = useState(false);
@@ -52,7 +52,7 @@ const Stake = () => {
     });
 
     UserService.get_usdt_user_balance(currentUser.id).then((response) => {
-      setBalanceUSDT(currencyFormat(response.data));
+      setBalanceUSDT(response.data);
     });
 
     UserService.get_transaction_history(currentUser.accountNumber).then(
@@ -92,6 +92,9 @@ const Stake = () => {
           error.toString();
         setMessage(resMessage);
         setSuccessful(false);
+        setTimeout(() => {
+          setMessage("")
+        }, 2000);
       }
     );
   };
@@ -119,15 +122,13 @@ const Stake = () => {
           error.toString();
         setMessage(resMessage);
         setSuccessful(false);
+        setTimeout(() => {
+          setMessage("")
+        }, 2000);
       }
     );
   };
   const onClickStake = () => {
-    const stakeAmount = parseFloat(stake.split(",").join("").split("$").join(""));
-    if (!(stakeAmount && days)) {
-      setMessage('Missing fields!');
-      return;
-    }
     setMessage("");
     setShowStakeModal(true);
   }
@@ -214,7 +215,7 @@ const Stake = () => {
               <i className="fa-solid fa-wallet"></i> Balance USDT
             </h2>
             <p>
-              {balanceUSDT} <span>USDT</span>
+              {balanceUSDT ? currencyFormat(balanceUSDT) : 0} <span>USDT</span>
             </p>
           </div>
           <div className="col-span-2 box shadow">
@@ -235,25 +236,27 @@ const Stake = () => {
         <div className="flex gap-2 board-secondary-grid">
           <div className="staking-box shadow box-left">
             <h2 className="mb-4">Stake USDT</h2>
-            {!successful && (
-              <div>
-                <div className="form-group mb-1">
-                  <div className="mb-1">
-                    <label className="text-xs">Amount</label>
-                    <CurrencyInput
-                      id="input-example"
-                      name="amount"
-                      placeholder="Por favor ingrese el monto"
-                      defaultValue={0}
-                      decimalsLimit={2}
-                      decimalSeparator="."
-                      groupSeparator=","
-                      prefix="$"
-                      onValueChange={(value) => (value = { stake })}
-                      onChange={onChangeStake}
-                    />
-                  </div>
-                  {/* <Input
+            <div>
+              <div className="form-group mb-1">
+                <div className="mb-1">
+                  <label className="text-xs">Amount</label>
+                  <CurrencyInput
+                    id="input-example"
+                    name="amount"
+                    placeholder="Por favor ingrese el monto"
+                    defaultValue={0}
+                    decimalsLimit={2}
+                    decimalSeparator="."
+                    groupSeparator=","
+                    prefix="$"
+                    onValueChange={(value) => (value = { stake })}
+                    onChange={onChangeStake}
+                  />
+                </div>
+                {parseFloat(stake.split(",").join("").split("$").join("")) > balanceUSDT &&
+                  <p className="text-xs text-red-600">Not enough balance.</p>
+                }
+                {/* <Input
                       type="text"
                       className="form-control"
                       name="stake"
@@ -261,32 +264,31 @@ const Stake = () => {
                       onChange={onChangeStake}
                       placeholder="0.00"
                     /> */}
-                  <div>
-                    <label className="text-xs">LockTime</label>
-                    <Dropdown options={['15 days', '1 month', '3 months', '6 months', '12 months']} onChange={onChangeDays} />
-                  </div>
+                <div>
+                  <label className="text-xs">LockTime</label>
+                  <Dropdown options={['15 days', '1 month', '3 months', '6 months', '12 months']} onChange={onChangeDays} />
                 </div>
-                <p className="text-xs text-gray-500">25% unstaking fee until 10 days</p>
-                <button className='w-full text-white bg-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-500  font-medium rounded-lg text-sm py-2.5 text-center my-3' onClick={onClickStake}>Stake</button>
-                {showStakeModal &&
-                  <div className="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto bg-black bg-opacity-30 md:inset-0 h-modal md:h-full">
-                    <div className="flex justify-center mt-20">
-                      <div className="shadow-md rounded-md text-center bg-white px-10 py-5 text-gray-600">
-                        <h1 className="mb-5">Do you really want to stake <b>{stake}</b> for <b>{days}</b> days?</h1>
-                        <div className="flex justify-end items-center">
-                          <button className="text-white bg-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-500  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2" onClick={handleStake}>Yes</button>
-                          <button className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10" onClick={() => setShowStakeModal(false)}>No</button>
-                        </div>
+              </div>
+              <p className="text-xs text-gray-500">25% unstaking fee until 10 days</p>
+              <button disabled={!(parseFloat(stake.split(",").join("").split("$").join("")) && days) || parseFloat(stake.split(",").join("").split("$").join("")) > balanceUSDT} className='w-full text-white bg-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-500  font-medium rounded-lg text-sm py-2.5 text-center my-3' onClick={onClickStake}>Stake</button>
+              {showStakeModal &&
+                <div className="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto bg-black bg-opacity-30 md:inset-0 h-modal md:h-full">
+                  <div className="flex justify-center mt-20">
+                    <div className="shadow-md rounded-md text-center bg-white px-10 py-5 text-gray-600">
+                      <h1 className="mb-5">Do you really want to stake <b>{stake}</b> for <b>{days}</b> days?</h1>
+                      <div className="flex justify-end items-center">
+                        <button className="text-white bg-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-500  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2" onClick={handleStake}>Yes</button>
+                        <button className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10" onClick={() => setShowStakeModal(false)}>No</button>
                       </div>
                     </div>
                   </div>
-                }
+                </div>
+              }
 
-                {/* <button onClick={handleUnstake} className="btn-unstake">
+              {/* <button onClick={handleUnstake} className="btn-unstake">
                     <span>Withdraw</span>
                   </button> */}
-              </div>
-            )}
+            </div>
 
           </div>
           <div>
@@ -316,7 +318,7 @@ const Stake = () => {
                       <td className="px-6 py-4 text-center">
                         <button onClick={onClickUnstake}><FontAwesomeIcon icon={faMoneyBillTrendUp} /></button>
                         {showUnstakeModal &&
-                          <div className="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto bg-black bg-opacity-30 md:inset-0 h-modal md:h-full">
+                          <div className="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
                             <div className="flex justify-center mt-20">
                               <div className="shadow-md rounded-md text-center bg-white px-10 py-5 text-gray-600">
                                 <h1 className="mb-5">Do you really want to unstake?</h1>

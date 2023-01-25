@@ -3,6 +3,7 @@ import TokenSelect from './TokenSelect';
 import Currencies from '../../lib/Currencies.json';
 import UserService from '../../services/user.service';
 import AuthService from '../../services/auth.service';
+import { showLoading, hideLoading } from '../../lib/uiService';
 
 const Swap = () => {
 
@@ -116,18 +117,20 @@ const Swap = () => {
   }
 
   const handleSwap = () => {
+    showLoading();
     if (fromToken && toToken) {
       if (fromToken.name === 'ARS') {
         if (toToken.name === 'USDT') {
           UserService.exchange_ars_to_usdt(currentUser.accountNumber, amount, receiveAmount).then((response) => {
+            hideLoading();
             setMessage(response.data);
             setSuccessful(true);
-            console.log(response);
             window.setTimeout(function () {
               window.location.reload();
             }, 1500);
           },
             (error) => {
+              hideLoading();
               const resMessage =
                 (error.response &&
                   error.response.data &&
@@ -136,19 +139,23 @@ const Swap = () => {
                 error.toString();
               setSuccessful(false);
               setMessage(resMessage);
+              setTimeout(() => {
+                setMessage("");
+              }, 2000);
             })
         }
         else if (toToken.name === 'ETHER') {
           UserService.get_eth_rate().then((response) => {
             UserService.exchange_ars_to_eth(currentUser.accountNumber, amount, receiveAmount).then((response) => {
+              hideLoading();
               setMessage(response.data);
               setSuccessful(true);
-              console.log(response);
               window.setTimeout(function () {
                 window.location.reload();
               }, 1500);
             },
               (error) => {
+                hideLoading();
                 const resMessage =
                   (error.response &&
                     error.response.data &&
@@ -157,6 +164,9 @@ const Swap = () => {
                   error.toString();
                 setSuccessful(false);
                 setMessage(resMessage);
+                setTimeout(() => {
+                  setMessage("");
+                }, 2000);
               })
           })
         }
@@ -166,14 +176,15 @@ const Swap = () => {
           if (toToken.name === 'ETHER') {
             UserService.get_eth_usdt_rate().then((response) => {
               UserService.exchange_usdt_to_eth(currentUser.accountNumber, amount, receiveAmount).then((response) => {
+                hideLoading();
                 setMessage(response.data);
                 setSuccessful(true);
-                console.log(response);
                 window.setTimeout(function () {
                   window.location.reload();
                 }, 1500);
               },
                 (error) => {
+                  hideLoading();
                   const resMessage =
                     (error.response &&
                       error.response.data &&
@@ -182,20 +193,24 @@ const Swap = () => {
                     error.toString();
                   setSuccessful(false);
                   setMessage(resMessage);
+                  setTimeout(() => {
+                    setMessage("");
+                  }, 2000);
                 })
             })
           }
           else if (toToken.name === 'ARS') {
             UserService.get_usdt_rate().then((response) => {
               UserService.exchange_usdt_to_ars(currentUser.accountNumber, amount, receiveAmount).then((response) => {
+                hideLoading();
                 setMessage(response.data);
                 setSuccessful(true);
-                console.log(response);
                 window.setTimeout(function () {
                   window.location.reload();
                 }, 1500);
               },
                 (error) => {
+                  hideLoading();
                   const resMessage =
                     (error.response &&
                       error.response.data &&
@@ -204,6 +219,9 @@ const Swap = () => {
                     error.toString();
                   setSuccessful(false);
                   setMessage(resMessage);
+                  setTimeout(() => {
+                    setMessage("");
+                  }, 2000);
                 })
             })
           }
@@ -212,14 +230,15 @@ const Swap = () => {
           if (toToken.name === 'USDT') {
             UserService.get_eth_usdt_rate().then((response) => {
               UserService.exchange_eth_to_usdt(currentUser.accountNumber, amount, receiveAmount).then((response) => {
+                hideLoading();
                 setMessage(response.data);
                 setSuccessful(true);
-                console.log(response);
                 window.setTimeout(function () {
                   window.location.reload();
                 }, 1500);
               },
                 (error) => {
+                  hideLoading();
                   const resMessage =
                     (error.response &&
                       error.response.data &&
@@ -228,20 +247,24 @@ const Swap = () => {
                     error.toString();
                   setSuccessful(false);
                   setMessage(resMessage);
+                  setTimeout(() => {
+                    setMessage("");
+                  }, 2000);
                 })
             })
           }
           else if (toToken.name === 'ARS') {
             UserService.get_eth_rate().then((response) => {
               UserService.exchange_eth_to_ars(currentUser.accountNumber, amount, receiveAmount).then((response) => {
+                hideLoading();
                 setMessage(response.data);
                 setSuccessful(true);
-                console.log(response);
                 window.setTimeout(function () {
                   window.location.reload();
                 }, 1500);
               },
                 (error) => {
+                  hideLoading();
                   const resMessage =
                     (error.response &&
                       error.response.data &&
@@ -250,6 +273,9 @@ const Swap = () => {
                     error.toString();
                   setSuccessful(false);
                   setMessage(resMessage);
+                  setTimeout(() => {
+                    setMessage("");
+                  }, 2000);
                 })
             })
           }
@@ -258,9 +284,9 @@ const Swap = () => {
     }
   }
   return (
-    <div className='flex justify-center px-32 py-20'>
-      <div>
-        {!successful &&
+    <div>
+      <div className='flex justify-center px-32 py-20'>
+        <div>
           <div className='px-20 py-20 w-[600px] shadow-md rounded-lg bg-white'>
             <div className='flex flex-col gap-1 mb-12'>
               <TokenSelect
@@ -282,30 +308,32 @@ const Swap = () => {
             </div>
             <div className='mb-12'>
               <p className='text-sm font-bold'>Amount</p>
-              <input className='bg-[#e5e7eb] border-0 rounded-md w-full' type='number' placeholder={0} onChange={(e) => setAmount(e.target.value)} />
+              <input className='bg-[#e5e7eb] border-0 rounded-md w-full mb-1' type='number' placeholder={0} onChange={(e) => setAmount(e.target.value)} />
+              {amount > fromBalance &&
+                <p className='text-xs text-red-600'>Not enough balance</p>
+              }
             </div>
             <p className='rounded-md bg-[#e5e7eb] px-2 py-2 mb-12 font-bold'>You will receive: {receiveAmount ? currencyFormat(receiveAmount) : 0}</p>
             <div className='flex justify-center w-full '>
-              <button className='text-white bg-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-500  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2' onClick={handleSwap}>Swap</button>
+              <button disabled={!amount || amount > fromBalance} className='text-white bg-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-500  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2' onClick={handleSwap}>Swap</button>
             </div>
           </div>
-        }
-
-        {message && (
-          <div className="form-group">
-            <div
-              className={
-                successful
-                  ? "bg-yellow-100 border border-yellow-400 yellow-red-700 px-4 py-3 rounded relative"
-                  : "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-              }
-              role="alert"
-            >
-              {message}
-            </div>
-          </div>
-        )}
+        </div>
       </div>
+      {message && (
+        <div className="form-group fixed top-20 left-1/2 -translate-x-1/2">
+          <div
+            className={
+              successful
+                ? "bg-yellow-100 border border-yellow-400 yellow-red-700 px-4 py-3 rounded relative"
+                : "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+            }
+            role="alert"
+          >
+            {message}
+          </div>
+        </div>
+      )}
     </div>
 
   );
