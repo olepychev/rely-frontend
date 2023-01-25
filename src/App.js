@@ -23,6 +23,7 @@ import DepositETH from "./components/DepositETH";
 import DepositUSDT from "./components/DepositUSDT";
 import WithdrawEth from "./components/WithdrawETH";
 import Swap from "./components/Swap/Swap";
+import VerifyUser from "./components/VerifyUser";
 
 const App = () => {
 
@@ -35,6 +36,7 @@ const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/confirm/:confirmationCode" element={<VerifyUser />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/kyc" element={<KYCForm />} />
           <Route path="/dashboard" element={<BoardUser />} />

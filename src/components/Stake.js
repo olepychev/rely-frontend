@@ -26,7 +26,6 @@ const Stake = () => {
   const onChangeStake = (e) => {
     const stake = e.target.value;
     setStake(stake);
-    console.log(stake);
   };
 
   const onChangeWeeks = (e) => {
@@ -67,7 +66,6 @@ const Stake = () => {
       (response) => {
         setMessage(response.data);
         setSuccessful(true);
-        console.log(response);
         window.setTimeout(function () {
           window.location.reload();
         }, 1500);

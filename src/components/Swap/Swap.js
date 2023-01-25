@@ -106,13 +106,11 @@ const Swap = () => {
           }
         }
       }
-      console.log("asdfasdfasd")
     }
   }, [fromToken, toToken, amount])
 
   function currencyFormat(num) {
     if (num) {
-      console.log(num)
       return num.toFixed(2);
     }
   }
@@ -257,7 +255,6 @@ const Swap = () => {
           }
         }
       }
-      console.log("asdfasdfasd")
     }
   }
   return (

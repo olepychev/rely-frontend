@@ -26,6 +26,7 @@ const BoardUser = () => {
   useEffect(() => {
     const currentUser = AuthService.getCurrentUser();
     UserService.get_user_balance(currentUser.id).then((response) => {
+      console.log("type------------------", typeof response.data)
       setBalanceARS(currencyFormat(response.data));
     });
 
@@ -39,9 +40,9 @@ const BoardUser = () => {
       }
     );
 
-    UserService.get_user_staked_balance(currentUser.id).then((response) => {
-      setStakedBalance(currencyFormat(response.data));
-    });
+    // UserService.get_user_staked_balance(currentUser.id).then((response) => {
+    //   setStakedBalance(currencyFormat(response.data));
+    // });
   }, []);
 
   const listItems = transactions

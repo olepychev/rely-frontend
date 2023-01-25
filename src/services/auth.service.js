@@ -17,7 +17,7 @@ const register = (firstname, lastname, email, dni, birthdate, address, phone, pa
     phone,
     password,
     roles: ["user"],
-    });
+  });
 };
 
 
@@ -26,7 +26,7 @@ const getUserById = (id) => {
 }
 
 
-const login = (email, password) => {
+const login = async (email, password) => {
   return axios
     .post(API_URL + "signin", {
       email,
@@ -47,11 +47,20 @@ const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
 
+const verifyUser = async (confirmationCode) => {
+  return axios
+    .get(API_URL + `confirm/${confirmationCode}`)
+    .then((response) => {
+      return response.data
+    })
+}
+
 const AuthService = {
   register,
   login,
   logout,
   getCurrentUser,
   getUserById,
+  verifyUser
 };
 export default AuthService;
