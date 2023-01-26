@@ -270,7 +270,7 @@ const Stake = () => {
                 </div>
               </div>
               <p className="text-xs text-gray-500">25% unstaking fee until 10 days</p>
-              <button disabled={!(parseFloat(stake.split(",").join("").split("$").join("")) && days) || parseFloat(stake.split(",").join("").split("$").join("")) > balanceUSDT} className='w-full text-white bg-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-500  font-medium rounded-lg text-sm py-2.5 text-center my-3' onClick={onClickStake}>Stake</button>
+              <button disabled={!(parseFloat(stake.split(",").join("").split("$").join("")) && days) || parseFloat(stake.split(",").join("").split("$").join("")) > balanceUSDT} className='w-full text-white bg-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-500  font-medium rounded-lg text-sm py-2.5 text-center my-3 disabled:bg-gray-200 disabled:border-gray-200 disabled:text-gray-400' onClick={onClickStake}>Stake</button>
               {showStakeModal &&
                 <div className="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto bg-black bg-opacity-30 md:inset-0 h-modal md:h-full">
                   <div className="flex justify-center mt-20">

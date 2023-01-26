@@ -21,7 +21,8 @@ import Stake from "./components/Stake";
 import Wallet from "./components/Wallet";
 import DepositETH from "./components/DepositETH";
 import DepositUSDT from "./components/DepositUSDT";
-import WithdrawEth from "./components/WithdrawETH";
+import WithdrawEth from "./components/WithdrawCrypto/WithdrawETH";
+import WithdrawUsdt from "./components/WithdrawCrypto/WithdrawUSDT";
 import Swap from "./components/Swap/Swap";
 import VerifyUser from "./components/VerifyUser";
 import Loading from "./components/Loading";
@@ -56,6 +57,7 @@ const App = () => {
           <Route path="/deposit-eth" element={<DepositETH />} />
           <Route path="/deposit-usdt" element={<DepositUSDT />} />
           <Route path="/withdraw-eth" element={<WithdrawEth />} />
+          <Route path="/withdraw-usdt" element={<WithdrawUsdt />} />
           <Route path="/swap" element={<Swap />} />
         </Routes>
       </div>

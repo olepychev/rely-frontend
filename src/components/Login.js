@@ -4,6 +4,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import AuthService from "../services/auth.service";
+import { showLoading, hideLoading } from "../lib/uiService";
 const required = (value) => {
   if (!value) {
     return (
@@ -38,12 +39,15 @@ const Login = () => {
     setLoading(true);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
+      showLoading();
       AuthService.login(username, password).then(
         () => {
+          hideLoading();
           navigate("/dashboard");
           window.location.reload();
         },
         (error) => {
+          hideLoading();
           const resMessage =
             (error.response &&
               error.response.data &&

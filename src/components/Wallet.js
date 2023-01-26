@@ -52,7 +52,7 @@ const Wallet = () => {
     });
 
     UserService.get_ether_user_balance(currentUser.id).then((response) => {
-      setBalanceETH(response.data);
+      setBalanceETH(response.data.toFixed(2));
     });
 
     UserService.get_transaction_history(currentUser.accountNumber).then(
@@ -164,7 +164,7 @@ const Wallet = () => {
               </div>
               <div className="col-span-3">{balanceUSDT}</div>
               <div className="col-span-3">
-                <a href="/deposit-usdt">Depositar</a> <a href="#">Retirar</a>
+                <a href="/deposit-usdt">Depositar</a> <a href="/withdraw-usdt">Retirar</a>
               </div>
             </div>
           </div>

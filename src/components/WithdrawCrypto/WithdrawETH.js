@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import UserService from "../services/user.service";
-import WithdrawService from "../services/withdraw.service";
-import AuthService from "../services/auth.service";
-import CheckButton from "react-validation/build/button";
+import UserService from "../../services/user.service";
+import WithdrawService from "../../services/withdraw.service";
+import AuthService from "../../services/auth.service";
 import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import Select from "react-validation/build/select";
 import { Link } from "react-router-dom";
 import CurrencyInput from "react-currency-input-field";
+import { showLoading, hideLoading } from "../../lib/uiService";
+import { ethers } from "ethers";
 
 const required = (value) => {
   if (!value) {
@@ -23,16 +22,15 @@ const required = (value) => {
 };
 
 const WithdrawEth = () => {
-  const form = useRef();
-  const checkBtn = useRef();
   const [description, setDescription] = useState("");
   const [withdrawAmount, setWithdrawAmount] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
-  const [selected, setSelected] = useState("");
-  const [user_id, setUserId] = useState("");
+  const [accNumber, setAccNumber] = useState(0);
   const [ethAddress, setEthAddress] = useState("");
+  const [ethBalance, setEthBalance] = useState(0);
   const [content, setContent] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const onChangeWithdrawAmount = (e) => {
     const withdrawAmount = e.target.value;
@@ -44,38 +42,42 @@ const WithdrawEth = () => {
     setEthAddress(ethAddress);
   };
 
-  const handleChange = (event) => {};
   useEffect(() => {
     const currentUser = AuthService.getCurrentUser();
-    setUserId(currentUser.id);
-    console.log(currentUser.id);
-    console.log(ethAddress);
+    setAccNumber(currentUser.accountNumber);
+    UserService.get_ether_user_balance(currentUser.id).then((response) => {
+      setEthBalance(response.data);
+    })
   }, []);
+  const withAmount = parseFloat(withdrawAmount.split(",").join("").split("$").join(""));
 
   const withdrawEth = (e) => {
     e.preventDefault();
+    setShowModal(false);
     setMessage("");
     setSuccessful(false);
-    form.current.validateAll();
-    if (checkBtn.current.context._errors.length === 0) {
-      WithdrawService.withdraw_eth(user_id, withdrawAmount, ethAddress).then(
-        (response) => {
-          setMessage(response.data.message);
-          setSuccessful(true);
-          setContent(response.data.content);
-        },
-        (error) => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-          setMessage(resMessage);
-          setSuccessful(false);
-        }
-      );
-    }
+    showLoading();
+    WithdrawService.withdraw_eth(accNumber, withAmount, ethAddress).then(
+      (response) => {
+        hideLoading();
+        setMessage(response.data);
+        setSuccessful(true);
+        setContent(response.data.content);
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000)
+      },
+      (error) => {
+        hideLoading();
+        const resMessage =
+          (error.response &&
+            error.response.data) ||
+          error.message ||
+          error.toString();
+        setMessage(resMessage);
+        setSuccessful(false);
+      }
+    );
   };
 
   return (
@@ -94,19 +96,24 @@ const WithdrawEth = () => {
         <div className="grid grid-cols-12 gap-2 board-secondary-grid">
           <div className="col-span-12 box add-box shadow">
             <h2>Retirar Fondos</h2>
-            <Form onSubmit={withdrawEth} ref={form}>
+            <div>
               {!successful && (
                 <div>
-                  <div className="form-group">
+                  <div className="">
+                    <label className="text-xs text-gray-600 font-bold">Wallet address</label>
                     <input
                       id="eth-address"
                       type="text"
-                      className="form-control"
+                      className="mb-1"
                       name="ethAddress"
                       value={ethAddress}
                       onChange={onChangeEthAddress}
                       validations={[required]}
                     />
+                    {!ethers.utils.isAddress(ethAddress) &&
+                      <p className="text-red-600 text-xs">Not a valid address</p>
+                    }
+                    <label className="text-xs text-gray-600 font-bold mt-3">Withdraw amount in ETHER</label>
                     <CurrencyInput
                       id="input-example"
                       name="amount"
@@ -118,11 +125,14 @@ const WithdrawEth = () => {
                       prefix=""
                       onValueChange={(value) => (value = { withdrawAmount })}
                       onChange={onChangeWithdrawAmount}
+                      className="mb-1"
                     />
+                    <p className="text-gray-600 text-xs">Your balance: {ethBalance.toFixed(3)}</p>
+                    {ethBalance < withAmount &&
+                      <p className="text-red-600 text-xs">Not enough balance</p>
+                    }
                   </div>
-                  <div className="form-group"></div>
-                  {/* <p>25% unstaking fee until 10 days</p> */}
-                  <button className="btn-unstake">
+                  <button disabled={!(withAmount && ethAddress) || ethBalance < withAmount || !ethers.utils.isAddress(ethAddress)} className="btn-unstake disabled:bg-gray-200 disabled:border-gray-200 disabled:text-gray-400" tabIndex={-1} onClick={() => setShowModal(true)}>
                     <span>Retirar</span>
                   </button>
                 </div>
@@ -141,11 +151,23 @@ const WithdrawEth = () => {
                   </div>
                 </div>
               )}
-              <CheckButton style={{ display: "none" }} ref={checkBtn} />
-            </Form>
+            </div>
           </div>
         </div>
       </div>
+      {showModal &&
+        <div className="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto bg-black bg-opacity-30 md:inset-0 h-modal md:h-full">
+          <div className="flex justify-center mt-20">
+            <div className="shadow-md rounded-md text-center bg-white px-10 py-5 text-gray-600">
+              <h1 className="mb-5">Do you really want to withdraw <b>{withdrawAmount}</b> ETHER?</h1>
+              <div className="flex justify-end items-center">
+                <button className="text-white bg-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-500  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2" onClick={withdrawEth}>Yes</button>
+                <button className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10" onClick={() => setShowModal(false)}>No</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
     </div>
   );
 };

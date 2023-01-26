@@ -5,6 +5,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import AuthService from "../services/auth.service";
+import { showLoading, hideLoading } from "../lib/uiService";
 const required = (value) => {
   if (!value) {
     return (
@@ -103,6 +104,7 @@ const Register = () => {
     setSuccessful(false);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
+      showLoading();
       AuthService.register(
         firstname,
         lastname,
@@ -114,11 +116,13 @@ const Register = () => {
         password
       ).then(
         (response) => {
+          hideLoading();
           setMessage(response.data.message);
           setSuccessful(true);
           navigate("/login");
         },
         (error) => {
+          hideLoading();
           const resMessage =
             (error.response &&
               error.response.data &&

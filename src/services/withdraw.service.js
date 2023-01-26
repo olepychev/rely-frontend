@@ -3,20 +3,33 @@ import authHeader from "./auth.header";
 const API_URL = "http://localhost:8080/api/";
 // const API_URL = "https://seashell-app-jatrt.ondigitalocean.app/api/";
 
-const withdraw_eth = (id, amount, eth_address) => {
+const withdraw_eth = (acc_number, amount, to_address) => {
     return axios.post(
-        API_URL + "withdraw/eth/",
+        API_URL + "user/withdraw/eth/",
         {
-        id,
-        amount,
-        eth_address,
+            acc_number,
+            amount,
+            to_address,
         },
         { headers: authHeader() }
     );
-    };
+};
+
+const withdraw_usdt = (acc_number, amount, to_address) => {
+    return axios.post(
+        API_URL + "user/withdraw/usdt/",
+        {
+            acc_number,
+            amount,
+            to_address,
+        },
+        { headers: authHeader() }
+    );
+};
 
 const WithdrawService = {
     withdraw_eth,
+    withdraw_usdt,
 };
 
 export default WithdrawService;

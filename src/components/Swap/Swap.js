@@ -315,7 +315,7 @@ const Swap = () => {
             </div>
             <p className='rounded-md bg-[#e5e7eb] px-2 py-2 mb-12 font-bold'>You will receive: {receiveAmount ? currencyFormat(receiveAmount) : 0}</p>
             <div className='flex justify-center w-full '>
-              <button disabled={!amount || amount > fromBalance} className='text-white bg-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-500  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2' onClick={handleSwap}>Swap</button>
+              <button disabled={!amount || amount > fromBalance} className='text-white bg-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-500  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 disabled:bg-gray-200 disabled:border-gray-200 disabled:text-gray-400' onClick={handleSwap}>Swap</button>
             </div>
           </div>
         </div>
