@@ -9,7 +9,9 @@ const BoardAdmin = () => {
   const [users, setUsers] = useState([]);
 
   function currencyFormat(num) {
-    return "$" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    if (num) {
+      return "$" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    }
   }
   useEffect(() => {
     AdminService.get_users().then((response) => {

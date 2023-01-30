@@ -117,16 +117,14 @@ const Register = () => {
       ).then(
         (response) => {
           hideLoading();
-          setMessage(response.data.message);
+          setMessage(response.data);
           setSuccessful(true);
-          navigate("/login");
         },
         (error) => {
           hideLoading();
           const resMessage =
             (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
+              error.response.data) ||
             error.message ||
             error.toString();
           setMessage(resMessage);
@@ -243,7 +241,7 @@ const Register = () => {
                 <div className="form-group">
                   <div
                     className={
-                      successful ? "alert alert-success" : "alert alert-danger"
+                      successful ? "text-green-700" : "text-red-700"
                     }
                     role="alert"
                   >

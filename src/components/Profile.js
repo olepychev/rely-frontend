@@ -15,7 +15,7 @@ const Profile = () => {
             Tu Perfil{" "}
             <p className="no-verified">
               <i className="fa-solid fa-ban"></i> No Verificado{" "}
-              <a href="/kyc">- Enviar Documentacion</a>
+              <a href="/kyc/dni">- Enviar Documentacion</a>
             </p>
           </h2>
           <p>

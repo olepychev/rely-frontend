@@ -11,17 +11,24 @@ const VerifyUser = () => {
     AuthService.verifyUser(confirmationCode).then((response) => {
       setMessage(response);
       setConfirmed(true);
+      setTimeout(() => {
+        window.location.href = '/login';
+      }, 2000)
     }, (err) => {
       setConfirmed(false);
-      setMessage(err.response.data);
+      const resMessage =
+        (err.response && err.response.data) ||
+        err.message ||
+        err.toString();
+      setMessage(resMessage);
       setTimeout(() => {
         window.location.href = '/';
       }, 2000)
     });
   });
   return (
-    <>
-      <div className='flex justify-center'>
+    <div className='flex justify-center'>
+      {message &&
         <div
           className={
             confirmed
@@ -32,8 +39,8 @@ const VerifyUser = () => {
         >
           {message}
         </div>
-      </div>
-    </>
+      }
+    </div>
   );
 }
 export default VerifyUser;

@@ -53,6 +53,12 @@ const get_transaction_history = (acc_number) => {
   });
 };
 
+const get_staking_history = (acc_number) => {
+  return axios.get(API_URL + "user/staking_transaction/" + acc_number, {
+    headers: authHeader(),
+  });
+};
+
 const deposit_funds = (acc_number, depositAmount, description) => {
   return axios.post(
     API_URL + "user/deposit/",
@@ -192,6 +198,21 @@ const exchange_usdt_to_eth = (acc_number, exchangeAmount, arsAmount) => {
     { headers: authHeader() }
   );
 }
+const upload_id_img = (id, images) => {
+  return axios.post(
+    API_URL + `user/kyc/id_img/${id}`,
+    images,
+    { headers: authHeader() }
+  );
+}
+
+const upload_docs = (id, docs) => {
+  return axios.post(
+    API_URL + `user/kyc/docs/${id}`,
+    docs,
+    { headers: authHeader() }
+  );
+}
 
 const UserService = {
   getPublicContent,
@@ -203,6 +224,7 @@ const UserService = {
   deposit_funds,
   withdraw_money,
   get_transaction_history,
+  get_staking_history,
   stake_money,
   unstake_money,
   get_user_staked_balance,
@@ -217,5 +239,7 @@ const UserService = {
   exchange_usdt_to_eth,
   get_usdt_user_balance,
   get_ether_user_balance,
+  upload_id_img,
+  upload_docs,
 };
 export default UserService;

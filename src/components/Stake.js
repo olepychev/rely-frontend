@@ -23,7 +23,7 @@ const Stake = () => {
   const [message, setMessage] = useState("");
   const [balanceARS, setBalanceARS] = useState("");
   const [balanceUSDT, setBalanceUSDT] = useState(0);
-  const [transactions, setTransactions] = useState([]);
+  // const [transactions, setTransactions] = useState([]);
   const [showStakeModal, setShowStakeModal] = useState(false);
   const [showUnstakeModal, setShowUnstakeModal] = useState(false);
   const onChangeStake = (e) => {
@@ -35,8 +35,8 @@ const Stake = () => {
     switch (e.value) {
       case '15 days': setDays(15); break;
       case '1 month': setDays(30); break;
-      case '3 month': setDays(90); break;
-      case '6 month': setDays(180); break;
+      case '3 months': setDays(90); break;
+      case '6 months': setDays(180); break;
       default: setDays(360);
     }
   }
@@ -55,11 +55,11 @@ const Stake = () => {
       setBalanceUSDT(response.data);
     });
 
-    UserService.get_transaction_history(currentUser.accountNumber).then(
-      (response) => {
-        setTransactions(response.data);
-      }
-    );
+    // UserService.get_staking_history(currentUser.accountNumber).then(
+    //   (response) => {
+    //     setTransactions(response.data);
+    //   }
+    // );
 
     UserService.get_user_staked_balance(currentUser.id).then((response) => {
       setStakings(response.data);
@@ -147,33 +147,33 @@ const Stake = () => {
     else return 0;
   }, [stakings]);
 
-  const listItems = transactions
-    .map((transaction) => (
-      <tr className="bg-white border-b transaction" key={transaction._id}>
-        <td key={transaction.transactionType} className="px-6 py-4">
-          {transaction.transactionType === "Deposito" ? (
-            <i className="fa-solid fa-circle-up green"></i>
-          ) : (
-            <i className="fa-solid fa-circle-down red"></i>
-          )}
-          {transaction.transactionType}
-        </td>
-        <td key={transaction.transactionTime} className="px-6 py-4">
-          {moment(transaction.transactionTime).utc().format("DD/MM/YYYY")}
-        </td>
-        <td key={transaction.status} className="px-6 py-4">
-          {transaction.status === true ? (
-            <span className="green">Aprobado</span>
-          ) : (
-            <span className="red">Pendiente</span>
-          )}
-        </td>
-        <td key={transaction.transactionAmount} className="px-6 py-4">
-          {currencyFormat(transaction.transactionAmount)}
-        </td>
-      </tr>
-    ))
-    .reverse();
+  // const listItems = transactions
+  //   .map((transaction) => (
+  //     <tr className="bg-white border-b transaction" key={transaction._id}>
+  //       <td key={transaction.transactionType} className="px-6 py-4">
+  //         {transaction.transactionType === "Deposito" ? (
+  //           <i className="fa-solid fa-circle-up green"></i>
+  //         ) : (
+  //           <i className="fa-solid fa-circle-down red"></i>
+  //         )}
+  //         {transaction.transactionType}
+  //       </td>
+  //       <td key={transaction.transactionTime} className="px-6 py-4">
+  //         {moment(transaction.transactionTime).utc().format("DD/MM/YYYY")}
+  //       </td>
+  //       <td key={transaction.status} className="px-6 py-4">
+  //         {transaction.status === true ? (
+  //           <span className="green">Aprobado</span>
+  //         ) : (
+  //           <span className="red">Pendiente</span>
+  //         )}
+  //       </td>
+  //       <td key={transaction.transactionAmount} className="px-6 py-4">
+  //         {currencyFormat(transaction.transactionAmount)}
+  //       </td>
+  //     </tr>
+  //   ))
+  //   .reverse();
 
   return (
     <div className="container max-w-none mx-auto board-user">
@@ -310,15 +310,15 @@ const Stake = () => {
                 <tbody>
                   {stakings.length > 0 && stakings.map((staking) => (
                     <tr key={staking._id} className="bg-white border-b">
-                      <td className="px-6 py-4">{staking.stakedDate.toString().slice(0, -5)}</td>
-                      <td className="px-6 py-4">{staking.endDate.toString().slice(0, -5)}</td>
+                      <td className="px-6 py-4">{moment(staking.stakedDate).utc().format("DD/MM/YYYY")}</td>
+                      <td className="px-6 py-4">{moment(staking.endDate).utc().format('DD/MM/YYYY')}</td>
                       <td className="px-6 py-4">{currencyFormat(staking.amount)}</td>
                       <td className="px-6 py-4">{staking.lockedDays}</td>
                       <td className="px-6 py-4">{staking.reward.toFixed(2)}</td>
                       <td className="px-6 py-4 text-center">
                         <button onClick={onClickUnstake}><FontAwesomeIcon icon={faMoneyBillTrendUp} /></button>
                         {showUnstakeModal &&
-                          <div className="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+                          <div className="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto bg-black bg-opacity-30 md:inset-0 h-modal md:h-full">
                             <div className="flex justify-center mt-20">
                               <div className="shadow-md rounded-md text-center bg-white px-10 py-5 text-gray-600">
                                 <h1 className="mb-5">Do you really want to unstake?</h1>
@@ -340,7 +340,7 @@ const Stake = () => {
                   No staking yet!
                 </div>}
             </div>
-            <div className=" box history-box shadow">
+            {/* <div className=" box history-box shadow">
               <h2>Actividad reciente</h2>
               <table className="mt-3 w-full text-sm text-left text-gray-500">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50">
@@ -355,7 +355,7 @@ const Stake = () => {
                   {listItems}
                 </tbody>
               </table>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

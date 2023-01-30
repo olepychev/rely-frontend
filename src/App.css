@@ -953,6 +953,7 @@ body {
 
 .dni-front {
   color: rgba(0, 0, 0, 0);
+  width: 189.5px;
 }
 
 .dni-front::before {
@@ -990,6 +991,7 @@ body {
 
 .dni-back {
   color: rgba(0, 0, 0, 0);
+  width: 189.5px;
 }
 
 .dni-back::before {
@@ -1021,8 +1023,52 @@ body {
   outline: none;
 }
 
+.dni-back::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.docs {
+  color: rgba(0, 0, 0, 0);
+  width: 189.5px;
+}
+
+.docs::before {
+  content: "\f15b";
+  font-family: "FontAwesome";
+  display: inline-block;
+  border: 1px solid #d3d2d2;
+  border-radius: 3px;
+  padding: 40px 60px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 60px;
+  color: #6570e4;
+}
+
+.docs:hover::before {
+  border-color: black;
+}
+
+.docs:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.docs[type="file"]:focus {
+  outline: none;
+}
+
+.docs::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
 .KYC-box {
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .KYC-box input {
@@ -1032,7 +1078,7 @@ body {
 .KYC-box p {
   font-family: "Poppins";
   margin-left: 50px;
-  margin-top: -15px;
+  margin-top: 5px;
   font-weight: 600;
   color: #b0acac;
 }

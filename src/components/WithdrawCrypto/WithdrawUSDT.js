@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import UserService from "../../services/user.service";
 import WithdrawService from "../../services/withdraw.service";
 import AuthService from "../../services/auth.service";
-import Form from "react-validation/build/form";
 import { Link } from "react-router-dom";
 import CurrencyInput from "react-currency-input-field";
 import { showLoading, hideLoading } from "../../lib/uiService";

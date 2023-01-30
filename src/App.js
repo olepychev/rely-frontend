@@ -14,7 +14,8 @@ import EditProfile from "./components/EditProfile";
 import PrivacyPage from "./components/pages/PrivacyPage";
 import TermsPage from "./components/pages/Terms";
 import Contact from "./components/pages/Contact";
-import KYCForm from "./components/KYCForm";
+import IdUpload from "./components/KYC/IdUpload";
+import DocUpload from "./components/KYC/DocUpload";
 import Successful from "./components/Successful";
 import SingleUser from "./components/SingleUser";
 import Stake from "./components/Stake";
@@ -40,7 +41,8 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/confirm/:confirmationCode" element={<VerifyUser />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/kyc" element={<KYCForm />} />
+          <Route path="/kyc/dni" element={<IdUpload />} />
+          <Route path="/kyc/docs" element={<DocUpload />} />
           <Route path="/dashboard" element={<BoardUser />} />
           <Route path="/admin" element={<BoardAdmin />} />
           <Route path="/add" element={<AddFunds />} />

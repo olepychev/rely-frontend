@@ -50,8 +50,7 @@ const Login = () => {
           hideLoading();
           const resMessage =
             (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
+              error.response.data) ||
             error.message ||
             error.toString();
           setLoading(false);
