@@ -15,13 +15,14 @@ const withdraw_eth = (acc_number, amount, to_address) => {
     );
 };
 
-const withdraw_usdt = (acc_number, amount, to_address) => {
+const withdraw_usdt = (acc_number, amount, to_address, chain) => {
     return axios.post(
         API_URL + "user/withdraw/usdt/",
         {
             acc_number,
             amount,
             to_address,
+            chain,
         },
         { headers: authHeader() }
     );

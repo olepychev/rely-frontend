@@ -6,19 +6,8 @@ import { Link } from "react-router-dom";
 import CurrencyInput from "react-currency-input-field";
 import { showLoading, hideLoading } from "../../lib/uiService";
 import { ethers } from "ethers";
-
-const required = (value) => {
-  if (!value) {
-    return (
-      <div
-        className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-        role="alert"
-      >
-        Este campo es obligatorio.
-      </div>
-    );
-  }
-};
+import DropDown from "react-dropdown";
+const TronWeb = require('tronweb');
 
 const WithdrawUsdt = () => {
   const [description, setDescription] = useState("");
@@ -30,6 +19,11 @@ const WithdrawUsdt = () => {
   const [usdtBalance, setUsdtBalance] = useState(0);
   const [content, setContent] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [chain, setChain] = useState("");
+
+  const onChangeChain = (e) => {
+    setChain(e.value);
+  }
 
   const onChangeWithdrawAmount = (e) => {
     const withdrawAmount = e.target.value;
@@ -56,7 +50,7 @@ const WithdrawUsdt = () => {
     setMessage("");
     setSuccessful(false);
     showLoading();
-    WithdrawService.withdraw_usdt(accNumber, withAmount, usdtAddress).then(
+    WithdrawService.withdraw_usdt(accNumber, withAmount, usdtAddress, chain).then(
       (response) => {
         hideLoading();
         setMessage(response.data);
@@ -99,6 +93,8 @@ const WithdrawUsdt = () => {
               {!successful && (
                 <div>
                   <div className="">
+                    <label className="text-xs text-gray-600 font-bold">Chain</label>
+                    <DropDown className="mb-1" options={['ETHEREUM', 'TRON']} onChange={onChangeChain} />
                     <label className="text-xs text-gray-600 font-bold">Wallet address</label>
                     <input
                       id="usdt-address"
@@ -107,9 +103,11 @@ const WithdrawUsdt = () => {
                       name="usdtAddress"
                       value={usdtAddress}
                       onChange={onChangeUsdtAddress}
-                      validations={[required]}
                     />
-                    {!ethers.utils.isAddress(usdtAddress) &&
+                    {chain === "ETHEREUM" && !ethers.utils.isAddress(usdtAddress) &&
+                      <p className="text-red-600 text-xs">Not a valid address</p>
+                    }
+                    {chain === "TRON" && !TronWeb.isAddress(usdtAddress) &&
                       <p className="text-red-600 text-xs">Not a valid address</p>
                     }
                     <label className="text-xs text-gray-600 font-bold mt-3">Withdraw amount in USDT</label>
@@ -131,7 +129,7 @@ const WithdrawUsdt = () => {
                       <p className="text-red-600 text-xs">Not enough balance</p>
                     }
                   </div>
-                  <button disabled={!(withAmount && usdtAddress) || usdtBalance < withAmount || !ethers.utils.isAddress(usdtAddress)} className="btn-unstake disabled:bg-gray-200 disabled:border-gray-200 disabled:text-gray-400" tabIndex={-1} onClick={() => setShowModal(true)}>
+                  <button disabled={!(withAmount && usdtAddress && chain) || usdtBalance < withAmount || chain === "ETHEREUM" && !ethers.utils.isAddress(usdtAddress) || chain === "TRON" && !TronWeb.isAddress(usdtAddress)} className="btn-unstake disabled:bg-gray-200 disabled:border-gray-200 disabled:text-gray-400" tabIndex={-1} onClick={() => setShowModal(true)}>
                     <span>Retirar</span>
                   </button>
                 </div>
