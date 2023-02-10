@@ -59,14 +59,10 @@ const get_staking_history = (acc_number) => {
   });
 };
 
-const deposit_funds = (acc_number, depositAmount, description) => {
+const deposit_funds = (data) => {
   return axios.post(
-    API_URL + "user/deposit/",
-    {
-      acc_number,
-      depositAmount,
-      description,
-    },
+    API_URL + `user/deposit/`,
+    data,
     { headers: authHeader() }
   );
 };
@@ -151,13 +147,13 @@ const exchange_usdt_to_ars = (acc_number, exchangeAmount, arsAmount) => {
   );
 }
 
-const exchange_ars_to_eth = (acc_number, exchangeAmount, arsAmount) => {
+const exchange_ars_to_eth = (acc_number, exchangeAmount, etherAmount) => {
   return axios.post(
     API_URL + "user/exchange_ars_to_ether/",
     {
       acc_number,
       exchangeAmount,
-      arsAmount,
+      etherAmount,
     },
     { headers: authHeader() }
   );
@@ -175,25 +171,25 @@ const exchange_eth_to_ars = (acc_number, exchangeAmount, arsAmount) => {
   );
 }
 
-const exchange_eth_to_usdt = (acc_number, exchangeAmount, arsAmount) => {
+const exchange_eth_to_usdt = (acc_number, exchangeAmount, usdtAmount) => {
   return axios.post(
     API_URL + "user/exchange_ether_to_usdt/",
     {
       acc_number,
       exchangeAmount,
-      arsAmount,
+      usdtAmount,
     },
     { headers: authHeader() }
   );
 }
 
-const exchange_usdt_to_eth = (acc_number, exchangeAmount, arsAmount) => {
+const exchange_usdt_to_eth = (acc_number, exchangeAmount, etherAmount) => {
   return axios.post(
     API_URL + "user/exchange_usdt_to_ether/",
     {
       acc_number,
       exchangeAmount,
-      arsAmount,
+      etherAmount,
     },
     { headers: authHeader() }
   );
