@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import AuthService from "../services/auth.service";
-import UserService from "../services/user.service";
+import AuthService from "../../services/auth.service";
+import UserService from "../../services/user.service";
 import QRCode from "react-qr-code";
 
 const DepositUSDT = () => {
@@ -20,11 +20,11 @@ const DepositUSDT = () => {
               {
                 chain === "ETH" &&
                 <>
-                  <p class="qr-address">
+                  <p className="qr-address">
                     <QRCode value={currentUser.ethAddress} />
                   </p>
                   <h3>Dirección</h3>
-                  <b class="address">{currentUser.ethAddress}</b>
+                  <b className="address">{currentUser.ethAddress}</b>
                   <p>
                     Envía solo <b>USDT</b> a esta dirección de depósito.
                   </p>
@@ -36,11 +36,11 @@ const DepositUSDT = () => {
               {
                 chain === "TRON" &&
                 <>
-                  <p class="qr-address">
+                  <p className="qr-address">
                     <QRCode value={currentUser.tronAddress} />
                   </p>
                   <h3>Dirección</h3>
-                  <b class="address">{currentUser.tronAddress}</b>
+                  <b className="address">{currentUser.tronAddress}</b>
                   <p>
                     Envía solo <b>USDT</b> a esta dirección de depósito.
                   </p>

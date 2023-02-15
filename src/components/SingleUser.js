@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import AdminService from "../services/admin.service";
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
 import { Link, useParams } from "react-router-dom";
 import moment from "moment";
 
@@ -74,7 +72,7 @@ const SingleUser = () => {
       },
       (error) => {
         const resMessage =
-          (error.response && error.response.data && error.response.data) ||
+          (error.response && error.response.data) ||
           error.message ||
           error.toString();
         setMessage(resMessage);
@@ -142,6 +140,7 @@ const SingleUser = () => {
             <span>No hay acciones</span>
           </div>
         )}
+        <img src={transaction.description} />
       </div>
     ))
     .reverse();
@@ -218,7 +217,7 @@ const SingleUser = () => {
                 <span>Acciones</span>
               </div>
             </div>
-            {}
+            { }
             {listItems}
           </div>
         </div>

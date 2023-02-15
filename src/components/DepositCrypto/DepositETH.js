@@ -1,6 +1,6 @@
 import React from "react";
-import AuthService from "../services/auth.service";
-import UserService from "../services/user.service";
+import AuthService from "../../services/auth.service";
+import UserService from "../../services/user.service";
 import QRCode from "react-qr-code";
 
 const DepositETH = () => {
@@ -11,11 +11,11 @@ const DepositETH = () => {
         <div className="grid grid-cols-12 gap-2 board-secondary-grid">
           <div className="col-span-12 box add-box shadow">
             <h2>Depositar ETH</h2>
-            <p class="qr-address">
+            <p className="qr-address">
               <QRCode value={currentUser.ethAddress} />
             </p>
             <h3>Dirección</h3>
-            <b class="address">{currentUser.ethAddress}</b>
+            <b className="address">{currentUser.ethAddress}</b>
             <p>
               Envía solo <b>ETH</b> a esta dirección de depósito.
             </p>
