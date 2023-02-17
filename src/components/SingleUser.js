@@ -12,6 +12,7 @@ const SingleUser = () => {
   const [accountNumber, setAccountNumber] = useState("");
   const [balance, setBalance] = useState("");
   const [stakedBalance, setStakedBalance] = useState("");
+  const [showModal, setShowModal] = useState({});
 
   function currencyFormat(num) {
     return "$" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -84,21 +85,38 @@ const SingleUser = () => {
   const listItems = transactions
     .map((transaction) => (
       <div className="grid grid-cols-12 transaction" key={transaction._id}>
-        <div className="col-span-2">
+        <div className="col-span-2 flex items-center">
           {transaction.transactionType === "Deposito" ? (
             <i className="fa-solid fa-circle-up green"></i>
           ) : (
             <i className="fa-solid fa-circle-down red"></i>
           )}
           {transaction.transactionType}
+          <div className="ml-2">
+            <button className="bg-gray-500 rounded p-1" onClick={() => { setShowModal({ ...showModal, [transaction._id]: true }); }}>
+              open
+            </button>
+            {showModal[transaction._id] &&
+              <div className="fixed top-0 left-0 right-0 z-50 w-full p-14 overflow-x-hidden overflow-y-auto bg-black bg-opacity-30 md:inset-0 h-modal md:h-full">
+                <div className="text-white text-4xl fixed right-5 top-5 cursor-pointer" onClick={() => { setShowModal({ ...showModal, [transaction._id]: false }); }}>&times;</div>
+                {transaction.transactionType === "Deposito" ?
+                  <img className="!w-full h-auto" src={transaction.description} />
+                  :
+                  <div className="flex justify-center mt-40">
+                    <div className="bg-white rounded shadow-md p-3">CBU/CVU: {transaction.description}</div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
         </div>
-        <div className="col-span-2">
+        <div className="col-span-2 flex items-center">
           {moment(transaction.transactionTime).utc().format("DD/MM/YYYY")}
         </div>
-        <div className="col-span-2">
+        <div className="col-span-2 flex items-center">
           <span>Banco</span>
         </div>
-        <div className="col-span-2">
+        <div className="col-span-2 flex items-center">
           {transaction.status === true ? (
             <span className="green">Aprobado</span>
           ) : (
@@ -106,11 +124,11 @@ const SingleUser = () => {
           )}
         </div>
 
-        <div className="col-span-2">
+        <div className="col-span-2 flex items-center">
           <span> {currencyFormat(transaction.transactionAmount)}</span>
         </div>
         {transaction.status === false ? (
-          <div className="col-span-2">
+          <div className="col-span-2 flex items-center">
             <span>
               {transaction.transactionType === "Deposito" ? (
                 <a
@@ -136,11 +154,11 @@ const SingleUser = () => {
             </span>
           </div>
         ) : (
-          <div className="col-span-2">
+          <div className="col-span-2 flex items-center">
             <span>No hay acciones</span>
           </div>
         )}
-        <img src={transaction.description} />
+
       </div>
     ))
     .reverse();
