@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth.header";
-const API_URL = "http://localhost:8080/api/";
-// const API_URL = "https://seashell-app-jatrt.ondigitalocean.app/api/";
+//const API_URL = "http://localhost:8080/api/";
+const API_URL = "https://seashell-app-jatrt.ondigitalocean.app/api/";
 
 const withdraw_eth = (acc_number, amount, to_address) => {
     return axios.post(
