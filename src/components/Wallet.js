@@ -1,14 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import UserService from "../services/user.service";
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
 import AuthService from "../services/auth.service";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import CurrencyInput from "react-currency-input-field";
-import ethLogo from "../img/eth-logo.png";
-import usdtLogo from "../img/tether-usdt-logo.png";
 // import { ethers } from "ethers";
 // import { Contract } from "ethers";
 // import abi from "./abi/ERC20abi.json"
@@ -19,6 +14,8 @@ const Wallet = () => {
   const [balanceUSDT, setBalanceUSDT] = useState("");
   const [transactions, setTransactions] = useState([]);
   const [balanceETH, setBalanceETH] = useState("");
+  const [balanceBTC, setBalanceBTC] = useState("");
+
 
   // const network = "goerli";
   // const provider = ethers.getDefaultProvider(network);
@@ -53,6 +50,10 @@ const Wallet = () => {
 
     UserService.get_ether_user_balance(currentUser.id).then((response) => {
       setBalanceETH(response.data.toFixed(2));
+    });
+
+    UserService.get_btc_user_balance(currentUser.id).then((response) => {
+      setBalanceBTC(response.data.toFixed(4));
     });
 
     UserService.get_transaction_history(currentUser.accountNumber).then(
@@ -137,6 +138,14 @@ const Wallet = () => {
               {balanceUSDT} <span>USDT</span>
             </p>
           </div>
+          <div className="col-span-2 box shadow">
+            <h2>
+              <i className="fa-solid fa-wallet"></i> Balance BTC
+            </h2>
+            <p>
+              {balanceBTC} <span>BTC</span>
+            </p>
+          </div>
         </div>
         <div className="grid grid-cols-12 gap-2 board-secondary-grid">
           <div className="col-span-12 box history-box shadow">
@@ -150,7 +159,7 @@ const Wallet = () => {
             </div>
             <div className="grid grid-cols-12 transaction">
               <div className="col-span-3">
-                <img src={ethLogo} /> <b>ETH</b>
+                <img src='img/logos/eth.png' /> <b>ETH</b>
               </div>
               <div className="col-span-3">{balanceETH}</div>
               <div className="col-span-3">
@@ -160,11 +169,20 @@ const Wallet = () => {
             </div>
             <div className="grid grid-cols-12 transaction">
               <div className="col-span-3">
-                <img src={usdtLogo} /> <b>USDT</b>
+                <img src='img/logos/usdt.png' /> <b>USDT</b>
               </div>
               <div className="col-span-3">{balanceUSDT}</div>
               <div className="col-span-3">
                 <a href="/deposit-usdt">Depositar</a> <a href="/withdraw-usdt">Retirar</a>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 transaction">
+              <div className="col-span-3">
+                <img src='img/logos/btc.png' /> <b>BTC</b>
+              </div>
+              <div className="col-span-3">{balanceBTC}</div>
+              <div className="col-span-3">
+                <a href="/deposit-btc">Depositar</a> <a href="/withdraw-btc">Retirar</a>
               </div>
             </div>
           </div>

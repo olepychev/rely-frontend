@@ -25,7 +25,7 @@ const Stake = () => {
   const [balanceUSDT, setBalanceUSDT] = useState(0);
   // const [transactions, setTransactions] = useState([]);
   const [showStakeModal, setShowStakeModal] = useState(false);
-  const [showUnstakeModal, setShowUnstakeModal] = useState(false);
+  const [showUnstakeModal, setShowUnstakeModal] = useState({});
   const onChangeStake = (e) => {
     const stake = e.target.value;
     setStake(stake);
@@ -132,9 +132,9 @@ const Stake = () => {
     setMessage("");
     setShowStakeModal(true);
   }
-  const onClickUnstake = () => {
+  const onClickUnstake = (id) => {
     setMessage("");
-    setShowUnstakeModal(true);
+    setShowUnstakeModal({ ...showUnstakeModal, [id]: true });
   }
   const totalReward = useMemo(() => {
     if (stakings.length > 0) {
@@ -316,15 +316,15 @@ const Stake = () => {
                       <td className="px-6 py-4">{staking.lockedDays}</td>
                       <td className="px-6 py-4">{staking.reward.toFixed(2)}</td>
                       <td className="px-6 py-4 text-center">
-                        <button onClick={onClickUnstake}><FontAwesomeIcon icon={faMoneyBillTrendUp} /></button>
-                        {showUnstakeModal &&
+                        <button onClick={() => { onClickUnstake(staking._id) }}><FontAwesomeIcon icon={faMoneyBillTrendUp} /></button>
+                        {showUnstakeModal[staking._id] &&
                           <div className="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto bg-black bg-opacity-30 md:inset-0 h-modal md:h-full">
                             <div className="flex justify-center mt-20">
                               <div className="shadow-md rounded-md text-center bg-white px-10 py-5 text-gray-600">
-                                <h1 className="mb-5">Do you really want to unstake?</h1>
+                                <h1 className="mb-5">Do you really want to unstake?{staking.amount}</h1>
                                 <div className="flex justify-end items-center">
                                   <button className="text-white bg-black hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-500  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2" onClick={() => { handleUnstake(staking._id); }}>Yes</button>
-                                  <button className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10" onClick={() => setShowUnstakeModal(false)}>No</button>
+                                  <button className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10" onClick={() => setShowUnstakeModal({ ...showUnstakeModal, [staking._id]: false })}>No</button>
                                 </div>
                               </div>
                             </div>

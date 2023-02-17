@@ -35,6 +35,11 @@ const Swap = () => {
           setFromBalance(res.data);
         })
       }
+      if (fromToken.name === 'BTC') {
+        UserService.get_btc_user_balance(currentUser.id).then((res) => {
+          setFromBalance(res.data);
+        })
+      }
     }
   }, [fromToken]);
 
@@ -52,6 +57,11 @@ const Swap = () => {
       }
       if (toToken.name === 'ETHER') {
         UserService.get_ether_user_balance(currentUser.id).then((res) => {
+          setToBalance(res.data);
+        })
+      }
+      if (toToken.name === 'BTC') {
+        UserService.get_btc_user_balance(currentUser.id).then((res) => {
           setToBalance(res.data);
         })
       }
@@ -75,36 +85,66 @@ const Swap = () => {
             setReceiveAmount(amount / response.ask);
           })
         }
-        else if (toToken.name === 'ETHER') {
+        if (toToken.name === 'ETHER') {
           UserService.get_eth_rate().then((response) => {
             setReceiveAmount(amount / response.ask);
           })
         }
-      }
-      else {
-        if (fromToken.name === 'USDT') {
-          if (toToken.name === 'ETHER') {
-            UserService.get_eth_usdt_rate().then((response) => {
-              setReceiveAmount(amount / response.USDT);
-            })
-          }
-          else if (toToken.name === 'ARS') {
-            UserService.get_usdt_rate().then((response) => {
-              setReceiveAmount(amount * response.ask);
-            })
-          }
+        if (toToken.name === 'BTC') {
+          UserService.get_btc_rate().then((response) => {
+            setReceiveAmount(amount / response.ask);
+          })
         }
-        else if (fromToken.name === 'ETHER') {
-          if (toToken.name === 'USDT') {
-            UserService.get_eth_usdt_rate().then((response) => {
-              setReceiveAmount(amount * response.USDT);
-            })
-          }
-          else if (toToken.name === 'ARS') {
-            UserService.get_eth_rate().then((response) => {
-              setReceiveAmount(amount * response.ask);
-            })
-          }
+      }
+      if (fromToken.name === 'USDT') {
+        if (toToken.name === 'ETHER') {
+          UserService.get_eth_usdt_rate().then((response) => {
+            setReceiveAmount(amount / response.USDT);
+          })
+        }
+        if (toToken.name === 'ARS') {
+          UserService.get_usdt_rate().then((response) => {
+            setReceiveAmount(amount * response.ask);
+          })
+        }
+        if (toToken.name === 'BTC') {
+          UserService.get_btc_usdt_rate().then((response) => {
+            setReceiveAmount(amount / response.USDT);
+          })
+        }
+      }
+      if (fromToken.name === 'ETHER') {
+        if (toToken.name === 'USDT') {
+          UserService.get_eth_usdt_rate().then((response) => {
+            setReceiveAmount(amount * response.USDT);
+          })
+        }
+        if (toToken.name === 'ARS') {
+          UserService.get_eth_rate().then((response) => {
+            setReceiveAmount(amount * response.ask);
+          })
+        }
+        if (toToken.name === 'BTC') {
+          UserService.get_btc_eth_rate().then((response) => {
+            setReceiveAmount(amount / response.ETH);
+          })
+        }
+      }
+      if (fromToken.name === 'BTC') {
+        if (toToken.name === 'USDT') {
+          UserService.get_btc_usdt_rate().then((response) => {
+            setReceiveAmount(amount * response.USDT);
+          })
+        }
+        if (toToken.name === 'ARS') {
+          UserService.get_btc_rate().then((response) => {
+            setReceiveAmount(amount * response.ask);
+          })
+        }
+        if (toToken.name === 'ETHER') {
+          UserService.get_btc_eth_rate().then((response) => {
+            setReceiveAmount(amount * response.ETH);
+          })
         }
       }
     }
@@ -119,152 +159,27 @@ const Swap = () => {
   const handleSwap = () => {
     showLoading();
     if (fromToken && toToken) {
-      if (fromToken.name === 'ARS') {
-        if (toToken.name === 'USDT') {
-          UserService.exchange_ars_to_usdt(currentUser.accountNumber, amount, receiveAmount).then((response) => {
-            hideLoading();
-            setMessage(response.data);
-            setSuccessful(true);
-            window.setTimeout(function () {
-              window.location.reload();
-            }, 1500);
-          },
-            (error) => {
-              hideLoading();
-              const resMessage =
-                (error.response &&
-                  error.response.data) ||
-                error.message ||
-                error.toString();
-              setSuccessful(false);
-              setMessage(resMessage);
-              setTimeout(() => {
-                setMessage("");
-              }, 2000);
-            })
-        }
-        else if (toToken.name === 'ETHER') {
-          UserService.exchange_ars_to_eth(currentUser.accountNumber, amount, receiveAmount).then((response) => {
-            hideLoading();
-            setMessage(response.data);
-            setSuccessful(true);
-            window.setTimeout(function () {
-              window.location.reload();
-            }, 1500);
-          },
-            (error) => {
-              hideLoading();
-              const resMessage =
-                (error.response &&
-                  error.response.data) ||
-                error.message ||
-                error.toString();
-              setSuccessful(false);
-              setMessage(resMessage);
-              setTimeout(() => {
-                setMessage("");
-              }, 2000);
-            })
-        }
-      }
-      else {
-        if (fromToken.name === 'USDT') {
-          if (toToken.name === 'ETHER') {
-            UserService.exchange_usdt_to_eth(currentUser.accountNumber, amount, receiveAmount).then((response) => {
-              hideLoading();
-              setMessage(response.data);
-              setSuccessful(true);
-              window.setTimeout(function () {
-                window.location.reload();
-              }, 1500);
-            },
-              (error) => {
-                hideLoading();
-                const resMessage =
-                  (error.response &&
-                    error.response.data) ||
-                  error.message ||
-                  error.toString();
-                setSuccessful(false);
-                setMessage(resMessage);
-                setTimeout(() => {
-                  setMessage("");
-                }, 2000);
-              })
-          }
-          else if (toToken.name === 'ARS') {
-            UserService.exchange_usdt_to_ars(currentUser.accountNumber, amount, receiveAmount).then((response) => {
-              hideLoading();
-              setMessage(response.data);
-              setSuccessful(true);
-              window.setTimeout(function () {
-                window.location.reload();
-              }, 1500);
-            },
-              (error) => {
-                hideLoading();
-                const resMessage =
-                  (error.response &&
-                    error.response.data) ||
-                  error.message ||
-                  error.toString();
-                setSuccessful(false);
-                setMessage(resMessage);
-                setTimeout(() => {
-                  setMessage("");
-                }, 2000);
-              })
-          }
-        }
-        else if (fromToken.name === 'ETHER') {
-          if (toToken.name === 'USDT') {
-            UserService.exchange_eth_to_usdt(currentUser.accountNumber, amount, receiveAmount).then((response) => {
-              hideLoading();
-              setMessage(response.data);
-              setSuccessful(true);
-              window.setTimeout(function () {
-                window.location.reload();
-              }, 1500);
-            },
-              (error) => {
-                hideLoading();
-                const resMessage =
-                  (error.response &&
-                    error.response.data) ||
-                  error.message ||
-                  error.toString();
-                setSuccessful(false);
-                setMessage(resMessage);
-                setTimeout(() => {
-                  setMessage("");
-                }, 2000);
-              })
-          }
-          else if (toToken.name === 'ARS') {
-            UserService.exchange_eth_to_ars(currentUser.accountNumber, amount, receiveAmount).then((response) => {
-              hideLoading();
-              setMessage(response.data);
-              setSuccessful(true);
-              window.setTimeout(function () {
-                window.location.reload();
-              }, 1500);
-            },
-              (error) => {
-                hideLoading();
-                const resMessage =
-                  (error.response &&
-                    error.response.data) ||
-                  error.message ||
-                  error.toString();
-                setSuccessful(false);
-                setMessage(resMessage);
-                setTimeout(() => {
-                  setMessage("");
-                }, 2000);
-              })
-          }
-        }
-      }
+      UserService.swap(currentUser.accountNumber, amount, receiveAmount, fromToken.name, toToken.name).then((response) => {
+        hideLoading();
+        setMessage(response.data);
+        setSuccessful(true);
+        window.setTimeout(function () {
+          window.location.reload();
+        }, 1500);
+      },
+        (error) => {
+          hideLoading();
+          const resMessage =
+            (error.response &&
+              error.response.data) ||
+            error.message ||
+            error.toString();
+          setSuccessful(false);
+          setMessage(resMessage);
+          setTimeout(() => {
+            setMessage("");
+          }, 2000);
+        })
     }
   }
   return (

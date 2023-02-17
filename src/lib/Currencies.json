@@ -10,5 +10,9 @@
     "ARS": {
         "name": "ARS",
         "logoURI": "/img/logos/ars.png"
+    },
+    "BTC": {
+        "name": "BTC",
+        "logoURI": "/img/logos/btc.png"
     }
 }
