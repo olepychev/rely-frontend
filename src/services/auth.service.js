@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import authHeader from "./auth.header";
 
 
-//const API_URL = "http://localhost:8080/api/auth/";
-const API_URL = "https://seashell-app-jatrt.ondigitalocean.app/api/auth/";
+const API_URL = "http://localhost:8080/api/auth/";
+// const API_URL = "https://seashell-app-jatrt.ondigitalocean.app/api/auth/";
 
 const register = (firstname, lastname, email, dni, birthdate, address, phone, password) => {
   return axios.post(API_URL + "signup", {
