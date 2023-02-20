@@ -12,16 +12,32 @@ const SingleUser = () => {
   const [accountNumber, setAccountNumber] = useState("");
   const [balance, setBalance] = useState("");
   const [stakedBalance, setStakedBalance] = useState("");
-  const [showModal, setShowModal] = useState({});
+  const [showReceiptModal, setShowReceiptModal] = useState({});
+  const [showDocModal, setShowDocModal] = useState(false);
+  const [docs, setDocs] = useState("");
+  const [idFront, setIdFront] = useState("");
+  const [idBack, setIdBack] = useState("");
 
   function currencyFormat(num) {
-    return "$" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    if (num) {
+      return "$" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    }
+    else return "$" + 0;
   }
 
   useEffect(() => {
     if (id) {
       AdminService.get_user_by_id(id).then((response) => {
         setUser(response.data);
+        if (response.data.kyc.docs) {
+          setDocs(response.data.kyc.docs);
+        }
+        if (response.data.kyc.idFront) {
+          setIdFront(response.data.kyc.idFront);
+        }
+        if (response.data.kyc.idBack) {
+          setIdBack(response.data.kyc.idBack);
+        }
       });
     }
   }, []);
@@ -93,12 +109,12 @@ const SingleUser = () => {
           )}
           {transaction.transactionType}
           <div className="ml-2">
-            <button className="bg-gray-500 rounded p-1" onClick={() => { setShowModal({ ...showModal, [transaction._id]: true }); }}>
+            <button className="bg-gray-500 rounded p-1" onClick={() => { setShowReceiptModal({ ...showReceiptModal, [transaction._id]: true }); }}>
               open
             </button>
-            {showModal[transaction._id] &&
+            {showReceiptModal[transaction._id] &&
               <div className="fixed top-0 left-0 right-0 z-50 w-full p-14 overflow-x-hidden overflow-y-auto bg-black bg-opacity-30 md:inset-0 h-modal md:h-full">
-                <div className="text-white text-4xl fixed right-5 top-5 cursor-pointer" onClick={() => { setShowModal({ ...showModal, [transaction._id]: false }); }}>&times;</div>
+                <div className="text-white text-4xl fixed right-5 top-5 cursor-pointer" onClick={() => { setShowReceiptModal({ ...showReceiptModal, [transaction._id]: false }); }}>&times;</div>
                 {transaction.transactionType === "Deposito" ?
                   <img className="!w-full h-auto" src={transaction.description} />
                   :
@@ -172,7 +188,16 @@ const SingleUser = () => {
               {user.firstname} {user.lastname} - {user.email}{" "}
               <i className="fa-solid fa-circle-check"></i>
             </h2>
-            <a href="#">Ver documentacion</a>
+
+            <a href={docs} target="_blank">Ver documentacion</a>
+            <button className="float-left underline text-sm" onClick={() => { setShowDocModal(true); }}>Ver dni</button>
+            {showDocModal &&
+              <div className="fixed top-0 left-0 right-0 z-50 w-full p-14 overflow-x-hidden overflow-y-auto bg-black bg-opacity-30 md:inset-0 h-modal md:h-full">
+                <div className="text-white text-4xl fixed right-5 top-5 cursor-pointer" onClick={() => { setShowDocModal(false); }}>&times;</div>
+                <img className="!w-full h-auto" src={idFront} />
+                <img className="!w-full h-auto" src={idBack} />
+              </div>
+            }
           </div>
           <div className="col-span-4"></div>
           <div className="col-span-4">
