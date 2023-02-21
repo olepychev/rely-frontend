@@ -29,7 +29,7 @@ const DepositUSDT = () => {
                     Envía solo <b>USDT</b> a esta dirección de depósito.
                   </p>
                   <p>
-                    Asegúrate de que la red es <b>Ethereum (ERC20).</b>
+                    Asegúrate de que la red es <b>Ethereum (ERC20)</b>.
                   </p>
                 </>
               }

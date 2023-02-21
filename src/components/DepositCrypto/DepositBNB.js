@@ -3,24 +3,24 @@ import AuthService from "../../services/auth.service";
 import UserService from "../../services/user.service";
 import QRCode from "react-qr-code";
 
-const DepositBTC = () => {
+const DepositBNB = () => {
   const currentUser = AuthService.getCurrentUser();
   return (
     <div className="container max-w-none mx-auto board-user deposit-crypto">
       <div className="container mx-auto">
         <div className="grid grid-cols-12 gap-2 board-secondary-grid">
           <div className="col-span-12 box add-box shadow">
-            <h2>Depositar BTC</h2>
+            <h2>Depositar BNB</h2>
             <p className="qr-address">
-              <QRCode value={currentUser.btcAddress} />
+              <QRCode value={currentUser.ethAddress} />
             </p>
             <h3>Dirección</h3>
-            <b className="address">{currentUser.btcAddress}</b>
+            <b className="address">{currentUser.ethAddress}</b>
             <p>
-              Envía solo <b>BTC</b> a esta dirección de depósito.
+              Envía solo <b>BNB</b> a esta dirección de depósito.
             </p>
             <p>
-              Asegúrate de que la red es <b>Bitcoin</b>.
+              Asegúrate de que la red es <b>BNB Smart Chain</b>.
             </p>
           </div>
         </div>
@@ -29,4 +29,4 @@ const DepositBTC = () => {
   );
 };
 
-export default DepositBTC;
+export default DepositBNB;

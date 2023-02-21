@@ -20,7 +20,7 @@ const DepositETH = () => {
               Envía solo <b>ETH</b> a esta dirección de depósito.
             </p>
             <p>
-              Asegúrate de que la red es <b>Ethereum (ERC20).</b>
+              Asegúrate de que la red es <b>Ethereum</b>.
             </p>
           </div>
         </div>

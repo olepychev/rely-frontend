@@ -41,6 +41,15 @@ const get_usdt_user_balance = (id) => {
 const get_ether_user_balance = (id) => {
   return axios.get(API_URL + "user/balance_ether/" + id, { headers: authHeader() });
 }
+
+const get_bnb_user_balance = (id) => {
+  return axios.get(API_URL + "user/balance_bnb/" + id, { headers: authHeader() });
+}
+
+const get_btc_user_balance = (id) => {
+  return axios.get(API_URL + "user/balance_btc/" + id, { headers: authHeader() });
+}
+
 const get_user_staked_balance = (id) => {
   return axios.get(API_URL + "user/staked_balance/" + id, {
     headers: authHeader(),
@@ -248,6 +257,8 @@ const UserService = {
   exchange_usdt_to_eth,
   get_usdt_user_balance,
   get_ether_user_balance,
+  get_bnb_user_balance,
+  get_btc_user_balance,
   upload_id_img,
   upload_docs,
   send_query

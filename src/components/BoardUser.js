@@ -26,7 +26,6 @@ const BoardUser = () => {
   useEffect(() => {
     const currentUser = AuthService.getCurrentUser();
     UserService.get_user_balance(currentUser.id).then((response) => {
-      console.log("type------------------", typeof response.data)
       setBalanceARS(currencyFormat(response.data));
     });
 

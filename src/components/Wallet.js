@@ -14,6 +14,7 @@ const Wallet = () => {
   const [balanceUSDT, setBalanceUSDT] = useState("");
   const [transactions, setTransactions] = useState([]);
   const [balanceETH, setBalanceETH] = useState("");
+  const [balanceBNB, setBalanceBNB] = useState("");
   const [balanceBTC, setBalanceBTC] = useState("");
 
 
@@ -50,6 +51,10 @@ const Wallet = () => {
 
     UserService.get_ether_user_balance(currentUser.id).then((response) => {
       setBalanceETH(response.data.toFixed(2));
+    });
+
+    UserService.get_bnb_user_balance(currentUser.id).then((response) => {
+      setBalanceBNB(response.data.toFixed(2));
     });
 
     UserService.get_btc_user_balance(currentUser.id).then((response) => {
@@ -146,6 +151,14 @@ const Wallet = () => {
               {balanceBTC} <span>BTC</span>
             </p>
           </div>
+          <div className="col-span-2 box shadow">
+            <h2>
+              <i className="fa-solid fa-wallet"></i> Balance BNB
+            </h2>
+            <p>
+              {balanceBNB} <span>BNB</span>
+            </p>
+          </div>
         </div>
         <div className="grid grid-cols-12 gap-2 board-secondary-grid">
           <div className="col-span-12 box history-box shadow">
@@ -183,6 +196,15 @@ const Wallet = () => {
               <div className="col-span-3">{balanceBTC}</div>
               <div className="col-span-3">
                 <a href="/deposit-btc">Depositar</a> <a href="/withdraw-btc">Retirar</a>
+              </div>
+            </div>
+            <div className="grid grid-cols-12 transaction">
+              <div className="col-span-3">
+                <img src='img/logos/bnb.png' /> <b>BNB</b>
+              </div>
+              <div className="col-span-3">{balanceBNB}</div>
+              <div className="col-span-3">
+                <a href="/deposit-bnb">Depositar</a> <a href="/withdraw-bnb">Retirar</a>
               </div>
             </div>
           </div>

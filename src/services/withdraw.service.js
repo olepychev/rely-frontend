@@ -15,6 +15,30 @@ const withdraw_eth = (acc_number, amount, to_address) => {
     );
 };
 
+const withdraw_bnb = (acc_number, amount, to_address) => {
+    return axios.post(
+        API_URL + "user/withdraw/bnb/",
+        {
+            acc_number,
+            amount,
+            to_address,
+        },
+        { headers: authHeader() }
+    );
+};
+
+const withdraw_btc = (acc_number, amount, to_address) => {
+    return axios.post(
+        API_URL + "user/withdraw/btc/",
+        {
+            acc_number,
+            amount,
+            to_address,
+        },
+        { headers: authHeader() }
+    );
+};
+
 const withdraw_usdt = (acc_number, amount, to_address, chain) => {
     return axios.post(
         API_URL + "user/withdraw/usdt/",
@@ -31,6 +55,8 @@ const withdraw_usdt = (acc_number, amount, to_address, chain) => {
 const WithdrawService = {
     withdraw_eth,
     withdraw_usdt,
+    withdraw_bnb,
+    withdraw_btc
 };
 
 export default WithdrawService;

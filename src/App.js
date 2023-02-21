@@ -23,9 +23,11 @@ import Wallet from "./components/Wallet";
 import DepositETH from "./components/DepositCrypto/DepositETH";
 import DepositUSDT from "./components/DepositCrypto/DepositUSDT";
 import DepositBTC from "./components/DepositCrypto/DepositBTC";
+import DepositBNB from "./components/DepositCrypto/DepositBNB";
 import WithdrawEth from "./components/WithdrawCrypto/WithdrawETH";
 import WithdrawUsdt from "./components/WithdrawCrypto/WithdrawUSDT";
 import WithdrawBTC from "./components/WithdrawCrypto/WithdrawBTC";
+import WithdrawBnb from "./components/WithdrawCrypto/WithdrawBNB";
 import Swap from "./components/Swap/Swap";
 import VerifyUser from "./components/VerifyUser";
 import Loading from "./components/Loading";
@@ -59,9 +61,11 @@ const App = () => {
           <Route path="/stake" element={<Stake />} />
           <Route path="/wallet" element={<Wallet />} />
           <Route path="/deposit-eth" element={<DepositETH />} />
+          <Route path="/deposit-bnb" element={<DepositBNB />} />
           <Route path="/deposit-usdt" element={<DepositUSDT />} />
           <Route path="/deposit-btc" element={<DepositBTC />} />
           <Route path="/withdraw-eth" element={<WithdrawEth />} />
+          <Route path="/withdraw-bnb" element={<WithdrawBnb />} />
           <Route path="/withdraw-usdt" element={<WithdrawUsdt />} />
           <Route path="/withdraw-btc" element={<WithdrawBTC />} />
           <Route path="/swap" element={<Swap />} />
