@@ -210,6 +210,19 @@ const upload_docs = (id, docs) => {
   );
 }
 
+const send_query = (firstname, lastname, phone, email, query) => {
+  return axios.post(
+    API_URL + "query",
+    {
+      firstname,
+      lastname,
+      phone,
+      email,
+      query,
+    }
+  );
+}
+
 const UserService = {
   getPublicContent,
   getUserBoard,
@@ -237,5 +250,6 @@ const UserService = {
   get_ether_user_balance,
   upload_id_img,
   upload_docs,
+  send_query
 };
 export default UserService;

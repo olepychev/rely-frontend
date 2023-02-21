@@ -4,7 +4,9 @@ import Input from "react-validation/build/input";
 import Textarea from "react-validation/build/textarea";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
-import AuthService from "../../services/auth.header";
+import UserService from "../../services/user.service";
+import { showLoading, hideLoading } from "../../lib/uiService";
+
 const required = (value) => {
   if (!value) {
     return (
@@ -38,29 +40,14 @@ const validEmail = (value) => {
 //     );
 //   }
 // };
-const vpassword = (value) => {
-  if (value.length < 6 || value.length > 40) {
-    return (
-      <div
-        className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-        role="alert"
-      >
-        La contraseña debe tener entre 6 y 40 caracteres.
-      </div>
-    );
-  }
-};
 const Contact = () => {
   const form = useRef();
   const checkBtn = useRef();
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [dni, setDNI] = useState("");
   const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  const [birthdate, setBirthdate] = useState("");
-  const [password, setPassword] = useState("");
+  const [query, setQuery] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
   const onChangeFirstName = (e) => {
@@ -75,52 +62,39 @@ const Contact = () => {
     const email = e.target.value;
     setEmail(email);
   };
-  const onChangeDNI = (e) => {
-    const dni = e.target.value;
-    setDNI(dni);
-  };
   const onChangePhone = (e) => {
     const phone = e.target.value;
     setPhone(phone);
   };
-  const onChangeBirthdate = (e) => {
-    const birthdate = e.target.value;
-    setBirthdate(birthdate);
+  const onChangeQuery = (e) => {
+    const query = e.target.value;
+    setQuery(query);
   };
-  const onChangeAddress = (e) => {
-    const address = e.target.value;
-    setAddress(address);
-  };
-  const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
-  };
-  const handleRegister = (e) => {
+  const handleSend = (e) => {
     e.preventDefault();
     setMessage("");
     setSuccessful(false);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(
+      showLoading();
+      UserService.send_query(
         firstname,
         lastname,
         phone,
-        dni,
-        birthdate,
-        address,
         email,
-        password
+        query
       ).then(
         (response) => {
+          hideLoading();
           setMessage(response.data.message);
           setSuccessful(true);
           console.log(response);
         },
         (error) => {
+          hideLoading();
           const resMessage =
             (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
+              error.response.data) ||
             error.message ||
             error.toString();
           setMessage(resMessage);
@@ -137,7 +111,7 @@ const Contact = () => {
           <div>
             <h1>Contacto</h1>
             <h2>Dejanos tu consulta!</h2>
-            <Form onSubmit={handleRegister} ref={form}>
+            <Form onSubmit={handleSend} ref={form}>
               {!successful && (
                 <div>
                   <div className="form-group" id="left">
@@ -190,7 +164,8 @@ const Contact = () => {
                       className="form-control"
                       name="message"
                       placeholder="Escribi tu consulta"
-                      value=""
+                      value={query}
+                      onChange={onChangeQuery}
                       validations={[required]}
                     />
                   </div>
