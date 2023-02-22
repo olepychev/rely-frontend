@@ -203,6 +203,22 @@ const exchange_usdt_to_eth = (acc_number, exchangeAmount, etherAmount) => {
     { headers: authHeader() }
   );
 }
+
+const upload_profile_img = (id, image) => {
+  return axios.post(
+    API_URL + `user/image/${id}`,
+    image,
+    { headers: authHeader() }
+  );
+}
+
+const get_profile_img = (id) => {
+  return axios.get(
+    API_URL + `user/image/${id}`,
+    { headers: authHeader() }
+  );
+}
+
 const upload_id_img = (id, images) => {
   return axios.post(
     API_URL + `user/kyc/id_img/${id}`,
@@ -259,6 +275,8 @@ const UserService = {
   get_ether_user_balance,
   get_bnb_user_balance,
   get_btc_user_balance,
+  upload_profile_img,
+  get_profile_img,
   upload_id_img,
   upload_docs,
   send_query

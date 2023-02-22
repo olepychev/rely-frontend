@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from "react";
 import AuthService from "../services/auth.service";
+import UserService from "../services/user.service";
 import logo from "../img/logo-white.svg";
-import userProfile from "../img/user-profile-example.svg";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
+  const [avatar, setAvatar] = useState("");
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
       setCurrentUser(user);
       setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+      UserService.get_profile_img(user.id).then(
+        (response) => {
+          setAvatar(response.data);
+        },
+        (error) => {
+          console.log(error);
+        })
     }
   }, []);
   const logOut = () => {
@@ -81,7 +91,12 @@ export default function Header() {
             <div className="col-span-6 user-profile">
               <li className="nav-item">
                 <Link to={"/profile"} className="nav-link">
-                  <img src={userProfile} />
+                  <div className="w-6 h-6">
+                    {avatar ?
+                      <img className="!w-full h-full object-cover rounded-full !m-0" src={avatar} /> :
+                      <FontAwesomeIcon className="w-full h-full bg-[#34495e] text-white rounded-full" icon={faCircleUser} />
+                    }
+                  </div>
                 </Link>
               </li>
               <li className="nav-item">
