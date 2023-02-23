@@ -7,15 +7,28 @@ import AdminService from "../services/admin.service";
 
 const BoardAdmin = () => {
   const [users, setUsers] = useState([]);
+  const [tvl, setTvl] = useState(0);
+  const [stakers, setStakers] = useState(0);
+  const [reward, setReward] = useState(0);
 
   function currencyFormat(num) {
     if (num) {
       return "$" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
     }
+    else return "$" + Number(0).toFixed(2);
   }
   useEffect(() => {
     AdminService.get_users().then((response) => {
       setUsers(response.data);
+    });
+    AdminService.get_tvl().then((response) => {
+      setTvl(response.data);
+    });
+    AdminService.get_stakers().then((response) => {
+      setStakers(response.data);
+    });
+    AdminService.get_stakers_yield().then((response) => {
+      setReward(response.data);
     });
   }, []);
 
@@ -40,21 +53,21 @@ const BoardAdmin = () => {
               <i className="fa-solid fa-sack-dollar"></i> TVL
             </h2>
             <p>
-              25845,56.25 <span>ARS</span>
+              {currencyFormat(tvl)} <span>ARS</span>
             </p>
           </div>
           <div className="col-span-3 box shadow">
             <h2>
               <i className="fa-solid fa-users"></i> Stakers
             </h2>
-            <p>6.329</p>
+            <p>{stakers}</p>
           </div>
           <div className="col-span-3 box shadow">
             <h2>
               <i className="fa-solid fa-piggy-bank"></i> Stakers Yield
             </h2>
             <p className="green">
-              + 4345,65 <span>USDT</span>
+              + {currencyFormat(reward)} <span>USDT</span>
             </p>
           </div>
           <div className="col-span-3 box shadow">
@@ -78,7 +91,7 @@ const BoardAdmin = () => {
               </div>
             </div>
             {users.reverse().map((user) => (
-              <div className="grid grid-cols-12 user-list">
+              <div className="grid grid-cols-12 user-list" key={user._id}>
                 <div className="col-span-2">
                   {user.firstname} {user.lastname}
                 </div>

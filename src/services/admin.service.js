@@ -4,17 +4,30 @@ const API_URL = "http://localhost:8080/api/";
 // const API_URL = "https://seashell-app-jatrt.ondigitalocean.app/api/";
 
 const getPublicContent = () => {
-  return axios.get(API_URL + "all");
+    return axios.get(API_URL + "all");
 };
 const getUserBoard = () => {
-  return axios.get(API_URL + "user", { headers: authHeader() });
+    return axios.get(API_URL + "user", { headers: authHeader() });
 };
 const getAdminBoard = () => {
-  return axios.get(API_URL + "admin", { headers: authHeader() });
+    return axios.get(API_URL + "admin", { headers: authHeader() });
 };
 const getUserById = (id) => {
-  return axios.get(API_URL + "user/" + id, { headers: authHeader() });
+    return axios.get(API_URL + "user/" + id, { headers: authHeader() });
 };
+
+const get_tvl = () => {
+    return axios.get(API_URL + "admin/get_tvl", { headers: authHeader() });
+};
+
+const get_stakers = () => {
+    return axios.get(API_URL + "admin/get_stakers", { headers: authHeader() });
+};
+
+const get_stakers_yield = () => {
+    return axios.get(API_URL + "admin/get_stakers_yield", { headers: authHeader() });
+};
+
 
 const get_users = () => {
     return axios.get(API_URL + "admin/users", { headers: authHeader() });
@@ -59,6 +72,9 @@ const AdminService = {
     getUserBoard,
     getAdminBoard,
     getUserById,
+    get_tvl,
+    get_stakers,
+    get_stakers_yield,
     get_users,
     get_user_by_id,
     get_transaction_history,
@@ -66,6 +82,6 @@ const AdminService = {
     approve_withdraw,
     get_user_balance,
     get_user_staked_balance,
-  };
-  export default AdminService;
+};
+export default AdminService;
 
