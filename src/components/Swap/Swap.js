@@ -156,7 +156,7 @@ const Swap = () => {
 
   function currencyFormat(num) {
     if (typeof num !== 'undefined') {
-      return num.toFixed(2);
+      return num.toFixed(4);
     }
   }
 
