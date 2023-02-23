@@ -11,6 +11,7 @@ const Swap = () => {
   const [toToken, setToToken] = useState(Object.values(Currencies)[1]);
   const [fromBalance, setFromBalance] = useState(0);
   const [toBalance, setToBalance] = useState(0);
+  const [rate, setRate] = useState({ 'ARS': 1 });
   const [amount, setAmount] = useState(0);
   const [receiveAmount, setReceiveAmount] = useState(0);
   const [message, setMessage] = useState('');
@@ -78,22 +79,25 @@ const Swap = () => {
   }, [fromToken, toToken])
 
   useEffect(() => {
+    UserService.get_usdt_rate().then((response) => {
+      setRate({ ...rate, 'USDT': response.ask });
+    });
+    UserService.get_eth_rate().then((response) => {
+      setRate({ ...rate, 'ETHER': response.ask });
+    });
+    UserService.get_btc_rate().then((response) => {
+      setRate({ ...rate, 'BTC': response.ask });
+    });
     if (fromToken && toToken) {
       if (fromToken.name === 'ARS') {
         if (toToken.name === 'USDT') {
-          UserService.get_usdt_rate().then((response) => {
-            setReceiveAmount(amount / response.ask);
-          })
+          setReceiveAmount(amount / rate['USDT']);
         }
         if (toToken.name === 'ETHER') {
-          UserService.get_eth_rate().then((response) => {
-            setReceiveAmount(amount / response.ask);
-          })
+          setReceiveAmount(amount / rate['ETHER']);
         }
         if (toToken.name === 'BTC') {
-          UserService.get_btc_rate().then((response) => {
-            setReceiveAmount(amount / response.ask);
-          })
+          setReceiveAmount(amount / rate['BTC']);
         }
       }
       if (fromToken.name === 'USDT') {
@@ -195,6 +199,7 @@ const Swap = () => {
                 select={setFromToken}
               />
               <p className='text-sm'>Your Balance: {currencyFormat(fromBalance)} </p>
+              <p className='text-sm'>Price in ARS: {currencyFormat(rate[fromToken.name])} </p>
             </div>
             <div className='flex flex-col gap-1 mb-12'>
               <TokenSelect
@@ -204,6 +209,7 @@ const Swap = () => {
                 select={setToToken}
               />
               <p className='text-sm'>Your Balance: {currencyFormat(toBalance)}</p>
+              <p className='text-sm'>Price in ARS: {currencyFormat(rate[toToken.name])} </p>
             </div>
             <div className='mb-12'>
               <p className='text-sm font-bold'>Amount</p>

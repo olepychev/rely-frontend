@@ -125,6 +125,13 @@ const get_eth_rate = async () => {
   return response.data;
 };
 
+const get_btc_rate = async () => {
+  const response = await axios.get(
+    "https://criptoya.com/api/belo/btc/ars/0.5"
+  );
+  return response.data;
+};
+
 const get_eth_usdt_rate = async () => {
   const response = await axios.get(
     "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USDT"
@@ -132,76 +139,32 @@ const get_eth_usdt_rate = async () => {
   return response.data;
 };
 
-const exchange_ars_to_usdt = (acc_number, exchangeAmount, usdtAmount) => {
-  return axios.post(
-    API_URL + "user/exchange_ars_to_usdt/",
-    {
-      acc_number,
-      exchangeAmount,
-      usdtAmount,
-    },
-    { headers: authHeader() }
+const get_btc_usdt_rate = async () => {
+  const response = await axios.get(
+    "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USDT"
   );
-}
+  return response.data;
+};
 
-const exchange_usdt_to_ars = (acc_number, exchangeAmount, arsAmount) => {
-  return axios.post(
-    API_URL + "user/exchange_usdt_to_ars/",
-    {
-      acc_number,
-      exchangeAmount,
-      arsAmount,
-    },
-    { headers: authHeader() }
+const get_btc_eth_rate = async () => {
+  const response = await axios.get(
+    "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=ETH"
   );
-}
+  return response.data;
+};
 
-const exchange_ars_to_eth = (acc_number, exchangeAmount, etherAmount) => {
+const swap = async (acc_number, fromAmount, toAmount, fromToken, toToken) => {
   return axios.post(
-    API_URL + "user/exchange_ars_to_ether/",
+    API_URL + "user/swap",
     {
       acc_number,
-      exchangeAmount,
-      etherAmount,
+      fromAmount,
+      toAmount,
+      fromToken,
+      toToken
     },
     { headers: authHeader() }
-  );
-}
-
-const exchange_eth_to_ars = (acc_number, exchangeAmount, arsAmount) => {
-  return axios.post(
-    API_URL + "user/exchange_ether_to_ars/",
-    {
-      acc_number,
-      exchangeAmount,
-      arsAmount,
-    },
-    { headers: authHeader() }
-  );
-}
-
-const exchange_eth_to_usdt = (acc_number, exchangeAmount, usdtAmount) => {
-  return axios.post(
-    API_URL + "user/exchange_ether_to_usdt/",
-    {
-      acc_number,
-      exchangeAmount,
-      usdtAmount,
-    },
-    { headers: authHeader() }
-  );
-}
-
-const exchange_usdt_to_eth = (acc_number, exchangeAmount, etherAmount) => {
-  return axios.post(
-    API_URL + "user/exchange_usdt_to_ether/",
-    {
-      acc_number,
-      exchangeAmount,
-      etherAmount,
-    },
-    { headers: authHeader() }
-  );
+  )
 }
 
 const upload_profile_img = (id, image) => {
@@ -264,13 +227,11 @@ const UserService = {
   get_user_staked_balance,
   get_usdt_rate,
   get_eth_rate,
+  get_btc_rate,
   get_eth_usdt_rate,
-  exchange_ars_to_usdt,
-  exchange_usdt_to_ars,
-  exchange_ars_to_eth,
-  exchange_eth_to_ars,
-  exchange_eth_to_usdt,
-  exchange_usdt_to_eth,
+  get_btc_eth_rate,
+  get_btc_usdt_rate,
+  swap,
   get_usdt_user_balance,
   get_ether_user_balance,
   get_bnb_user_balance,
