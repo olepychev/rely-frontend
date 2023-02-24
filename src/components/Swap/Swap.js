@@ -42,7 +42,7 @@ const Swap = () => {
         })
       }
     }
-  }, [fromToken]);
+  }, [fromToken, toToken, amount]);
 
   useEffect(() => {
     if (toToken) {
@@ -67,7 +67,7 @@ const Swap = () => {
         })
       }
     }
-  }, [toToken]);
+  }, [fromToken, toToken, amount]);
 
   useEffect(() => {
     if (fromToken && toToken) {
@@ -79,15 +79,18 @@ const Swap = () => {
   }, [fromToken, toToken])
 
   useEffect(() => {
-    UserService.get_usdt_rate().then((response) => {
-      setRate({ ...rate, 'USDT': response.ask });
-    });
-    UserService.get_eth_rate().then((response) => {
-      setRate({ ...rate, 'ETHER': response.ask });
-    });
-    UserService.get_btc_rate().then((response) => {
-      setRate({ ...rate, 'BTC': response.ask });
-    });
+    const getRate = async () => {
+      const usdtRate = await UserService.get_usdt_rate();
+      const ethRate = await UserService.get_eth_rate();
+      const btcRate = await UserService.get_btc_rate();
+      setRate({
+        ...rate,
+        'USDT': usdtRate.ask,
+        'ETHER': ethRate.ask,
+        'BTC': btcRate.ask
+      });
+    }
+    getRate();
     if (fromToken && toToken) {
       if (fromToken.name === 'ARS') {
         if (toToken.name === 'USDT') {

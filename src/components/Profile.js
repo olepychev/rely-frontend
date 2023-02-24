@@ -122,8 +122,6 @@ const Profile = () => {
           <p>
             <strong>Email:</strong> {user.email}
           </p>
-          {user.ethAddress}
-          {user.privateKey}
           <strong>Authorities:</strong>
           <ul>
             {user.roles &&

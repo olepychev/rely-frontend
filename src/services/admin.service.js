@@ -28,17 +28,12 @@ const get_stakers_yield = () => {
     return axios.get(API_URL + "admin/get_stakers_yield", { headers: authHeader() });
 };
 
-
 const get_users = () => {
     return axios.get(API_URL + "admin/users", { headers: authHeader() });
 };
 
 const get_user_by_id = (id) => {
     return axios.get(API_URL + "admin/user/" + id, { headers: authHeader() });
-};
-
-const get_transaction_history = (accountNumber) => {
-    return axios.get(API_URL + "admin/user/transaction/" + accountNumber, { headers: authHeader() });
 };
 
 const approve_deposit = (accountNumber, transactionId) => {
@@ -57,15 +52,6 @@ const approve_withdraw = (accountNumber, transactionId) => {
     );
 }
 
-const get_user_balance = (id) => {
-    return axios.get(API_URL + "admin/user/get_user_balance/" + id, { headers: authHeader() });
-}
-
-const get_user_staked_balance = (id) => {
-    return axios.get(API_URL + "admin/user/get_user_staked_balance/" + id, { headers: authHeader() });
-}
-
-
 
 const AdminService = {
     getPublicContent,
@@ -77,11 +63,8 @@ const AdminService = {
     get_stakers_yield,
     get_users,
     get_user_by_id,
-    get_transaction_history,
     approve_deposit,
     approve_withdraw,
-    get_user_balance,
-    get_user_staked_balance,
 };
 export default AdminService;
 

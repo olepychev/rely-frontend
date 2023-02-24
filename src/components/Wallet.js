@@ -12,36 +12,21 @@ const Wallet = () => {
   const currentUser = AuthService.getCurrentUser();
   const [balanceARS, setBalanceARS] = useState("");
   const [balanceUSDT, setBalanceUSDT] = useState("");
-  const [transactions, setTransactions] = useState([]);
   const [balanceETH, setBalanceETH] = useState("");
   const [balanceBNB, setBalanceBNB] = useState("");
   const [balanceBTC, setBalanceBTC] = useState("");
 
-
-  // const network = "goerli";
-  // const provider = ethers.getDefaultProvider(network);
-  // const address = currentUser.ethAddress;
-  // const usdtAddress = '0x5AB6F31B29Fc2021436B3Be57dE83Ead3286fdc7';
-
-  // const get_usdt_balance = async () => {
-  //   const contract = new ethers.Contract(usdtAddress, abi, provider);
-  //   const balance = await contract.balanceOf(address);
-  //   const decimals = await contract.decimals();
-  //   const balanceFormatted = ethers.utils.formatUnits(balance, decimals);
-  //   setBalanceUSDT(balanceFormatted);
-
-  // }
-
-  // // Get USDT Balance
-  // get_usdt_balance();
-
   function currencyFormat(num) {
-    return "$" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    if (num) {
+      return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    } else {
+      return Number(0).toFixed(2);
+    }
   }
 
   useEffect(() => {
     const currentUser = AuthService.getCurrentUser();
-    UserService.get_user_balance(currentUser.id).then((response) => {
+    UserService.get_ars_user_balance(currentUser.id).then((response) => {
       setBalanceARS(currencyFormat(response.data));
     });
 
@@ -50,78 +35,38 @@ const Wallet = () => {
     });
 
     UserService.get_ether_user_balance(currentUser.id).then((response) => {
-      setBalanceETH(response.data.toFixed(2));
+      setBalanceETH(currencyFormat(response.data));
     });
 
     UserService.get_bnb_user_balance(currentUser.id).then((response) => {
-      setBalanceBNB(response.data.toFixed(2));
+      setBalanceBNB(currencyFormat(response.data));
     });
 
     UserService.get_btc_user_balance(currentUser.id).then((response) => {
-      setBalanceBTC(response.data.toFixed(4));
+      setBalanceBTC(currencyFormat(response.data));
     });
-
-    UserService.get_transaction_history(currentUser.accountNumber).then(
-      (response) => {
-        setTransactions(response.data);
-      }
-    );
-
-    // provider.getBalance(address).then((balance) => {
-    //   const balanceInEth = ethers.utils.formatEther(balance)
-    //   // console.log(`balance: ${balanceInEth} ETH`)
-    //   setBalanceETH(balanceInEth);
-    // });
   }, []);
-
-  const listItems = transactions
-    .map((transaction) => (
-      <div className="grid grid-cols-12 transaction" key={transaction._id}>
-        <div key={transaction.transactionType} className="col-span-3">
-          {transaction.transactionType === "Deposito" ? (
-            <i className="fa-solid fa-circle-up green"></i>
-          ) : (
-            <i className="fa-solid fa-circle-down red"></i>
-          )}
-          {transaction.transactionType}
-        </div>
-        <div key={transaction.transactionTime} className="col-span-3">
-          {moment(transaction.transactionTime).utc().format("DD/MM/YYYY")}
-        </div>
-        <div key={transaction.status} className="col-span-3">
-          {transaction.status === true ? (
-            <span className="green">Aprobado</span>
-          ) : (
-            <span className="red">Pendiente</span>
-          )}
-        </div>
-        <div key={transaction.transactionAmount} className="col-span-3">
-          {currencyFormat(transaction.transactionAmount)}
-        </div>
-      </div>
-    ))
-    .reverse();
 
   return (
     <div className="container max-w-none mx-auto board-user">
       <div className="container mx-auto">
-        <div className="grid grid-cols-12 gap-2 top-dashboard">
+        <div className="grid grid-cols-12 gap-2 top-dashboard mb-10">
           <div className="col-span-6 account">
             <h2>Cuenta N: {currentUser.accountNumber}</h2>
           </div>
           <div className="col-span-6 user-buttons">
-            {/* <Link to={"/add"} className="nav-link btn-add">
-              Depositar fondos
+            <Link to={"/add"} className="nav-link btn-add">
+              Agregar fondos
             </Link>
             <Link to={"/withdraw"} className="nav-link btn-withdraw">
               Retirar fondos
-            </Link> */}
+            </Link>
           </div>
         </div>
-        <div className="grid grid-cols-12 gap-2 board-grid">
+        {/* <div className="grid grid-cols-12 gap-2 board-grid">
           <div className="col-span-2 box shadow">
             <h2>
-              <i className="fa-solid fa-wallet"></i> Total
+              <i className="fa-solid fa-wallet"></i> Balance ARS
             </h2>
             <p>
               {balanceARS} <span>ARS</span>
@@ -159,7 +104,7 @@ const Wallet = () => {
               {balanceBNB} <span>BNB</span>
             </p>
           </div>
-        </div>
+        </div> */}
         <div className="grid grid-cols-12 gap-2 board-secondary-grid">
           <div className="col-span-12 box history-box shadow">
             <h2>Wallet</h2>

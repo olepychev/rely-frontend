@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AdminService from "../services/admin.service";
+import UserService from "../services/user.service";
 import { Link, useParams } from "react-router-dom";
 import moment from "moment";
 
@@ -9,8 +10,8 @@ const SingleUser = () => {
   const [transactions, setTransactions] = useState([]);
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState(false);
-  const [accountNumber, setAccountNumber] = useState("");
   const [balance, setBalance] = useState("");
+  const [reward, setReward] = useState("");
   const [stakedBalance, setStakedBalance] = useState("");
   const [showReceiptModal, setShowReceiptModal] = useState({});
   const [showDocModal, setShowDocModal] = useState(false);
@@ -20,43 +21,45 @@ const SingleUser = () => {
 
   function currencyFormat(num) {
     if (num) {
-      return "$" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+      return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
     }
-    else return "$" + 0;
+    else return Number(0).toFixed(2);
   }
 
   useEffect(() => {
     if (id) {
       AdminService.get_user_by_id(id).then((response) => {
         setUser(response.data);
-        if (response.data.kyc.docs) {
-          setDocs(response.data.kyc.docs);
-        }
-        if (response.data.kyc.idFront) {
-          setIdFront(response.data.kyc.idFront);
-        }
-        if (response.data.kyc.idBack) {
-          setIdBack(response.data.kyc.idBack);
+        if (response.data.kyc) {
+          if (response.data.kyc.docs) {
+            setDocs(response.data.kyc.docs);
+          }
+          if (response.data.kyc.idFront) {
+            setIdFront(response.data.kyc.idFront);
+          }
+          if (response.data.kyc.idBack) {
+            setIdBack(response.data.kyc.idBack);
+          }
         }
       });
     }
   }, []);
 
   useEffect(() => {
-    AdminService.get_user_balance(id).then((response) => {
+    UserService.get_user_balance(id).then((response) => {
       setBalance(currencyFormat(response.data));
     });
-    AdminService.get_user_staked_balance(id).then((response) => {
-      setStakedBalance(currencyFormat(response.data));
+    UserService.get_user_staked_balance(id).then((response) => {
+      setStakedBalance(currencyFormat(response.data.data.amount));
+      setReward(currencyFormat(response.data.data.reward));
     });
   }, []);
 
   useEffect(() => {
     if (user.accountNumber) {
-      AdminService.get_transaction_history(user.accountNumber).then(
+      UserService.get_bank_history(user.accountNumber).then(
         (response) => {
           setTransactions(response.data);
-          setAccountNumber(user.accountNumber);
         }
       );
     }
@@ -151,7 +154,7 @@ const SingleUser = () => {
                   href="#"
                   className="btn-add btn-adm"
                   onClick={() =>
-                    approve_deposit(accountNumber, transaction._id)
+                    approve_deposit(user.accountNumber, transaction._id)
                   }
                 >
                   Aprobar
@@ -161,7 +164,7 @@ const SingleUser = () => {
                   href="#"
                   className="btn-add btn-adm"
                   onClick={() =>
-                    approve_withdraw(accountNumber, transaction._id)
+                    approve_withdraw(user.accountNumber, transaction._id)
                   }
                 >
                   Aprobar
@@ -231,7 +234,7 @@ const SingleUser = () => {
               <i className="fa-solid fa-piggy-bank"></i> Yield
             </h2>
             <p className="green">
-              + 45,65 <span>USD</span>
+              + {reward} <span>USD</span>
             </p>
           </div>
           <div className="col-span-3 box shadow">

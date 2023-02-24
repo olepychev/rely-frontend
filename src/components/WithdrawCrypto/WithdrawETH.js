@@ -21,14 +21,12 @@ const required = (value) => {
 };
 
 const WithdrawEth = () => {
-  const [description, setDescription] = useState("");
   const [withdrawAmount, setWithdrawAmount] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
   const [accNumber, setAccNumber] = useState(0);
   const [ethAddress, setEthAddress] = useState("");
   const [ethBalance, setEthBalance] = useState(0);
-  const [content, setContent] = useState("");
   const [showModal, setShowModal] = useState(false);
 
   const onChangeWithdrawAmount = (e) => {
@@ -61,7 +59,6 @@ const WithdrawEth = () => {
         hideLoading();
         setMessage(response.data);
         setSuccessful(true);
-        setContent(response.data.content);
         setTimeout(() => {
           window.location.reload();
         }, 2000)

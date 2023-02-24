@@ -34,6 +34,10 @@ const get_user_balance = (id) => {
   return axios.get(API_URL + "user/balance/" + id, { headers: authHeader() });
 };
 
+const get_ars_user_balance = (id) => {
+  return axios.get(API_URL + "user/balance_ars/" + id, { headers: authHeader() });
+};
+
 const get_usdt_user_balance = (id) => {
   return axios.get(API_URL + "user/balance_usdt/" + id, { headers: authHeader() });
 };
@@ -64,6 +68,12 @@ const get_transaction_history = (acc_number) => {
 
 const get_staking_history = (acc_number) => {
   return axios.get(API_URL + "user/staking_transaction/" + acc_number, {
+    headers: authHeader(),
+  });
+};
+
+const get_bank_history = (acc_number) => {
+  return axios.get(API_URL + "user/bank_transaction/" + acc_number, {
     headers: authHeader(),
   });
 };
@@ -217,11 +227,11 @@ const UserService = {
   getAdminBoard,
   getUserById,
   updateUserById,
-  get_user_balance,
   deposit_funds,
   withdraw_money,
   get_transaction_history,
   get_staking_history,
+  get_bank_history,
   stake_money,
   unstake_money,
   get_user_staked_balance,
@@ -232,6 +242,8 @@ const UserService = {
   get_btc_eth_rate,
   get_btc_usdt_rate,
   swap,
+  get_user_balance,
+  get_ars_user_balance,
   get_usdt_user_balance,
   get_ether_user_balance,
   get_bnb_user_balance,

@@ -21,14 +21,12 @@ const required = (value) => {
 };
 
 const WithdrawBnb = () => {
-  const [description, setDescription] = useState("");
   const [withdrawAmount, setWithdrawAmount] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
   const [accNumber, setAccNumber] = useState(0);
   const [ethAddress, setEthAddress] = useState("");
   const [bnbBalance, setBnbBalance] = useState(0);
-  const [content, setContent] = useState("");
   const [showModal, setShowModal] = useState(false);
 
   const onChangeWithdrawAmount = (e) => {
@@ -44,7 +42,7 @@ const WithdrawBnb = () => {
   useEffect(() => {
     const currentUser = AuthService.getCurrentUser();
     setAccNumber(currentUser.accountNumber);
-    UserService.get_ether_user_balance(currentUser.id).then((response) => {
+    UserService.get_bnb_user_balance(currentUser.id).then((response) => {
       setBnbBalance(response.data);
     })
   }, []);
@@ -61,7 +59,6 @@ const WithdrawBnb = () => {
         hideLoading();
         setMessage(response.data);
         setSuccessful(true);
-        setContent(response.data.content);
         setTimeout(() => {
           window.location.reload();
         }, 2000)

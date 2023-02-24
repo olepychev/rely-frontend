@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
-import UserService from "../services/user.service";
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import { Link } from "react-router-dom";
 import AdminService from "../services/admin.service";
+import UserService from "../services/user.service";
 
 const BoardAdmin = () => {
   const [users, setUsers] = useState([]);
@@ -13,13 +10,28 @@ const BoardAdmin = () => {
 
   function currencyFormat(num) {
     if (num) {
-      return "$" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+      return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
     }
-    else return "$" + Number(0).toFixed(2);
+    else return Number(0).toFixed(2);
   }
   useEffect(() => {
-    AdminService.get_users().then((response) => {
-      setUsers(response.data);
+    AdminService.get_users().then(async (response) => {
+      const { data } = response;
+      let newData = [];
+      await new Promise((resolve) => {
+        data.forEach(async (user) => {
+          const balRes = await UserService.get_user_balance(user._id);
+          const stakingRes = await UserService.get_user_staked_balance(user._id);
+          newData.push({
+            ...user,
+            balance: balRes.data,
+            reward: stakingRes.data.data.reward,
+            amount: stakingRes.data.data.amount
+          });
+          if (newData.length === data.length) resolve(newData);
+        });
+      });
+      setUsers(newData);
     });
     AdminService.get_tvl().then((response) => {
       setTvl(response.data);
@@ -96,18 +108,18 @@ const BoardAdmin = () => {
                   {user.firstname} {user.lastname}
                 </div>
                 <div className="col-span-2">
-                  {currencyFormat(user.accountBalance)}{" "}
+                  {currencyFormat(user.balance)}{" "}
                   <span className="bolder">ARS</span>
                 </div>
                 <div className="col-span-2">
-                  {currencyFormat(user.stakedBalance)}{" "}
+                  {currencyFormat(user.amount)}{" "}
                   <span className="bolder">USDT</span>
                 </div>
                 <div className="col-span-2">
-                  <span className="green">+450.89</span>
+                  <span className="green">+{user.reward}</span>
                 </div>
                 <div className="col-span-2">
-                  <span className="bolder">Activo</span>
+                  <span className="bolder">{user.status}</span>
                 </div>
                 <div className="col-span-2">
                   <a className="btn-view" href={"/user/" + user._id}>
